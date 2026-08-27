@@ -1,0 +1,3523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>柬埔寨旅行指南</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="assets/vendor/leaflet.css"
+    >
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- 图标库：扁平线条图标（Lucide 风格，MIT 协议） -->
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+            <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+            <symbol id="i-landmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></symbol>
+            <symbol id="i-utensils" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+            <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></symbol>
+            <symbol id="i-badge-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></symbol>
+            <symbol id="i-banknote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
+            <symbol id="i-languages" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
+            <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+            <symbol id="i-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></symbol>
+            <symbol id="i-tree" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"/><path d="M12 19v3"/></symbol>
+            <symbol id="i-castle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 20v-9H2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z"/><path d="M18 11V4H6v7"/><path d="M15 22v-4a3 3 0 0 0-6 0v4"/><path d="M22 11V9"/><path d="M2 11V9"/><path d="M6 4V2"/><path d="M18 4V2"/><path d="M10 4V2"/><path d="M14 4V2"/></symbol>
+            <symbol id="i-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.735H5.81a1 1 0 0 1-.957-.735L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></symbol>
+            <symbol id="i-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+            <symbol id="i-waves" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></symbol>
+            <symbol id="i-chef-hat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></symbol>
+            <symbol id="i-beef" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5c0-1.7-1.3-3-3-3s-3 1.3-3 3c0-1.7-1.3-3-3-3S5 3.3 5 5c0 1.7 1.3 3 3 3h12c0-1.7-1.3-3-3-3Z"/><path d="M12 8c0 1.7 1.3 3 3 3s3-1.3 3-3"/><path d="M5 8c0 1.7 1.3 3 3 3s3-1.3 3-3"/><path d="M8 11v8c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2v-8"/><path d="M10 15h4"/></symbol>
+            <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+            <symbol id="i-apple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></symbol>
+            <symbol id="i-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
+            <symbol id="i-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+            <symbol id="i-bus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></symbol>
+            <symbol id="i-bike" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></symbol>
+            <symbol id="i-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+            <symbol id="i-backpack" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5"/><path d="M8 10h8"/><path d="M8 18h8"/></symbol>
+            <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15"/><path d="M15 6v15"/></symbol>
+            <symbol id="i-footprints" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/></symbol>
+            <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+            <symbol id="i-heart" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+            <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+            <symbol id="i-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+            <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+        </svg>
+
+        <!-- 页面内容 -->
+        <button class="theme-toggle" id="dark-toggle" aria-label="切换深色模式">
+            <svg class="icon icon-moon"><use href="#i-moon"></use></svg>
+            <svg class="icon icon-sun"><use href="#i-sun"></use></svg>
+        </button>
+
+
+        <main class="content">
+
+            <!-- 首页 -->
+            <section id="home" class="page active">
+
+                <div class="hero">
+
+                    <div class="hero-khmer">រុករកកម្ពុជា</div>
+
+                    <div class="eyebrow">
+                        🇰🇭 CAMBODIA TRAVEL GUIDE
+                    </div>
+
+                    <h1>
+                        探索<br>柬埔寨
+                    </h1>
+                </div>
+
+
+                <div class="hero-slider">
+
+                    <div class="slide active" data-title="吴哥窟 · Angkor Wat · អង្គរវត្ត">
+                        <img
+                            src="assets/images/angkor-wat.jpg"
+                            alt="吴哥窟"
+                        >
+                    </div>
+
+                    <div class="slide" data-title="巴戎寺 · Bayon Temple · ប្រាសាទបាយ័ន">
+                        <img
+                            src="assets/images/bayon.jpg"
+                            alt="巴戎寺"
+                        >
+                    </div>
+
+                    <div class="slide" data-title="塔普伦寺 · Ta Prohm Temple · ប្រាសាទតាព្រហ្ម">
+                        <img
+                            src="assets/images/ta-prohm.jpg"
+                            alt="塔普伦寺"
+                        >
+                    </div>
+
+                    <div class="image-overlay">
+
+                        <div>
+                            <strong>吴哥窟</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="slider-dots">
+
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        QUICK FACTS · 快速了解
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-badge-check"></use></svg>签证</span>
+                        <b>中国护照免签*</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-banknote"></use></svg>货币</span>
+                        <b>瑞尔 · 美元通用</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-languages"></use></svg>语言</span>
+                        <b>高棉语 · 英语普及</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-sun"></use></svg>最佳季节</span>
+                        <b>11月—次年2月</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-history"></use></svg>时差</span>
+                        <b>比北京慢 1 小时</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-smartphone"></use></svg>插座</span>
+                        <b>两脚扁插座，国内通用</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-banknote"></use></svg>小费</span>
+                        <b>非强制，服务好给 1-2 美元</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-waves"></use></svg>饮用水</span>
+                        <b>买瓶装水，别喝自来水</b>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        HIGHLIGHTS · 必体验
+                    </div>
+
+                    <div class="tags">
+
+                        <span>吴哥窟日出</span>
+                        <span>巴戎寺微笑</span>
+                        <span>塔普伦树根</span>
+                        <span>洞里萨湖</span>
+                        <span>高棉美食</span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section id="about" class="page" data-back="home">
+
+                <button class="back-top" data-back="home" data-nav="home" aria-label="返回首页">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        ABOUT
+                    </div>
+
+                    <h1>关于这个 App</h1>
+
+                    <p>
+                        我的第一个编程作品
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-map-pin"></use></svg> 这是什么
+                    </div>
+
+                    <p>
+                        一份给所有想去柬埔寨的人的旅行指南：景点、美食、攻略和地图路线规划，全部装在一个网页里。
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-camera"></use></svg> 为什么做它
+                    </div>
+
+                    <p>
+                        从一份柬埔寨旅行计划开始，我第一次尝试自己「做」一个东西——用自然语言指挥 AI 写代码，从零搭起了这个 App。它是我学习编程的第一块里程碑。
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-book"></use></svg> 怎么做的
+                    </div>
+
+                    <p>
+                        纯 HTML / CSS / JavaScript，没有用框架；地图用 Leaflet，发布在 GitHub Pages 上。所有代码都在公开的 GitHub 仓库里。
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <p class="about-sign">
+                        Made by <b>Cadence Lu</b>
+                    </p>
+
+                </div>
+
+
+                <button class="back-btn" data-back="home" data-nav="home">
+                    ← 返回首页
+                </button>
+
+            </section>
+
+
+                <div class="place-card" data-target="about" data-nav="home">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>关于这个 App</h2>
+
+                        <p>我的第一个编程作品</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+            </section>     <!-- 景点 -->
+            <section id="attractions" class="page">
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        ATTRACTIONS
+                    </div>
+
+                    <h1>景点</h1>
+
+                    <p>
+                        选择一个城市开始探索
+                    </p>
+
+                </div>
+
+
+                <div class="place-card" data-target="attraction-siemreap">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-map-pin"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>暹粒 · Siem Reap</h2>
+
+                        <p>吴哥窟所在地</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+
+                <div class="place-card" data-target="attraction-phnompenh">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-map-pin"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>金边 · Phnom Penh</h2>
+
+                        <p>首都</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+
+                <div class="place-card" data-target="attraction-tonlesap">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-map-pin"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>洞里萨湖 · Tonle Sap</h2>
+
+                        <p>东南亚最大淡水湖</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+            </section>
+
+
+            <!-- 景点子页面：暹粒 -->
+                                                <section id="attraction-siemreap" class="page" data-back="attractions">
+
+                <button class="back-top" data-back="attractions" data-nav="attractions" aria-label="景点">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        SIEM REAP
+                    </div>
+
+                    <h1>暹粒</h1>
+
+                    <p>
+                        吴哥窟所在地 · 选一个部分开始
+                    </p>
+
+                </div>
+
+                <div class="place-card" data-target="attraction-siemreap-city">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-home"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>暹粒城市</h2>
+
+                        <p>Siem Reap City · 市场 / 夜生活 / 博物馆</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+                <div class="place-card" data-target="attraction-siemreap-angkor">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-landmark"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>吴哥窟</h2>
+
+                        <p>Angkor · 小圈 / 大圈 / 外圈</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+
+
+                <button class="back-btn" data-back="attractions" data-nav="attractions">
+                    ← 返回景点
+                </button>
+
+            </section>
+
+            <section id="attraction-siemreap-city" class="page" data-back="attraction-siemreap">
+
+                <button class="back-top" data-back="attraction-siemreap" data-nav="attractions" aria-label="暹粒">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        SIEM REAP · CITY
+                    </div>
+
+                    <h1>暹粒城市</h1>
+
+                    <p>
+                        市场、夜生活与博物馆
+                    </p>
+
+                </div>
+
+                <div class="card attraction-card" data-place="old-market" data-target="attraction-detail-old-market">
+
+                    <button class="mark-btn" data-place="old-market" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-banknote"></use></svg> 老市场 · Old Market
+                        </h2>
+                        <div class="card-sub">烟火气的传统市场</div>
+                        <p>
+                            暹粒最热闹的市场，白天买水果、手信和纪念品，晚上更有生活气息。
+                        </p>
+                        <div class="tags">
+                            <span>手信</span>
+                            <span>本地生活</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-old-market.jpg" alt="老市场" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="pub-street" data-target="attraction-detail-pub-street">
+
+                    <button class="mark-btn" data-place="pub-street" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-utensils"></use></svg> 酒吧街 · Pub Street
+                        </h2>
+                        <div class="card-sub">暹粒夜生活中心</div>
+                        <p>
+                            傍晚开始热闹起来的步行街，餐厅酒吧云集，逛完夜市来这里坐坐。
+                        </p>
+                        <div class="tags">
+                            <span>夜生活</span>
+                            <span>餐厅酒吧</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-pub-street.jpg" alt="酒吧街" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="angkor-museum" data-target="attraction-detail-angkor-museum">
+
+                    <button class="mark-btn" data-place="angkor-museum" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-history"></use></svg> 吴哥国家博物馆 · Angkor National Museum
+                        </h2>
+                        <div class="card-sub">去吴哥前的必修课</div>
+                        <p>
+                            展品丰富，有中文讲解。先在这里了解吴哥的历史，再看寺庙会更有感觉。
+                        </p>
+                        <div class="tags">
+                            <span>室内</span>
+                            <span>文化</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-angkor-museum.jpg" alt="吴哥国家博物馆" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="royal-gardens" data-target="attraction-detail-royal-gardens">
+
+                    <button class="mark-btn" data-place="royal-gardens" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-tree"></use></svg> 皇家花园 · Royal Gardens
+                        </h2>
+                        <div class="card-sub">市区里的绿洲</div>
+                        <p>
+                            市中心免费开放的大公园，傍晚散步很舒服，当地人常来纳凉。
+                        </p>
+                        <div class="tags">
+                            <span>散步</span>
+                            <span>免费</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-royal-gardens.jpg" alt="皇家花园" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+
+                <button class="back-btn" data-back="attraction-siemreap" data-nav="attractions">
+                    ← 返回暹粒
+                </button>
+
+            </section>
+
+            <section id="attraction-siemreap-angkor" class="page" data-back="attraction-siemreap">
+
+                <button class="back-top" data-back="attraction-siemreap" data-nav="attractions" aria-label="暹粒">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        ANGKOR
+                    </div>
+
+                    <h1>吴哥窟</h1>
+
+                    <p>
+                        三条经典路线，任选一条开始
+                    </p>
+
+                </div>
+
+                <div class="place-card" data-target="attraction-angkor-small">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-landmark"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>小圈</h2>
+
+                        <p>约 4-6 小时 · 吴哥窟 / 巴戎寺 / 塔普伦寺</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+                <div class="place-card" data-target="attraction-angkor-grand">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-landmark"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>大圈</h2>
+
+                        <p>约 6-8 小时 · 圣剑寺 / 龙蟠水池 / 比粒寺</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+                <div class="place-card" data-target="attraction-angkor-outer">
+
+                    <div class="place-icon">
+                        <svg class="icon"><use href="#i-landmark"></use></svg>
+                    </div>
+
+                    <div>
+
+                        <h2>外圈</h2>
+
+                        <p>约 8-10 小时 · 女王宫 / 崩密列</p>
+
+                    </div>
+
+                    <b>›</b>
+
+                </div>
+
+
+
+                <button class="back-btn" data-back="attraction-siemreap" data-nav="attractions">
+                    ← 返回暹粒
+                </button>
+
+            </section>
+
+            <section id="attraction-angkor-small" class="page" data-back="attraction-siemreap-angkor">
+
+                <button class="back-top" data-back="attraction-siemreap-angkor" data-nav="attractions" aria-label="吴哥窟">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        SMALL CIRCUIT
+                    </div>
+
+                    <h1>小圈</h1>
+
+                    <p>
+                        约 4-6 小时 · 经典入门路线
+                    </p>
+
+                </div>
+
+                <div class="card attraction-card" data-place="angkor-wat" data-target="attraction-detail-angkor-wat">
+
+                    <button class="mark-btn" data-place="angkor-wat" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 吴哥窟 · Angkor Wat
+                        </h2>
+                        <div class="card-sub">世界最大庙宇群</div>
+                        <p>
+                            柬埔寨的灵魂，日出时分最美。清晨在莲花池前等日出，是经典机位。
+                        </p>
+                        <div class="tags">
+                            <span>日出</span>
+                            <span>浮雕回廊</span>
+                            <span>中央塔</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/angkor-wat.jpg" alt="吴哥窟" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="bayon" data-target="attraction-detail-bayon">
+
+                    <button class="mark-btn" data-place="bayon" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-smile"></use></svg> 巴戎寺 · Bayon
+                        </h2>
+                        <div class="card-sub">高棉的微笑</div>
+                        <p>
+                            四面佛塔上 200 多张微笑人脸，是吴哥最著名的面孔。
+                        </p>
+                        <div class="tags">
+                            <span>人脸雕像</span>
+                            <span>上午光线佳</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/bayon.jpg" alt="巴戎寺" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="ta-prohm" data-target="attraction-detail-ta-prohm">
+
+                    <button class="mark-btn" data-place="ta-prohm" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-tree"></use></svg> 塔普伦寺 · Ta Prohm
+                        </h2>
+                        <div class="card-sub">树与寺共生</div>
+                        <p>
+                            《古墓丽影》取景地，巨大树根盘绕石墙，光影绝佳。
+                        </p>
+                        <div class="tags">
+                            <span>树根</span>
+                            <span>光影</span>
+                            <span>古墓丽影</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/ta-prohm.jpg" alt="塔普伦寺" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="banteay-kdei" data-target="attraction-detail-banteay-kdei">
+
+                    <button class="mark-btn" data-place="banteay-kdei" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 班黛喀蒂 · Banteay Kdei
+                        </h2>
+                        <div class="card-sub">小圈 · 静谧</div>
+                        <p>
+                            规模不小的古寺，游客相对较少，适合安静漫步。
+                        </p>
+                        <div class="tags">
+                            <span>小圈</span>
+                            <span>人少</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-banteay-kdei.jpg" alt="班黛喀蒂" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+
+                <button class="back-btn" data-back="attraction-siemreap-angkor" data-nav="attractions">
+                    ← 返回吴哥窟
+                </button>
+
+            </section>
+
+            <section id="attraction-angkor-grand" class="page" data-back="attraction-siemreap-angkor">
+
+                <button class="back-top" data-back="attraction-siemreap-angkor" data-nav="attractions" aria-label="吴哥窟">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        GRAND CIRCUIT
+                    </div>
+
+                    <h1>大圈</h1>
+
+                    <p>
+                        约 6-8 小时 · 吴哥窟 + 外围大寺
+                    </p>
+
+                </div>
+
+                <div class="card attraction-card" data-place="preah-khan" data-target="attraction-detail-preah-khan">
+
+                    <button class="mark-btn" data-place="preah-khan" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 圣剑寺 · Preah Khan
+                        </h2>
+                        <div class="card-sub">大圈第一站</div>
+                        <p>
+                            规模宏大的古寺，曾是高棉国王的临时都城。
+                        </p>
+                        <div class="tags">
+                            <span>大圈</span>
+                            <span>规模宏大</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-preah-khan.jpg" alt="圣剑寺" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="neak-pean" data-target="attraction-detail-neak-pean">
+
+                    <button class="mark-btn" data-place="neak-pean" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 龙蟠水池 · Neak Pean
+                        </h2>
+                        <div class="card-sub">大圈 · 水中寺</div>
+                        <p>
+                            池中央的小岛庙，曾是古人的「疗愈之所」。
+                        </p>
+                        <div class="tags">
+                            <span>大圈</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-neak-pean.jpg" alt="龙蟠水池" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="ta-som" data-target="attraction-detail-ta-som">
+
+                    <button class="mark-btn" data-place="ta-som" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 塔逊寺 · Ta Som
+                        </h2>
+                        <div class="card-sub">大圈 · 树门</div>
+                        <p>
+                            东塔门被大树根缠绕，很适合拍照。
+                        </p>
+                        <div class="tags">
+                            <span>大圈</span>
+                            <span>拍照</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-ta-som.jpg" alt="塔逊寺" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="east-mebon" data-target="attraction-detail-east-mebon">
+
+                    <button class="mark-btn" data-place="east-mebon" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 东梅奔 · East Mebon
+                        </h2>
+                        <div class="card-sub">大圈 · 大象塔</div>
+                        <p>
+                            四角有巨大石象雕像的红砖寺庙。
+                        </p>
+                        <div class="tags">
+                            <span>大圈</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-east-mebon.jpg" alt="东梅奔" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="pre-rup" data-target="attraction-detail-pre-rup">
+
+                    <button class="mark-btn" data-place="pre-rup" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 比粒寺 · Pre Rup
+                        </h2>
+                        <div class="card-sub">大圈 · 日落点</div>
+                        <p>
+                            红砖金字塔式寺庙，是经典的日落观景地。
+                        </p>
+                        <div class="tags">
+                            <span>大圈</span>
+                            <span>日落</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-pre-rup.jpg" alt="比粒寺" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+
+                <button class="back-btn" data-back="attraction-siemreap-angkor" data-nav="attractions">
+                    ← 返回吴哥窟
+                </button>
+
+            </section>
+
+            <section id="attraction-angkor-outer" class="page" data-back="attraction-siemreap-angkor">
+
+                <button class="back-top" data-back="attraction-siemreap-angkor" data-nav="attractions" aria-label="吴哥窟">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        OUTER CIRCUIT
+                    </div>
+
+                    <h1>外圈</h1>
+
+                    <p>
+                        约 8-10 小时 · 一整天包车
+                    </p>
+
+                </div>
+
+                <div class="card attraction-card" data-place="banteay-srei" data-target="attraction-detail-banteay-srei">
+
+                    <button class="mark-btn" data-place="banteay-srei" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-castle"></use></svg> 女王宫 · Banteay Srei
+                        </h2>
+                        <div class="card-sub">吴哥艺术之钻</div>
+                        <p>
+                            红色砂岩上的精美浮雕，小巧而精致，值得专程前往。
+                        </p>
+                        <div class="tags">
+                            <span>红色砂岩</span>
+                            <span>精美浮雕</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-banteay-srei.jpg" alt="女王宫" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="beng-mealea" data-target="attraction-detail-beng-mealea">
+
+                    <button class="mark-btn" data-place="beng-mealea" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 崩密列 · Beng Mealea
+                        </h2>
+                        <div class="card-sub">外圈 · 秘境</div>
+                        <p>
+                            坍塌的原始寺庙，有种探险感，需包车前往。
+                        </p>
+                        <div class="tags">
+                            <span>外圈</span>
+                            <span>包车</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-beng-mealea.jpg" alt="崩密列" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+
+                <button class="back-btn" data-back="attraction-siemreap-angkor" data-nav="attractions">
+                    ← 返回吴哥窟
+                </button>
+
+            </section>
+
+            <section id="attraction-phnompenh" class="page" data-back="attractions">
+
+                <button class="back-top" data-back="attractions" data-nav="attractions" aria-label="景点">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        PHNOM PENH
+                    </div>
+
+                    <h1>金边</h1>
+
+                    <p>
+                        柬埔寨首都
+                    </p>
+
+                </div>
+
+                <div class="card attraction-card" data-place="royal-palace" data-target="attraction-detail-royal-palace">
+
+                    <button class="mark-btn" data-place="royal-palace" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-crown"></use></svg> 金边大皇宫 · Royal Palace
+                        </h2>
+                        <div class="card-sub">金碧辉煌</div>
+                        <p>
+                            高棉建筑的代表，银塔寺内藏有翡翠佛像。
+                        </p>
+                        <div class="tags">
+                            <span>银塔</span>
+                            <span>高棉建筑</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-royal-palace.jpg" alt="金边大皇宫" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="s21" data-target="attraction-detail-s21">
+
+                    <button class="mark-btn" data-place="s21" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-history"></use></svg> S21 监狱博物馆
+                        </h2>
+                        <div class="card-sub">了解一段历史</div>
+                        <p>
+                            由监狱改建的博物馆，让人更懂柬埔寨的过去。
+                        </p>
+                        <div class="tags">
+                            <span>历史</span>
+                            <span>金边</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-s21.jpg" alt="S21 监狱博物馆" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+
+                <div class="card attraction-card" data-place="central-market" data-target="attraction-detail-central-market">
+
+                    <button class="mark-btn" data-place="central-market" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-banknote"></use></svg> 中央市场 · Central Market
+                        </h2>
+                        <div class="card-sub">金边的「大钟楼」市场</div>
+                        <p>
+                            1937 年建成的 Art Deco 穹顶建筑，珠宝、水果、小吃一应俱全。
+                        </p>
+                        <div class="tags">
+                            <span>穹顶建筑</span>
+                            <span>手信</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-central-market.jpg" alt="中央市场" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="independence-monument" data-target="attraction-detail-independence-monument">
+
+                    <button class="mark-btn" data-place="independence-monument" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 独立纪念碑 · Independence Monument
+                        </h2>
+                        <div class="card-sub">金边的地标</div>
+                        <p>
+                            纪念独立的莲花形纪念碑，夜晚亮灯后非常壮观。
+                        </p>
+                        <div class="tags">
+                            <span>地标</span>
+                            <span>夜景</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-independence-monument.jpg" alt="独立纪念碑" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="national-museum" data-target="attraction-detail-national-museum">
+
+                    <button class="mark-btn" data-place="national-museum" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-history"></use></svg> 国家博物馆 · National Museum
+                        </h2>
+                        <div class="card-sub">高棉文物宝库</div>
+                        <p>
+                            红墙高棉式建筑里，收藏着吴哥时期最精美的石雕。
+                        </p>
+                        <div class="tags">
+                            <span>室内</span>
+                            <span>文化</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-national-museum.jpg" alt="国家博物馆" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="wat-phnom" data-target="attraction-detail-wat-phnom">
+
+                    <button class="mark-btn" data-place="wat-phnom" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 塔山寺 · Wat Phnom
+                        </h2>
+                        <div class="card-sub">金边名字的由来</div>
+                        <p>
+                            小山丘上的古寺，传说「金边」之名就源于这座塔山。
+                        </p>
+                        <div class="tags">
+                            <span>古寺</span>
+                            <span>城市起源</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-wat-phnom.jpg" alt="塔山寺" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="riverside" data-target="attraction-detail-riverside">
+
+                    <button class="mark-btn" data-place="riverside" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-waves"></use></svg> 湄公河畔 · Sisowath Quay
+                        </h2>
+                        <div class="card-sub">河边散步与日落</div>
+                        <p>
+                            沿河大道，傍晚看日落、逛夜市、吃街头小吃。
+                        </p>
+                        <div class="tags">
+                            <span>日落</span>
+                            <span>散步</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-riverside.jpg" alt="湄公河畔" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+                <div class="card attraction-card" data-place="russian-market" data-target="attraction-detail-russian-market">
+
+                    <button class="mark-btn" data-place="russian-market" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-banknote"></use></svg> 俄式市场 · Russian Market
+                        </h2>
+                        <div class="card-sub">淘货必逛</div>
+                        <p>
+                            本地人爱逛的市场，银器、丝绸、二手货和纪念品一应俱全。
+                        </p>
+                        <div class="tags">
+                            <span>淘货</span>
+                            <span>纪念品</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-russian-market.jpg" alt="俄式市场" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="choeung-ek" data-target="attraction-detail-choeung-ek">
+
+                    <button class="mark-btn" data-place="choeung-ek" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-history"></use></svg> 钟屋屠杀场 · Choeung Ek
+                        </h2>
+                        <div class="card-sub">了解一段历史</div>
+                        <p>
+                            红色高棉时期的处决场，如今是庄重的纪念馆。
+                        </p>
+                        <div class="tags">
+                            <span>历史</span>
+                            <span>纪念馆</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-choeung-ek.jpg" alt="钟屋屠杀场" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+                <div class="card attraction-card" data-place="wat-ounalom" data-target="attraction-detail-wat-ounalom">
+
+                    <button class="mark-btn" data-place="wat-ounalom" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-landmark"></use></svg> 乌那隆寺 · Wat Ounalom
+                        </h2>
+                        <div class="card-sub">金边最古老的佛寺</div>
+                        <p>
+                            建于 1443 年，高棉佛教的重要中心。
+                        </p>
+                        <div class="tags">
+                            <span>古寺</span>
+                            <span>宗教</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-wat-ounalom.jpg" alt="乌那隆寺" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+                <button class="back-btn" data-back="attractions" data-nav="attractions">
+                    ← 返回景点
+                </button>
+
+            </section>
+
+            <section id="attraction-tonlesap" class="page" data-back="attractions">
+
+                <button class="back-top" data-back="attractions" data-nav="attractions" aria-label="景点">
+
+                    <svg class="icon"><use href="#i-arrow-left"></use></svg>
+
+                </button>
+
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        TONLE SAP
+                    </div>
+
+                    <h1>洞里萨湖</h1>
+
+                    <p>
+                        东南亚最大淡水湖
+                    </p>
+
+                </div>
+
+                <div class="card attraction-card" data-place="tonle-sap" data-target="attraction-detail-tonle-sap">
+
+                    <button class="mark-btn" data-place="tonle-sap" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+
+                    <div class="attraction-body">
+                        <h2 class="card-title">
+                            <svg class="icon"><use href="#i-waves"></use></svg> 洞里萨湖 · Tonle Sap
+                        </h2>
+                        <div class="card-sub">东南亚最大淡水湖</div>
+                        <p>
+                            湖上有浮村，日落时分景色动人，建议留出半天时间。
+                        </p>
+                        <div class="tags">
+                            <span>浮村</span>
+                            <span>日落</span>
+                        </div>
+                    </div>
+
+                    <div class="attraction-thumb-wrap">
+                        <img class="attraction-thumb" src="assets/images/attraction-tonle-sap.jpg" alt="洞里萨湖" loading="lazy">
+                        <div class="attraction-fade"></div>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+
+
+
+                <button class="back-btn" data-back="attractions" data-nav="attractions">
+                    ← 返回景点
+                </button>
+
+            </section>
+
+
+            <section id="attraction-detail-old-market" class="page" data-back="attraction-siemreap-city">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-old-market.jpg" alt="老市场" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="old-market" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">SIEM REAP · CITY</div>
+
+                    <h1>老市场</h1>
+
+                    <p class="food-sub">Old Market · 烟火气的传统市场</p>
+
+                    <div class="tags">
+                        <span>手信</span>
+                        <span>本地生活</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        暹粒最古老的市场之一，从清晨到深夜都热闹，是本地人买菜、游客买手信的地方。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        水果摊、香料摊、银饰和丝绸手信都值得逛；晚上的夜市更有生活气息。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        记得砍价，一般可以从开价砍掉三分之一；人多注意保管随身物品。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-pub-street" class="page" data-back="attraction-siemreap-city">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-pub-street.jpg" alt="酒吧街" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="pub-street" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">SIEM REAP · CITY</div>
+
+                    <h1>酒吧街</h1>
+
+                    <p class="food-sub">Pub Street · 暹粒夜生活中心</p>
+
+                    <div class="tags">
+                        <span>夜生活</span>
+                        <span>餐厅酒吧</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        暹粒老城中心的步行街，几十年来聚集了餐厅和酒吧，是游客夜生活的中心。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        傍晚开始热闹，各国餐厅、现场音乐和街头小吃都有，灯光很有氛围。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        晚上人多注意财物；与老市场、夜市连在一起，可以一起逛。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-angkor-museum" class="page" data-back="attraction-siemreap-city">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-angkor-museum.jpg" alt="吴哥国家博物馆" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="angkor-museum" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">SIEM REAP · CITY</div>
+
+                    <h1>吴哥国家博物馆</h1>
+
+                    <p class="food-sub">Angkor National Museum · 去吴哥前的必修课</p>
+
+                    <div class="tags">
+                        <span>室内</span>
+                        <span>文化</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        2007 年开放，系统收藏和展示吴哥时期的文物与艺术。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        大量石雕、青铜器和佛像，多媒体讲解很清晰，先来这里再看寺庙会更有感觉。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        门票约 12 美元；开放时间约 8:30-18:00；建议放在去吴哥窟之前。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-royal-gardens" class="page" data-back="attraction-siemreap-city">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-royal-gardens.jpg" alt="皇家花园" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="royal-gardens" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">SIEM REAP · CITY</div>
+
+                    <h1>皇家花园</h1>
+
+                    <p class="food-sub">Royal Gardens · 市区里的绿洲</p>
+
+                    <div class="tags">
+                        <span>散步</span>
+                        <span>免费</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        位于暹粒市中心、皇家住所前的花园，当地人常来散步纳凉。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        大片草坪和树木，傍晚散步很舒服，运气好能看到成群的蝙蝠飞出。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        免费开放，傍晚光线最好；适合逛完老城后过来歇脚。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-siemreap-city" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-angkor-wat" class="page" data-back="attraction-angkor-small">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/angkor-wat.jpg" alt="吴哥窟" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="angkor-wat" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · SMALL CIRCUIT</div>
+
+                    <h1>吴哥窟</h1>
+
+                    <p class="food-sub">Angkor Wat · 世界最大庙宇群</p>
+
+                    <div class="tags">
+                        <span>日出</span>
+                        <span>浮雕回廊</span>
+                        <span>中央塔</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪由苏利耶跋摩二世建造，最初供奉印度教毗湿奴，后来成为佛教圣地。它是吴哥王朝鼎盛时期的代表作，也是世界上最大的宗教建筑群之一，如今印在柬埔寨国旗上。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        清晨在莲花池前等日出和倒影是经典机位；中央塔可以登顶；回廊上数百米浅浮雕讲述着印度史诗《罗摩衍那》的故事。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        看日出建议清晨 5 点前出发；门票是吴哥通票（1 日 37 美元 / 3 日 62 美元 / 7 日 72 美元）；穿长裤或长裙、随身带水。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-bayon" class="page" data-back="attraction-angkor-small">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/bayon.jpg" alt="巴戎寺" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="bayon" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · SMALL CIRCUIT</div>
+
+                    <h1>巴戎寺</h1>
+
+                    <p class="food-sub">Bayon · 高棉的微笑</p>
+
+                    <div class="tags">
+                        <span>人脸雕像</span>
+                        <span>上午光线佳</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪末由阇耶跋摩七世建造，是吴哥王朝最后一批国寺之一，融合了佛教与印度教元素。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        54 座四面塔上共有 200 多张微笑人脸，据说是以建造者阇耶跋摩七世为原型；回廊浮雕记录了当时的生活百态。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        上午光线最好，人脸轮廓更清晰；游客多，建议早点到；距吴哥窟约 1.5km，可以骑车。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-ta-prohm" class="page" data-back="attraction-angkor-small">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/ta-prohm.jpg" alt="塔普伦寺" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="ta-prohm" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · SMALL CIRCUIT</div>
+
+                    <h1>塔普伦寺</h1>
+
+                    <p class="food-sub">Ta Prohm · 树与寺共生</p>
+
+                    <div class="tags">
+                        <span>树根</span>
+                        <span>光影</span>
+                        <span>古墓丽影</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪末阇耶跋摩七世为母亲建造，鼎盛时是拥有上万人规模的寺院。后来被丛林吞没，巨树与石墙紧紧缠绕，也是《古墓丽影》的取景地。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        巨大的木棉树根盘绕石墙；东门附近的「树抱门」是经典机位；阳光穿过树冠洒下的光影非常美。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        上午人少、光线好；地面湿滑注意脚下；部分区域已坍塌，不要攀爬。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-banteay-kdei" class="page" data-back="attraction-angkor-small">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-banteay-kdei.jpg" alt="班黛喀蒂" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="banteay-kdei" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · SMALL CIRCUIT</div>
+
+                    <h1>班黛喀蒂</h1>
+
+                    <p class="food-sub">Banteay Kdei · 小圈 · 静谧</p>
+
+                    <div class="tags">
+                        <span>小圈</span>
+                        <span>人少</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪中后期建造的佛教寺院，风格与塔普伦寺相似但规模更小，保存得不算完整。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        游客相对少，适合安静漫步；石窗透进来的光影很好拍。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        与小圈路线顺路，建议 30-45 分钟；旁边就是皇家浴池（Srah Srang）。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-small" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-preah-khan" class="page" data-back="attraction-angkor-grand">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-preah-khan.jpg" alt="圣剑寺" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="preah-khan" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · GRAND CIRCUIT</div>
+
+                    <h1>圣剑寺</h1>
+
+                    <p class="food-sub">Preah Khan · 大圈第一站</p>
+
+                    <div class="tags">
+                        <span>大圈</span>
+                        <span>规模宏大</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪末阇耶跋摩七世为纪念父亲而建，曾是高棉国王的临时都城，鼎盛时据说住着近十万人。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        规模宏大，东西向的主轴线很长；东门附近有两层的石构建筑；墙上仍能看到部分灰泥浮雕。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        建议预留 1-1.5 小时；下一站龙蟠水池就在附近。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-neak-pean" class="page" data-back="attraction-angkor-grand">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-neak-pean.jpg" alt="龙蟠水池" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="neak-pean" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · GRAND CIRCUIT</div>
+
+                    <h1>龙蟠水池</h1>
+
+                    <p class="food-sub">Neak Pean · 大圈 · 水中寺</p>
+
+                    <div class="tags">
+                        <span>大圈</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪阇耶跋摩七世建造，位于人工湖中央的小岛上，曾是古人的「疗愈之所」，病人在四个水池中取水。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        中央小庙、巨蛇（Naga）环绕的圆形底座，以及连接水池的木栈道都很有特色。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        旱季水池可能干涸；走栈道进出，建议 30 分钟。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-ta-som" class="page" data-back="attraction-angkor-grand">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-ta-som.jpg" alt="塔逊寺" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="ta-som" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · GRAND CIRCUIT</div>
+
+                    <h1>塔逊寺</h1>
+
+                    <p class="food-sub">Ta Som · 大圈 · 树门</p>
+
+                    <div class="tags">
+                        <span>大圈</span>
+                        <span>拍照</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪末建造的佛教寺院，规模不大，保存状况一般。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        东塔门被巨大的树根缠绕，是经典的拍照点；游客少，适合慢慢逛。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        建议 20-30 分钟；与龙蟠水池顺路。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-east-mebon" class="page" data-back="attraction-angkor-grand">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-east-mebon.jpg" alt="东梅奔" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="east-mebon" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · GRAND CIRCUIT</div>
+
+                    <h1>东梅奔</h1>
+
+                    <p class="food-sub">East Mebon · 大圈 · 大象塔</p>
+
+                    <div class="tags">
+                        <span>大圈</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        10 世纪建造，位于当时东人工湖（现已干涸）中央的岛上，是皇家祭祀场所。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        四角矗立着巨大的石象雕像；红砖结构和灰泥雕刻保存得不错，可以登高看四周。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        建议 30 分钟；与比粒寺相邻。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-pre-rup" class="page" data-back="attraction-angkor-grand">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-pre-rup.jpg" alt="比粒寺" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="pre-rup" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · GRAND CIRCUIT</div>
+
+                    <h1>比粒寺</h1>
+
+                    <p class="food-sub">Pre Rup · 大圈 · 日落点</p>
+
+                    <div class="tags">
+                        <span>大圈</span>
+                        <span>日落</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        10 世纪建造的红砖金字塔式寺庙，名字有「变身」之意，据说是皇家火葬场。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        阶梯式金字塔结构很特别；日落时分人很多，是经典的日落观景地。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        看日落建议下午 4 点半前到占位置；台阶较陡，注意安全。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-grand" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-banteay-srei" class="page" data-back="attraction-angkor-outer">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-banteay-srei.jpg" alt="女王宫" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-outer" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="banteay-srei" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · OUTER CIRCUIT</div>
+
+                    <h1>女王宫</h1>
+
+                    <p class="food-sub">Banteay Srei · 吴哥艺术之钻</p>
+
+                    <div class="tags">
+                        <span>红色砂岩</span>
+                        <span>精美浮雕</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        10 世纪建造，用红色砂岩精雕细琢，被认为是吴哥艺术成就最高的作品，被称为「吴哥艺术之钻」。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        门楣上的神话故事浮雕极其精细；粉红色调在清晨和黄昏最美。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        距吴哥窟约 32km，需包车或骑车；面积不大但细节多，建议 1 小时；上午光线最佳。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-outer" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-beng-mealea" class="page" data-back="attraction-angkor-outer">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-beng-mealea.jpg" alt="崩密列" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-angkor-outer" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="beng-mealea" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">ANGKOR · OUTER CIRCUIT</div>
+
+                    <h1>崩密列</h1>
+
+                    <p class="food-sub">Beng Mealea · 外圈 · 秘境</p>
+
+                    <div class="tags">
+                        <span>外圈</span>
+                        <span>包车</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        12 世纪建造，规模与吴哥窟相似，但似乎从未完工，又被丛林长期覆盖，坍塌严重。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        原始废墟的探险感，树根与崩塌的石块纠缠；游客少，适合拍照。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        距暹粒约 68km，必须包车；单独售票（约 5 美元）；地面不平，穿运动鞋。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-angkor-outer" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-royal-palace" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-royal-palace.jpg" alt="金边大皇宫" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="royal-palace" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>金边大皇宫</h1>
+
+                    <p class="food-sub">Royal Palace · 金碧辉煌</p>
+
+                    <div class="tags">
+                        <span>银殿</span>
+                        <span>高棉建筑</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        1866 年建都金边后建造，是柬埔寨国王的官邸，融合了高棉传统与法国殖民风格。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        银殿地面铺着 5000 多块银砖；金碧辉煌的尖顶建筑和御花园都很好拍。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        开放时间约 8:00-17:00；进入需穿过膝的裤子或裙子；下午光线好。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-s21" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-s21.jpg" alt="S21 监狱博物馆" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="s21" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>S21 监狱博物馆</h1>
+
+                    <p class="food-sub">Tuol Sleng · 了解一段历史</p>
+
+                    <div class="tags">
+                        <span>历史</span>
+                        <span>纪念馆</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        原是一所中学，1975-1979 年红色高棉统治期间被改为 S21 秘密监狱，超过 1.7 万人被关押于此，仅少数人幸存。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        保留着当年的囚室、铁丝网和大量档案照片，参观过程会让人很震撼。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        开放时间 8:00-17:00；建议留 1.5-2 小时；内容比较沉重，请保持安静和尊重。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-tonle-sap" class="page" data-back="attraction-tonlesap">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-tonle-sap.jpg" alt="洞里萨湖" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-tonlesap" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="tonle-sap" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">TONLE SAP</div>
+
+                    <h1>洞里萨湖</h1>
+
+                    <p class="food-sub">Tonle Sap · 东南亚最大淡水湖</p>
+
+                    <div class="tags">
+                        <span>水上村庄</span>
+                        <span>日落</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        东南亚最大的淡水湖，与湄公河相连，雨季和旱季湖面面积可相差数倍，湖边有多个水上村庄。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        高脚屋水上村庄很特别；乘船看日落、看渔民的日常生活。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        从暹粒包车约 1 小时到码头；船费约 20-25 美元/人；雨季（6-10 月）水位高景色最好。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-tonlesap" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+            <section id="attraction-detail-central-market" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-central-market.jpg" alt="中央市场" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="central-market" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>中央市场</h1>
+
+                    <p class="food-sub">Central Market · 金边的「大钟楼」</p>
+
+                    <div class="tags">
+                        <span>穹顶建筑</span>
+                        <span>手信</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        1937 年法国殖民时期建成的中央市场，黄色穹顶是标志性建筑，也是金边最大的传统市场之一。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        穹顶下的金银珠宝区、水果摊和本地小吃；黄墙穹顶本身就很出片。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        营业时间约 8:00-17:00；记得砍价；离湄公河畔步行可达。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-independence-monument" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-independence-monument.jpg" alt="独立纪念碑" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="independence-monument" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>独立纪念碑</h1>
+
+                    <p class="food-sub">Independence Monument · 金边的地标</p>
+
+                    <div class="tags">
+                        <span>地标</span>
+                        <span>夜景</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        1958 年为纪念柬埔寨脱离法国独立而建，莲花瓣造型融合了吴哥建筑风格。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        白天庄重、夜晚灯光很美；周围是环岛，拍照时注意来往车辆。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        免费、全天开放；傍晚蓝调时刻是经典拍摄时间。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-national-museum" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-national-museum.jpg" alt="国家博物馆" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="national-museum" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>国家博物馆</h1>
+
+                    <p class="food-sub">National Museum · 高棉文物宝库</p>
+
+                    <div class="tags">
+                        <span>室内</span>
+                        <span>文化</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        1920 年建成，红砖高棉风格建筑，系统收藏吴哥时期的石雕、青铜器和佛像。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        吴哥微笑头像、青铜像；中央庭院的水池倒影很适合拍照。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        门票约 10 美元；开放 8:00-17:00；与大皇宫相邻，可以一起逛。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-wat-phnom" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-wat-phnom.jpg" alt="塔山寺" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="wat-phnom" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>塔山寺</h1>
+
+                    <p class="food-sub">Wat Phnom · 金边名字的由来</p>
+
+                    <div class="tags">
+                        <span>古寺</span>
+                        <span>城市起源</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        传说 1372 年一位老妇人在山丘上发现佛像并建寺供奉，金边（Phnom Penh）因此得名。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        山顶主殿、入口的大象雕像，还能俯瞰城市一角。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        门票约 1 美元；清晨或傍晚去人少凉快。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-riverside" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-riverside.jpg" alt="湄公河畔" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="riverside" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>湄公河畔</h1>
+
+                    <p class="food-sub">Sisowath Quay · 河边散步与日落</p>
+
+                    <div class="tags">
+                        <span>日落</span>
+                        <span>散步</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        沿着湄公河与洞里萨河交汇处的滨河大道，是金边市民和游客最爱的散步路线。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        日落时分的河景、游船码头；晚上有夜市和街头小吃。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        免费；傍晚最热闹；从大皇宫步行可达。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+            <section id="attraction-detail-russian-market" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-russian-market.jpg" alt="俄式市场" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="russian-market" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>俄式市场</h1>
+
+                    <p class="food-sub">Russian Market · 淘货必逛</p>
+
+                    <div class="tags">
+                        <span>淘货</span>
+                        <span>纪念品</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        因 1980 年代俄罗斯商人常来采购而得名（本名「图尔汤姆蓬市场」），是金边本地人最爱逛的市场之一。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        银器、丝绸、二手牛仔裤、纪念品和小吃都有；价格比中央市场更「本地」。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        营业约 8:00-17:00；记得砍价；附近很多咖啡馆可以歇脚。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-choeung-ek" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-choeung-ek.jpg" alt="钟屋屠杀场" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="choeung-ek" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>钟屋屠杀场</h1>
+
+                    <p class="food-sub">Choeung Ek · 了解一段历史</p>
+
+                    <div class="tags">
+                        <span>历史</span>
+                        <span>纪念馆</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        1975-1979 年红色高棉统治时期的处决场，成千上万人在此遇难，如今是纪念地，中央矗立着存放头骨的白骨佛塔。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        中央纪念塔、保留的万人坑和缠绕树根；免费音频导览讲述历史，非常震撼。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        距金边约 15km，Grab/包车约 30-40 分钟；门票约 6 美元（含导览）；建议留 1-2 小时。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="attraction-detail-wat-ounalom" class="page" data-back="attraction-phnompenh">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/attraction-wat-ounalom.jpg" alt="乌那隆寺" loading="lazy">
+                    <button class="back-top food-back" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom" aria-label="返回">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                    <button class="mark-btn" data-place="wat-ounalom" aria-label="想去">
+                        <svg class="icon"><use href="#i-heart"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">PHNOM PENH</div>
+
+                    <h1>乌那隆寺</h1>
+
+                    <p class="food-sub">Wat Ounalom · 金边最古老的佛寺</p>
+
+                    <div class="tags">
+                        <span>古寺</span>
+                        <span>宗教</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-history"></use></svg>历史</h3>
+                    <p class="food-text">
+                        1443 年建造，是金边最古老的佛教寺院之一，曾是高棉佛教最高领袖的驻锡地。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-camera"></use></svg>看点 · 拍照</h3>
+                    <p class="food-text">
+                        金色主塔、藏有佛像和经书的藏经阁、庭院里穿橙袍的僧人。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-map-pin"></use></svg>实用信息</h3>
+                    <p class="food-text">
+                        免费参观；注意着装（不露肩、过膝）；清晨和傍晚最安静。
+                    </p>
+
+                    <button class="back-btn" data-back="attraction-phnompenh" data-nav="attractions" data-mode="zoom">返回</button>
+
+                </div>
+
+            </section>
+
+
+
+
+
+<section id="food" class="page">
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        FOOD
+                    </div>
+
+                    <h1>美食</h1>
+
+                    <p>
+                        高棉风味，好吃不贵
+                    </p>
+
+                </div>
+
+
+                <div class="card food-card" data-target="food-amok">
+                    <img class="food-img" src="assets/images/food-amok.jpg" alt="Amok · 阿莫克" loading="lazy">
+
+                    <h2 class="card-title">
+                        <svg class="icon"><use href="#i-chef-hat"></use></svg> Amok · 阿莫克
+                    </h2>
+
+                    <div class="card-sub">柬埔寨国菜</div>
+
+                    <div class="tags">
+                        <span>必吃</span>
+                        <span>推荐 ⭐⭐⭐⭐⭐</span>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+                <div class="card food-card" data-target="food-loklak">
+                    <img class="food-img" src="assets/images/food-lok-lak.jpg" alt="Beef Lok Lak · 洛拉克牛肉" loading="lazy">
+
+                    <h2 class="card-title">
+                        <svg class="icon"><use href="#i-beef"></use></svg> Beef Lok Lak · 洛拉克牛肉
+                    </h2>
+
+                    <div class="card-sub">黑胡椒牛肉</div>
+
+                    <div class="tags">
+                        <span>推荐 ⭐⭐⭐⭐</span>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+                <div class="card food-card" data-target="food-curry">
+                    <img class="food-img" src="assets/images/food-curry.jpg" alt="Khmer Curry · 高棉咖喱" loading="lazy">
+
+                    <h2 class="card-title">
+                        <svg class="icon"><use href="#i-flame"></use></svg> Khmer Curry · 高棉咖喱
+                    </h2>
+
+                    <div class="card-sub">椰香咖喱</div>
+
+                    <div class="tags">
+                        <span>推荐 ⭐⭐⭐⭐</span>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+                <div class="card food-card" data-target="food-fruit">
+                    <img class="food-img" src="assets/images/food-fruit.jpg" alt="热带水果" loading="lazy">
+
+                    <h2 class="card-title">
+                        <svg class="icon"><use href="#i-apple"></use></svg> 热带水果
+                    </h2>
+
+                    <div class="card-sub">便宜又新鲜</div>
+
+                    <div class="tags">
+                        <span>夜市</span>
+                        <span>路边摊</span>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+                <div class="card food-card" data-target="food-coffee">
+                    <img class="food-img" src="assets/images/food-coffee.jpg" alt="咖啡馆" loading="lazy">
+
+                    <h2 class="card-title">
+                        <svg class="icon"><use href="#i-coffee"></use></svg> 咖啡馆
+                    </h2>
+
+                    <div class="card-sub">暹粒街头咖啡</div>
+
+                    <div class="tags">
+                        <span>暹粒</span>
+                        <span>老市场周边</span>
+                    </div>
+
+                    <div class="card-more">
+                        <span class="card-arrow">›</span>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <section id="food-amok" class="page">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/food-amok.jpg" alt="阿莫克">
+                    <button class="back-top food-back" data-back="food" data-mode="zoom" aria-label="返回美食">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">FOOD</div>
+
+                    <h1>阿莫克</h1>
+
+                    <p class="food-sub">Amok · 柬埔寨国菜</p>
+
+                    <div class="tags">
+                        <span>必吃</span>
+                        <span>推荐 ⭐⭐⭐⭐⭐</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-smile"></use></svg>口感</h3>
+                    <p class="food-text">
+                        入口先是浓郁的椰香，接着是温柔的甜辣。鱼肉嫩得像布丁，酱汁顺滑，带着香茅和柠檬叶的清香。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-chef-hat"></use></svg>做法</h3>
+                    <p class="food-text">
+                        鱼肉（通常是鲈鱼或罗非鱼）用椰浆、姜黄、高良姜、柠檬叶和咖喱香料腌过，和酱汁一起装进芭蕉叶小碗，上锅蒸熟。上桌时还冒着热气，芭蕉叶的清香混着椰香一起散开。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-utensils"></use></svg>怎么吃 · 价格</h3>
+                    <p class="food-text">
+                        配米饭吃最香。街头小店约 3-4 美元，餐厅 5-6 美元。点之前可以问一句「Is it spicy?」，有些店会做得比较辣。
+                    </p>
+
+                    <button class="back-btn" data-back="food" data-mode="zoom">返回美食</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="food-loklak" class="page">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/food-lok-lak.jpg" alt="洛拉克牛肉">
+                    <button class="back-top food-back" data-back="food" data-mode="zoom" aria-label="返回美食">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">FOOD</div>
+
+                    <h1>洛拉克牛肉</h1>
+
+                    <p class="food-sub">Beef Lok Lak · 黑胡椒牛肉</p>
+
+                    <div class="tags">
+                        <span>推荐 ⭐⭐⭐⭐</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-smile"></use></svg>口感</h3>
+                    <p class="food-text">
+                        牛肉外焦里嫩，黑胡椒的辛香和青柠的酸香很开胃，酱汁咸鲜微甜，锅气十足。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-chef-hat"></use></svg>做法</h3>
+                    <p class="food-text">
+                        牛肉切粒，用鱼露、黑胡椒、蒜和青柠汁腌一会儿，下热锅大火快炒锁住肉汁。通常配煎蛋、米饭和一小碟青柠黑胡椒蘸汁一起上桌。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-utensils"></use></svg>怎么吃 · 价格</h3>
+                    <p class="food-text">
+                        用生菜叶夹着牛肉、番茄和洋葱一起吃最地道，蘸汁是灵魂。一人份约 4-7 美元。
+                    </p>
+
+                    <button class="back-btn" data-back="food" data-mode="zoom">返回美食</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="food-curry" class="page">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/food-curry.jpg" alt="高棉咖喱">
+                    <button class="back-top food-back" data-back="food" data-mode="zoom" aria-label="返回美食">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">FOOD</div>
+
+                    <h1>高棉咖喱</h1>
+
+                    <p class="food-sub">Khmer Curry · 椰香咖喱</p>
+
+                    <div class="tags">
+                        <span>推荐 ⭐⭐⭐⭐</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-smile"></use></svg>口感</h3>
+                    <p class="food-text">
+                        比泰式咖喱温和很多：椰香浓、甜味足、辣味轻，汤汁浓郁绵密，拌饭特别香。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-chef-hat"></use></svg>做法</h3>
+                    <p class="food-text">
+                        用椰浆做底，加高棉咖喱酱（香茅、姜黄、虾酱等香料调成）慢慢炖，常和鸡肉或鱼、红薯、四季豆一起煮到软烂入味。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-utensils"></use></svg>怎么吃 · 价格</h3>
+                    <p class="food-text">
+                        当地人爱用法棍蘸着吃，或者浇在米饭上。一份约 4-6 美元。
+                    </p>
+
+                    <button class="back-btn" data-back="food" data-mode="zoom">返回美食</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="food-fruit" class="page">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/food-fruit.jpg" alt="热带水果">
+                    <button class="back-top food-back" data-back="food" data-mode="zoom" aria-label="返回美食">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">FOOD</div>
+
+                    <h1>热带水果</h1>
+
+                    <p class="food-sub">便宜又新鲜</p>
+
+                    <div class="tags">
+                        <span>夜市</span>
+                        <span>路边摊</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-smile"></use></svg>口感</h3>
+                    <p class="food-text">
+                        芒果甜糯、山竹清甜、红毛丹爽口、榴莲浓郁，个个水分很足，比国内便宜不少。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-chef-hat"></use></svg>做法</h3>
+                    <p class="food-text">
+                        不用做，路边摊现挑现切。挑熟的买，让摊主帮你剥好装袋，当场就能吃。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-utensils"></use></svg>怎么吃 · 价格</h3>
+                    <p class="food-text">
+                        按个或按袋卖，1-2 美元就能买一大袋。雨季过后（10-11 月）是水果最便宜的时候，想尝鲜可以试试「辣椒盐蘸芒果」这种当地吃法。
+                    </p>
+
+                    <button class="back-btn" data-back="food" data-mode="zoom">返回美食</button>
+
+                </div>
+
+            </section>
+
+
+            <section id="food-coffee" class="page">
+
+                <div class="food-hero">
+                    <img class="food-cover" src="assets/images/food-coffee.jpg" alt="柬埔寨咖啡">
+                    <button class="back-top food-back" data-back="food" data-mode="zoom" aria-label="返回美食">
+                        <svg class="icon"><use href="#i-arrow-left"></use></svg>
+                    </button>
+                </div>
+
+                <div class="food-detail">
+
+                    <div class="eyebrow">FOOD</div>
+
+                    <h1>柬埔寨咖啡</h1>
+
+                    <p class="food-sub">暹粒街头咖啡</p>
+
+                    <div class="tags">
+                        <span>暹粒</span>
+                        <span>老市场周边</span>
+                    </div>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-smile"></use></svg>口感</h3>
+                    <p class="food-text">
+                        咖啡豆烘焙偏深，口感浓烈，带一点巧克力香。加炼乳的冰咖啡甜中带苦，很上头。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-chef-hat"></use></svg>做法</h3>
+                    <p class="food-text">
+                        当地常用滴滴壶（phin）：咖啡粉压紧，热水慢慢滴漏，一杯要等上好几分钟。冰咖啡是杯底先放炼乳，再倒热咖啡和冰块。
+                    </p>
+
+                    <h3 class="food-sec"><svg class="icon"><use href="#i-utensils"></use></svg>怎么吃 · 价格</h3>
+                    <p class="food-text">
+                        老城区咖啡馆密度很高，一杯 1-2 美元。想喝当地味道就点「Iced Coffee with Milk」（冰炼乳咖啡），慢慢等、慢慢喝。
+                    </p>
+
+                    <button class="back-btn" data-back="food" data-mode="zoom">返回美食</button>
+
+                </div>
+
+            </section>
+
+
+
+
+            <!-- 攻略 -->
+                                    <section id="guide" class="page">
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        GUIDE
+                    </div>
+
+                    <h1>攻略</h1>
+
+                    <p>
+                        行前准备与实用信息
+                    </p>
+
+                </div>
+
+                <div class="guide-nav">
+                    <button class="guide-chip" data-target="sec-visa">签证</button>
+                    <button class="guide-chip" data-target="sec-arrival">落地</button>
+                    <button class="guide-chip" data-target="sec-transport">交通</button>
+                    <button class="guide-chip" data-target="sec-phrases">常用语</button>
+                    <button class="guide-chip" data-target="sec-safety">安全</button>
+                    <button class="guide-chip" data-target="sec-checklist">清单</button>
+                    <button class="guide-chip" data-target="sec-photo">摄影</button>
+                    <button class="guide-chip" data-target="sec-budget">预算</button>
+                </div>
+
+                <div class="card guide-sec" id="sec-visa">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-badge-check"></use></svg> 签证与入境
+                    </div>
+
+                    <h2>
+                        中国护照免签*
+                    </h2>
+
+                    <p>
+                        持护照、往返机票和酒店订单即可入境。*具体以柬埔寨官方最新入境政策为准。
+                    </p>
+
+                    <div class="tags">
+                        <span>护照</span>
+                        <span>入境卡</span>
+                    </div>
+                </div>
+
+                <div class="card guide-sec" id="sec-arrival">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-plane"></use></svg> 落地流程 · 下飞机到酒店
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-num">1</span>
+                        <div><b>入境盖章</b><small>跟着 Arrival 指示走；护照 + 入境卡（飞机上填），中国护照免签</small></div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-num">2</span>
+                        <div><b>换钱</b><small>机场 ATM / 换汇柜台；美元通用，找零常给瑞尔</small></div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-num">3</span>
+                        <div><b>电话卡</b><small>机场柜台买 SIM（约 $3-5），或提前买好 eSIM</small></div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-num">4</span>
+                        <div><b>打车去市区</b><small>下载 Grab App；机场 → 市区约 $10-15，比机场出租车便宜</small></div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-num">5</span>
+                        <div><b>到酒店</b><small>出示护照 check-in；让司机跟着导航走</small></div>
+                    </div>
+                </div>
+
+                <div class="card guide-sec" id="sec-transport">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-bus"></use></svg> 交通
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-plane"></use></svg>飞机</span>
+                        <b>金边 / 暹粒机场</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-bus"></use></svg>夜间巴士</span>
+                        <b>金边 ↔ 暹粒</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-bike"></use></svg>Tuk Tuk</span>
+                        <b>市内短途首选</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-smartphone"></use></svg>Grab</span>
+                        <b>打车软件</b>
+                    </div>
+                </div>
+
+                <div class="card guide-sec" id="sec-phrases">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-languages"></use></svg> 常用语速查
+                    </div>
+
+                    <div class="phrase-item"><span class="phrase-cn">你好</span><span class="phrase-kh">Sous-dei · 苏斯代</span><span class="phrase-en">Hello</span></div>
+
+                    <div class="phrase-item"><span class="phrase-cn">谢谢</span><span class="phrase-kh">Aw-kun · 奥昆</span><span class="phrase-en">Thank you</span></div>
+
+                    <div class="phrase-item"><span class="phrase-cn">多少钱？</span><span class="phrase-kh">Tlai pohn maan?</span><span class="phrase-en">How much?</span></div>
+
+                    <div class="phrase-item"><span class="phrase-cn">太贵了</span><span class="phrase-kh">Tlai p'hai</span><span class="phrase-en">Too expensive</span></div>
+
+                    <div class="phrase-item"><span class="phrase-cn">不要辣</span><span class="phrase-kh">Min p'lai</span><span class="phrase-en">Not spicy</span></div>
+
+                    <div class="phrase-item"><span class="phrase-cn">再见</span><span class="phrase-kh">Lee-hai</span><span class="phrase-en">Goodbye</span></div>
+                </div>
+
+                <div class="card guide-sec" id="sec-safety">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-heart"></use></svg> 安全与健康
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-sun"></use></svg>防晒</span>
+                        <b>热带阳光强，防晒霜 + 帽子</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-waves"></use></svg>饮用水</span>
+                        <b>买瓶装水，别喝自来水 / 冰块</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-smile"></use></svg>防蚊</span>
+                        <b>有登革热风险，白天也要防蚊</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-banknote"></use></svg>小费</span>
+                        <b>非强制，服务好给 1-2 美元</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-smartphone"></use></svg>防骗</span>
+                        <b>Tuk Tuk 先谈好价 / 用 Grab</b>
+                    </div>
+
+                    <div class="fact">
+                        <span><svg class="icon"><use href="#i-badge-check"></use></svg>紧急电话</span>
+                        <b>急救 119 · 报警 117</b>
+                    </div>
+                </div>
+
+                <div class="card guide-sec" id="sec-checklist">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-backpack"></use></svg> 行前清单（点一点打勾）
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>护照</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>现金 / 银行卡</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>eSIM / 电话卡</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>离线地图</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>翻译软件</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>防晒霜</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>墨镜 / 帽子</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>雨具</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>相机 / 充电宝</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="checkbox"></span>
+                        <span>常用药</span>
+                    </div>
+                </div>
+
+                <div class="card guide-sec" id="sec-photo">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-camera"></use></svg> 摄影攻略
+                    </div>
+
+                    <div class="doc-item">
+                        <svg class="icon"><use href="#i-sun"></use></svg> 吴哥窟日出 · 莲花池机位
+                    </div>
+
+                    <div class="doc-item">
+                        <svg class="icon"><use href="#i-smile"></use></svg> 巴戎寺人脸 · 上午光线
+                    </div>
+
+                    <div class="doc-item">
+                        <svg class="icon"><use href="#i-tree"></use></svg> 塔普伦树根 · 侧光最美
+                    </div>
+
+                    <div class="doc-item">
+                        <svg class="icon"><use href="#i-waves"></use></svg> 洞里萨湖日落 · 浮村
+                    </div>
+
+                    <div class="doc-item">
+                        <svg class="icon"><use href="#i-camera"></use></svg> 街头人文 · 夜市
+                    </div>
+                </div>
+
+                <div class="card guide-sec" id="sec-budget">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-banknote"></use></svg> 预算计算器（单位：¥）
+                    </div>
+
+                    <div class="budget-row">
+                        <span>往返机票</span>
+                        <input class="budget-input" type="number" data-key="flight" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-row">
+                        <span>住宿（总价）</span>
+                        <input class="budget-input" type="number" data-key="hotel" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-row">
+                        <span>吴哥门票</span>
+                        <input class="budget-input" type="number" data-key="ticket" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-row">
+                        <span>交通（Tuk Tuk / 包车）</span>
+                        <input class="budget-input" type="number" data-key="transport" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-row">
+                        <span>餐饮</span>
+                        <input class="budget-input" type="number" data-key="food" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-row">
+                        <span>咖啡 / 饮品</span>
+                        <input class="budget-input" type="number" data-key="drink" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-row">
+                        <span>购物 / 手信</span>
+                        <input class="budget-input" type="number" data-key="shopping" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-row">
+                        <span>其他</span>
+                        <input class="budget-input" type="number" data-key="other" placeholder="0" min="0">
+                    </div>
+
+                    <div class="budget-total">
+                        <span>预计总花费</span>
+                        <b id="budget-total">¥ 0</b>
+                    </div>
+
+                    <button class="clear-btn" id="budget-reset">清空重算</button>
+
+                    <p class="muted">
+                        输入的数字会自动保存，下次打开还在。
+                    </p>
+                </div>
+
+            </section>
+
+
+<section id="map" class="page">
+
+                <div class="page-header">
+
+                    <div class="eyebrow">
+                        MAP
+                    </div>
+
+                    <h1>地图</h1>
+
+                    <p>
+                        标记想去的地方，自动连成路线
+                    </p>
+
+                </div>
+
+
+                <div id="map-container"></div>
+
+
+                <div class="card">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-map"></use></svg> 预设经典路线
+                    </div>
+
+                    <div class="preset-row">
+
+                        <button class="preset-btn" data-route="small">小圈</button>
+                        <button class="preset-btn" data-route="grand">大圈</button>
+                        <button class="preset-btn" data-route="outer">外圈</button>
+
+                    </div>
+
+                    <p class="muted">
+                        点一下直接生成路线；也可以自己去「景点」页点卡片右上角的心形按钮，自由组合。
+                    </p>
+
+
+                    <div id="route-detail" class="route-detail" style="display:none"></div>
+
+
+                    <button class="clear-btn" id="clear-route">清空我的路线</button>
+
+                </div>
+
+
+                <div id="map-hint" class="card">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-heart"></use></svg> 还没有标记想去的地方
+                    </div>
+
+                    <p>
+                        去「景点」页，点景点卡片右上角的心形按钮，把想去的地方加入清单；这里会自动显示在地图上，并连成一条路线。
+                    </p>
+
+                </div>
+
+
+                <div id="map-list" class="card" style="display:none">
+
+                    <div class="card-label">
+                        <svg class="icon"><use href="#i-map"></use></svg> 我的路线
+                    </div>
+
+                    <div id="route-items"></div>
+
+                    <div class="add-row">
+                        <select id="add-place-select" aria-label="添加景点">
+                            <option value="">＋ 添加景点…</option>
+                        </select>
+                        <button class="add-btn" id="add-place-btn">添加</button>
+                    </div>
+
+                    <div class="route-nav-row">
+                        <a class="route-nav-btn" id="route-nav" href="#" target="_blank">Google Maps</a>
+                        <a class="route-nav-btn amap" id="route-nav-amap" href="#" target="_blank">高德地图</a>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- 底部导航 -->
+        <nav class="bottom-nav">
+
+            <button class="nav-item active" data-page="home">
+
+                <span><svg class="icon"><use href="#i-home"></use></svg></span>
+                <small>首页</small>
+
+            </button>
+
+
+            <button class="nav-item" data-page="attractions">
+
+                <span><svg class="icon"><use href="#i-landmark"></use></svg></span>
+                <small>景点</small>
+
+            </button>
+
+
+            <button class="nav-item" data-page="food">
+
+                <span><svg class="icon"><use href="#i-utensils"></use></svg></span>
+                <small>美食</small>
+
+            </button>
+
+
+            <button class="nav-item" data-page="guide">
+
+                <span><svg class="icon"><use href="#i-book"></use></svg></span>
+                <small>攻略</small>
+
+            </button>
+
+
+            <button class="nav-item" data-page="map">
+
+                <span><svg class="icon"><use href="#i-map"></use></svg></span>
+                <small>地图</small>
+
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <script src="assets/vendor/leaflet.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
