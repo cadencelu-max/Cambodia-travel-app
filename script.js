@@ -558,6 +558,7 @@ function syncHearts() {
     document.querySelectorAll(".mark-btn").forEach(mb => {
         mb.classList.toggle("marked", wishlist.includes(mb.dataset.place));
     });
+    if (typeof renderItinerary === "function") renderItinerary();   // 红心变化时刷新行程规划
 }
 
 // 添加景点下拉框
@@ -709,3 +710,73 @@ document.querySelectorAll("#about").forEach(page => {
     });
 
 });
+
+
+// ========== 汇率换算 ==========
+const RATES = { cny: 7.2, usd: 1, khr: 4000 };   // 1 美元对应的值
+
+const curAmount = document.getElementById("cur-amount");
+const curFrom = document.getElementById("cur-from");
+
+function convertCurrency() {
+    if (!curAmount || !curFrom) return;
+    const amount = parseFloat(curAmount.value) || 0;
+    const usd = amount / RATES[curFrom.value];
+    const cny = document.getElementById("cur-cny");
+    const usdEl = document.getElementById("cur-usd");
+    const khr = document.getElementById("cur-khr");
+    if (cny) cny.textContent = "¥ " + Math.round(usd * RATES.cny).toLocaleString();
+    if (usdEl) usdEl.textContent = "$ " + (usd * RATES.usd).toFixed(2);
+    if (khr) khr.textContent = "៛ " + Math.round(usd * RATES.khr).toLocaleString();
+}
+
+if (curAmount) curAmount.addEventListener("input", convertCurrency);
+if (curFrom) curFrom.addEventListener("change", convertCurrency);
+convertCurrency();
+
+
+// ========== 行程规划：按红心分组排天数 ==========
+const ITIN_GROUPS = {
+    "金边": ["royal-palace","s21","central-market","independence-monument","national-museum","wat-phnom","riverside","russian-market","choeung-ek","wat-ounalom"],
+    "吴哥 · 小圈": ["angkor-wat","bayon","ta-prohm","banteay-kdei"],
+    "吴哥 · 大圈": ["preah-khan","neak-pean","ta-som","east-mebon","pre-rup"],
+    "吴哥 · 外圈": ["banteay-srei","beng-mealea"],
+    "暹粒城市": ["old-market","pub-street","angkor-museum","royal-gardens"],
+    "洞里萨湖": ["tonle-sap"]
+};
+
+function renderItinerary() {
+    const el = document.getElementById("itinerary-list");
+    if (!el) return;
+
+    let wish = [];
+    try { wish = JSON.parse(localStorage.getItem("wishlist") || "[]"); } catch (e) { }
+
+    if (wish.length === 0) {
+        el.innerHTML = '<p class="muted">还没有红心❤️，去「景点」页点几个想去的地方吧。</p>';
+        return;
+    }
+
+    const byGroup = {};
+    wish.forEach(key => {
+        for (const g in ITIN_GROUPS) {
+            if (ITIN_GROUPS[g].indexOf(key) >= 0) {
+                (byGroup[g] = byGroup[g] || []).push(key);
+                break;
+            }
+        }
+    });
+
+    const days = Object.keys(ITIN_GROUPS).filter(g => byGroup[g]);
+    if (days.length === 0) {
+        el.innerHTML = '<p class="muted">当前红心里的地点还排不出行程，试试点几个景点。</p>';
+        return;
+    }
+
+    el.innerHTML = days.map((g, i) => {
+        const names = byGroup[g].map(key => (PLACES[key] || {}).name || key).join("、");
+        return '<div class="itin-day"><b>第 ' + (i + 1) + " 天 · " + g + '</b><span>' + names + "</span></div>";
+    }).join("");
+}
+
+renderItinerary();

@@ -2298,3 +2298,72 @@ body.dark .about-sign b {
 
     margin-bottom: 0;
 }
+
+
+/* 汇率换算 */
+
+.convert-select {
+    width: 130px;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgba(0,0,0,0.1);
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    background: white;
+
+    color: #1d1d1f;
+}
+
+.currency-results .fact b {
+    font-size: 16px;
+}
+
+/* 行程规划 */
+
+.itin-day {
+    padding: 11px 0;
+
+    border-bottom: 1px solid #e5e5ea;
+}
+
+.itin-day:last-child {
+    border-bottom: none;
+}
+
+.itin-day b {
+    display: block;
+
+    font-size: 14px;
+}
+
+.itin-day span {
+    display: block;
+
+    font-size: 13px;
+
+    color: #3a3a3c;
+
+    margin-top: 2px;
+
+    line-height: 1.6;
+}
+
+body.dark .convert-select {
+    background: #2c2c2e;
+
+    color: #f2f2f7;
+
+    border-color: rgba(255,255,255,0.15);
+}
+
+body.dark .itin-day {
+    border-color: rgba(255,255,255,0.08);
+}
+
+body.dark .itin-day span {
+    color: #d1d1d6;
+}
