@@ -821,3 +821,18 @@ if (currencyToggle) {
         }, 400);
     });
 }
+
+
+// ========== 助手页：快捷标签跳转 ==========
+document.querySelectorAll(".guide-chip").forEach(chip => {
+
+    chip.addEventListener("click", () => {
+
+        const target = document.getElementById(chip.dataset.target);
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+    });
+
+});
