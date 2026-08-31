@@ -56,6 +56,7 @@
             <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15"/><path d="M15 6v15"/></symbol>
             <symbol id="i-footprints" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/></symbol>
             <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+            <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
             <symbol id="i-hospital" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M10 8h4"/><path d="M12 6v4"/></symbol>
             <symbol id="i-heart" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
             <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
@@ -67,6 +68,18 @@
         <button class="tool-toggle" id="currency-toggle" aria-label="汇率换算">
             <svg class="icon"><use href="#i-banknote"></use></svg>
         </button>
+
+        <button class="tool-toggle" id="lang-toggle" aria-label="语言 / Language">
+            <svg class="icon"><use href="#i-globe"></use></svg>
+        </button>
+
+        <div class="lang-menu" id="lang-menu">
+            <button data-lang="zh">中文</button>
+            <button data-lang="en">English</button>
+            <button data-lang="es">Español</button>
+            <button data-lang="ja">日本語</button>
+            <div class="lang-note" data-i18n="lang.note">翻译可能存在误差，请以中文为准</div>
+        </div>
 
         <button class="theme-toggle" id="dark-toggle" aria-label="切换深色模式">
             <svg class="icon icon-moon"><use href="#i-moon"></use></svg>
@@ -87,7 +100,7 @@
                         🇰🇭 CAMBODIA TRAVEL GUIDE
                     </div>
 
-                    <h1>
+                    <h1 data-i18n-html="home.title">
                         探索<br>柬埔寨
                     </h1>
                 </div>
@@ -143,43 +156,43 @@
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-badge-check"></use></svg>签证</span>
-                        <b>中国护照免签*</b>
+                        <span><svg class="icon"><use href="#i-badge-check"></use></svg><span data-i18n="qf.visa">签证</span></span>
+                        <b data-i18n="qf.visaV">中国护照免签*</b>
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-banknote"></use></svg>货币</span>
-                        <b>瑞尔 · 美元通用</b>
+                        <span><svg class="icon"><use href="#i-banknote"></use></svg><span data-i18n="qf.money">货币</span></span>
+                        <b data-i18n="qf.moneyV">瑞尔 · 美元通用</b>
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-languages"></use></svg>语言</span>
-                        <b>高棉语 · 英语普及</b>
+                        <span><svg class="icon"><use href="#i-languages"></use></svg><span data-i18n="qf.lang">语言</span></span>
+                        <b data-i18n="qf.langV">高棉语 · 英语普及</b>
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-sun"></use></svg>最佳季节</span>
-                        <b>11月—次年2月</b>
+                        <span><svg class="icon"><use href="#i-sun"></use></svg><span data-i18n="qf.season">最佳季节</span></span>
+                        <b data-i18n="qf.seasonV">11月—次年2月</b>
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-history"></use></svg>时差</span>
-                        <b>比北京晚 1 小时</b>
+                        <span><svg class="icon"><use href="#i-history"></use></svg><span data-i18n="qf.tz">时差</span></span>
+                        <b data-i18n="qf.tzV">比北京晚 1 小时</b>
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-smartphone"></use></svg>插座</span>
-                        <b>两脚扁插座，国内通用</b>
+                        <span><svg class="icon"><use href="#i-smartphone"></use></svg><span data-i18n="qf.plug">插座</span></span>
+                        <b data-i18n="qf.plugV">两脚扁插座，国内通用</b>
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-banknote"></use></svg>小费</span>
-                        <b>非强制，服务好给 1-2 美元</b>
+                        <span><svg class="icon"><use href="#i-banknote"></use></svg><span data-i18n="qf.tip">小费</span></span>
+                        <b data-i18n="qf.tipV">非强制，服务好给 1-2 美元</b>
                     </div>
 
                     <div class="fact">
-                        <span><svg class="icon"><use href="#i-waves"></use></svg>饮用水</span>
-                        <b>买瓶装水，别喝自来水</b>
+                        <span><svg class="icon"><use href="#i-waves"></use></svg><span data-i18n="qf.water">饮用水</span></span>
+                        <b data-i18n="qf.waterV">买瓶装水，别喝自来水</b>
                     </div>
 
                 </div>
@@ -213,9 +226,9 @@
 
                     <div>
 
-                        <h2>关于这个 App</h2>
+                        <h2 data-i18n="home.about">关于这个 App</h2>
 
-                        <p>我的第一个编程作品</p>
+                        <p data-i18n="home.aboutSub">我的第一个编程作品</p>
 
                     </div>
 
@@ -313,7 +326,7 @@
                         ATTRACTIONS
                     </div>
 
-                    <h1>景点</h1>
+                    <h1 data-i18n="page.attractions">景点</h1>
 
                     <p>
                         选择一个城市开始探索
@@ -2760,7 +2773,7 @@
                         FOOD
                     </div>
 
-                    <h1>美食</h1>
+                    <h1 data-i18n="page.food">美食</h1>
 
                     <p>
                         高棉风味，好吃不贵
@@ -3094,7 +3107,7 @@
                         ASSISTANT
                     </div>
 
-                    <h1>助手</h1>
+                    <h1 data-i18n="page.guide">助手</h1>
 
                     <p>
                         行前准备 · 工具 · 知识速查
@@ -3104,21 +3117,21 @@
 
                 
 <div class="guide-nav">
-                    <button class="guide-chip" data-target="sec-visa">签证</button>
-                    <button class="guide-chip" data-target="sec-arrival">落地</button>
-                    <button class="guide-chip" data-target="sec-checklist">清单</button>
-                    <button class="guide-chip" data-target="sec-weather">天气</button>
-                    <button class="guide-chip" data-target="sec-emergency">紧急</button>
-                    <button class="guide-chip" data-target="sec-currency">汇率</button>
-                    <button class="guide-chip" data-target="sec-budget">预算</button>
-                    <button class="guide-chip" data-target="sec-itinerary">行程</button>
-                    <button class="guide-chip" data-target="sec-transport">交通</button>
-                    <button class="guide-chip" data-target="sec-phrases">常用语</button>
-                    <button class="guide-chip" data-target="sec-safety">安全</button>
+                    <button class="guide-chip" data-target="sec-visa"><span data-i18n="chip.visa">签证</span></button>
+                    <button class="guide-chip" data-target="sec-arrival"><span data-i18n="chip.arrival">落地</span></button>
+                    <button class="guide-chip" data-target="sec-checklist"><span data-i18n="chip.checklist">清单</span></button>
+                    <button class="guide-chip" data-target="sec-weather"><span data-i18n="chip.weather">天气</span></button>
+                    <button class="guide-chip" data-target="sec-emergency"><span data-i18n="chip.emergency">紧急</span></button>
+                    <button class="guide-chip" data-target="sec-currency"><span data-i18n="chip.currency">汇率</span></button>
+                    <button class="guide-chip" data-target="sec-budget"><span data-i18n="chip.budget">预算</span></button>
+                    <button class="guide-chip" data-target="sec-itinerary"><span data-i18n="chip.itinerary">行程</span></button>
+                    <button class="guide-chip" data-target="sec-transport"><span data-i18n="chip.transport">交通</span></button>
+                    <button class="guide-chip" data-target="sec-phrases"><span data-i18n="chip.phrases">常用语</span></button>
+                    <button class="guide-chip" data-target="sec-safety"><span data-i18n="chip.safety">安全</span></button>
                 </div>
 
                 <div class="section-head">
-                    <svg class="icon"><use href="#i-backpack"></use></svg> 行前准备
+                    <svg class="icon"><use href="#i-backpack"></use></svg> <span data-i18n="grp.prep">行前准备</span>
                 </div>
 
 <div class="card guide-sec" id="sec-visa">
@@ -3310,7 +3323,7 @@
                 </div>
 
                 <div class="section-head">
-                    <svg class="icon"><use href="#i-banknote"></use></svg> 实用工具
+                    <svg class="icon"><use href="#i-banknote"></use></svg> <span data-i18n="grp.tools">实用工具</span>
                 </div>
 
 <div class="card guide-sec" id="sec-currency">
@@ -3370,14 +3383,14 @@
 
                     <div class="ledger-row">
                         <input class="budget-input ledger-amount" type="number" id="ledger-amount" placeholder="金额" min="0">
-                        <button class="add-btn" id="ledger-add">记一笔</button>
+                        <button class="add-btn" id="ledger-add" data-i18n="btn.ledgerAdd">记一笔</button>
                     </div>
 
                     <div id="ledger-list"></div>
 
                     <div id="ledger-total"></div>
 
-                    <button class="clear-btn" id="ledger-clear">清空账单</button>
+                    <button class="clear-btn" id="ledger-clear" data-i18n="btn.ledgerClear">清空账单</button>
 
                     <p class="muted">
                         每笔按你实际支付的货币记录，不用手动换算；合计会按币种分别显示，并折合人民币参考。
@@ -3401,7 +3414,7 @@
                 </div>
 
                 <div class="section-head">
-                    <svg class="icon"><use href="#i-book"></use></svg> 知识速查
+                    <svg class="icon"><use href="#i-book"></use></svg> <span data-i18n="grp.know">知识速查</span>
                 </div>
 
 <div class="card guide-sec" id="sec-transport">
@@ -3498,7 +3511,7 @@
                         MAP
                     </div>
 
-                    <h1>地图</h1>
+                    <h1 data-i18n="page.map">地图</h1>
 
                     <p>
                         标记想去的地方，自动连成路线
@@ -3562,7 +3575,7 @@
                         <select id="add-place-select" aria-label="添加景点">
                             <option value="">＋ 添加景点…</option>
                         </select>
-                        <button class="add-btn" id="add-place-btn">添加</button>
+                        <button class="add-btn" id="add-place-btn" data-i18n="btn.add">添加</button>
                     </div>
 
                     <div class="route-nav-row">
@@ -3583,7 +3596,7 @@
 <button class="nav-item" data-page="attractions">
 
                 <span><svg class="icon"><use href="#i-landmark"></use></svg></span>
-                <small>景点</small>
+                <small data-i18n="nav.attractions">景点</small>
 
             </button>
 
@@ -3591,7 +3604,7 @@
 <button class="nav-item" data-page="food">
 
                 <span><svg class="icon"><use href="#i-utensils"></use></svg></span>
-                <small>美食</small>
+                <small data-i18n="nav.food">美食</small>
 
             </button>
 
@@ -3599,7 +3612,7 @@
 <button class="nav-item active" data-page="home">
 
                 <span><svg class="icon"><use href="#i-home"></use></svg></span>
-                <small>首页</small>
+                <small data-i18n="nav.home">首页</small>
 
             </button>
 
@@ -3607,7 +3620,7 @@
 <button class="nav-item" data-page="guide">
 
                 <span><svg class="icon"><use href="#i-book"></use></svg></span>
-                <small>助手</small>
+                <small data-i18n="nav.guide">助手</small>
 
             </button>
 
@@ -3615,7 +3628,7 @@
 <button class="nav-item" data-page="map">
 
                 <span><svg class="icon"><use href="#i-map"></use></svg></span>
-                <small>地图</small>
+                <small data-i18n="nav.map">地图</small>
 
             </button>
 
@@ -3633,6 +3646,8 @@
             });
         }
     </script>
+
+    <script src="i18n.js"></script>
 
     <script src="data.js"></script>
 

@@ -2520,3 +2520,96 @@ body.dark .ledger-del {
 
     color: #d1d1d6;
 }
+
+
+/* 语言切换按钮（右上角第三个） */
+
+#lang-toggle {
+    right: 108px;
+}
+
+.lang-menu {
+    position: fixed;
+
+    top: calc(58px + env(safe-area-inset-top));
+
+    right: 12px;
+
+    z-index: 210;
+
+    min-width: 150px;
+
+    background: rgba(255,255,255,0.96);
+
+    border: 1px solid rgba(0,0,0,0.08);
+
+    border-radius: 14px;
+
+    box-shadow: 0 8px 30px rgba(0,0,0,0.14);
+
+    padding: 6px;
+
+    display: none;
+}
+
+.lang-menu.open {
+    display: block;
+}
+
+.lang-menu button {
+    display: block;
+
+    width: 100%;
+
+    text-align: left;
+
+    padding: 9px 12px;
+
+    border: none;
+
+    background: none;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    color: #1d1d1f;
+
+    cursor: pointer;
+}
+
+.lang-menu button:hover {
+    background: #f2f2f7;
+}
+
+.lang-note {
+    font-size: 11px;
+
+    color: #8e8e93;
+
+    padding: 8px 12px 4px;
+
+    border-top: 1px solid #e5e5ea;
+
+    margin-top: 4px;
+}
+
+body.dark .lang-menu {
+    background: rgba(28,28,30,0.96);
+
+    border-color: rgba(255,255,255,0.12);
+}
+
+body.dark .lang-menu button {
+    color: #f2f2f7;
+}
+
+body.dark .lang-menu button:hover {
+    background: #2c2c2e;
+}
+
+body.dark .lang-note {
+    color: #9a9aa0;
+
+    border-color: rgba(255,255,255,0.1);
+}
