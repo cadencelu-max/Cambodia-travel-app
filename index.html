@@ -9,6 +9,12 @@
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <meta name="theme-color" content="#e05c3a">
+
+    <link rel="apple-touch-icon" href="icon-192.png">
+
     <link rel="stylesheet" href="style.css">
 
     <link
@@ -3517,6 +3523,16 @@
 
 
     <script src="assets/vendor/leaflet.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(() => {});
+            });
+        }
+    </script>
+
+    <script src="data.js"></script>
 
     <script src="script.js"></script>
 

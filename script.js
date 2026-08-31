@@ -1,7 +1,6 @@
 const navItems = document.querySelectorAll(".nav-item");
 const pages = document.querySelectorAll(".page");
 
-
 // 显示某个页面（带滑动翻页动画），并让底部导航高亮对应标签
 // dir 传 "back" 表示返回（旧页面往右滑走、新页面从左边滑入），否则前进/切换
 function showPage(id, activeNavId, dir, mode) {
@@ -42,7 +41,6 @@ function showPage(id, activeNavId, dir, mode) {
         setTimeout(() => { if (map) map.invalidateSize(); }, 360);
     }
 
-
     // 动画结束后清理临时状态
     setTimeout(() => {
 
@@ -53,7 +51,6 @@ function showPage(id, activeNavId, dir, mode) {
         });
 
     }, 330);
-
 
     // 底部导航高亮
     navItems.forEach(nav => {
@@ -68,14 +65,12 @@ function showPage(id, activeNavId, dir, mode) {
         navBtn.classList.add("active");
     }
 
-
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 
 }
-
 
 // 底部导航：点击切换页面
 navItems.forEach(item => {
@@ -88,10 +83,8 @@ navItems.forEach(item => {
 
 });
 
-
 // 攻略页：行前清单，点一下打勾 / 再点取消（勾选状态会自动记住）
 const checkItems = document.querySelectorAll(".check-item");
-
 
 function saveCheck(index, checked) {
     try {
@@ -99,13 +92,11 @@ function saveCheck(index, checked) {
     } catch (e) { /* 某些浏览器本地打开时不允许存储，忽略即可 */ }
 }
 
-
 function loadCheck(index) {
     try {
         return localStorage.getItem("check-" + index) === "1";
     } catch (e) { return false; }
 }
-
 
 // 打开页面时，恢复上次的勾选
 checkItems.forEach((item, index) => {
@@ -124,14 +115,12 @@ checkItems.forEach((item, index) => {
 
 });
 
-
 // 首页轮播：每 4 秒自动切换一张
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".slider-dots .dot");
 const slider = document.querySelector(".hero-slider");
 const slideTitle = document.querySelector(".hero-slider .image-overlay strong");
 let currentSlide = 0;
-
 
 // 切到第 index 张图（同时更新圆点和标题）
 function goToSlide(index) {
@@ -154,14 +143,12 @@ function goToSlide(index) {
 
 }
 
-
 // 自动轮播
 setInterval(() => {
 
     goToSlide((currentSlide + 1) % slides.length);
 
 }, 4000);
-
 
 // 左右滑动切换（手机触摸 / 电脑拖拽都支持）
 let swipeStartX = null;
@@ -196,7 +183,6 @@ slider.addEventListener("pointerup", (e) => {
 
 });
 
-
 // 景点页：点击城市卡片 → 打开对应子页面
 document.querySelectorAll(".place-card").forEach(card => {
 
@@ -207,7 +193,6 @@ document.querySelectorAll(".place-card").forEach(card => {
     });
 
 });
-
 
 // 美食页：点击卡片 → 放大进入对应子页面
 document.querySelectorAll(".food-card").forEach(card => {
@@ -220,7 +205,6 @@ document.querySelectorAll(".food-card").forEach(card => {
 
 });
 
-
 // 景点卡片：点击 → 放大进入详情页
 document.querySelectorAll(".attraction-card").forEach(card => {
 
@@ -232,7 +216,6 @@ document.querySelectorAll(".attraction-card").forEach(card => {
 
 });
 
-
 // 子页面返回按钮
 document.querySelectorAll(".back-btn, .back-top").forEach(btn => {
 
@@ -243,7 +226,6 @@ document.querySelectorAll(".back-btn, .back-top").forEach(btn => {
     });
 
 });
-
 
 // 景点子页面：向右滑动返回上一层（像 iPhone 返回手势）
 document.querySelectorAll("[id^='attraction-']").forEach(page => {
@@ -281,7 +263,6 @@ document.querySelectorAll("[id^='attraction-']").forEach(page => {
 
 });
 
-
 // 美食子页面：向右滑动返回上一层（放大动画返回）
 document.querySelectorAll("[id^='food-']").forEach(page => {
 
@@ -316,41 +297,9 @@ document.querySelectorAll("[id^='food-']").forEach(page => {
 
 });
 
-
 // ========== 想去清单 + 地图路线 ==========
 
 // 各景点坐标（约值）
-const PLACES = {
-    "angkor-wat":    { name: "吴哥窟",       en: "Angkor Wat",   lat: 13.4125, lng: 103.8670 },
-    "bayon":         { name: "巴戎寺",       en: "Bayon",        lat: 13.4410, lng: 103.8590 },
-    "ta-prohm":      { name: "塔普伦寺",     en: "Ta Prohm",     lat: 13.4348, lng: 103.8890 },
-    "banteay-srei":  { name: "女王宫",       en: "Banteay Srei", lat: 13.5989, lng: 103.9630 },
-    "royal-palace":  { name: "金边大皇宫",   en: "Royal Palace", lat: 11.5655, lng: 104.9310 },
-    "s21":           { name: "S21 监狱博物馆", en: "S21",        lat: 11.5478, lng: 104.9163 },
-    "tonle-sap":     { name: "洞里萨湖",     en: "Tonle Sap",    lat: 13.2560, lng: 103.8280 },
-    "banteay-kdei":  { name: "班黛喀蒂",     en: "Banteay Kdei", lat: 13.4330, lng: 103.8980 },
-    "preah-khan":    { name: "圣剑寺",       en: "Preah Khan",   lat: 13.4189, lng: 103.8729 },
-    "neak-pean":     { name: "龙蟠水池",     en: "Neak Pean",    lat: 13.4443, lng: 103.8955 },
-    "ta-som":        { name: "塔逊寺",       en: "Ta Som",       lat: 13.4643, lng: 103.9136 },
-    "east-mebon":    { name: "东梅奔",       en: "East Mebon",   lat: 13.4463, lng: 103.9200 },
-    "pre-rup":       { name: "比粒寺",       en: "Pre Rup",      lat: 13.4254, lng: 103.9213 },
-    "beng-mealea":   { name: "崩密列",       en: "Beng Mealea",  lat: 13.4766, lng: 104.2233 },
-
-    // 暹粒城市
-    "old-market":    { name: "老市场",       en: "Old Market",   lat: 13.3622, lng: 103.8593 },
-    "pub-street":    { name: "酒吧街",       en: "Pub Street",   lat: 13.3559, lng: 103.8593 },
-    "angkor-museum": { name: "吴哥国家博物馆", en: "Angkor National Museum", lat: 13.3652, lng: 103.8572 },
-    "central-market": { name: "中央市场", en: "Central Market", lat: 11.5625, lng: 104.9175 },
-    "independence-monument": { name: "独立纪念碑", en: "Independence Monument", lat: 11.5545, lng: 104.928 },
-    "national-museum": { name: "国家博物馆", en: "National Museum", lat: 11.5657, lng: 104.929 },
-    "wat-phnom": { name: "塔山寺", en: "Wat Phnom", lat: 11.5766, lng: 104.923 },
-    "riverside": { name: "湄公河畔", en: "Sisowath Quay", lat: 11.567, lng: 104.932 },
-    "russian-market": { name: "俄式市场", en: "Russian Market", lat: 11.5435, lng: 104.924 },
-    "choeung-ek": { name: "钟屋屠杀场", en: "Choeung Ek", lat: 11.4844, lng: 104.9 },
-    "wat-ounalom": { name: "乌那隆寺", en: "Wat Ounalom", lat: 11.57, lng: 104.927 },
-    "royal-gardens": { name: "皇家花园",     en: "Royal Gardens", lat: 13.3620, lng: 103.8550 }
-};
-
 
 // 想去清单（存在浏览器里）
 let wishlist = loadWishlist();
@@ -374,7 +323,6 @@ function saveWishlist() {
         localStorage.setItem("wishlist", JSON.stringify(wishlist));
     } catch (e) { /* 忽略 */ }
 }
-
 
 // 景点卡片右上角的"想去"心形按钮
 document.querySelectorAll(".mark-btn").forEach(btn => {
@@ -412,7 +360,6 @@ document.querySelectorAll(".mark-btn").forEach(btn => {
 
 });
 
-
 // 地图（Leaflet + OpenStreetMap）
 let map = null;
 let routeLayer = null;
@@ -432,7 +379,6 @@ function initMap() {
     routeLayer = L.featureGroup().addTo(map);
 
 }
-
 
 // 根据想去清单刷新地图上的标记和路线
 function updateMap() {
@@ -481,7 +427,6 @@ function updateMap() {
         map.setView([12.5, 104.8], 7);
 
     }
-
 
     // 更新地图页提示 / 路线列表
     const hint = document.getElementById("map-hint");
@@ -534,47 +479,11 @@ function updateMap() {
 
 }
 
-
 // 页面加载时先初始化地图（切到地图页时会重新校准尺寸）
 initMap();
 updateMap();
 
-
 // ========== 预设经典路线 ==========
-
-const ROUTES = {
-    "small": {
-        name: "小圈",
-        keys: ["angkor-wat", "bayon", "ta-prohm", "banteay-kdei"],
-        hours: "约 4-6 小时",
-        transport: [
-            { icon: "i-bus", mode: "TukTuk / 汽车", time: "约 4-6 小时", note: "最省力，司机在景点外等候" },
-            { icon: "i-bike", mode: "租电动车", time: "约 4-6 小时", note: "自由灵活，注意防晒补水" },
-            { icon: "i-footprints", mode: "徒步", time: "不推荐", note: "全程约 17km，走完全程太累" }
-        ]
-    },
-    "grand": {
-        name: "大圈",
-        keys: ["angkor-wat", "preah-khan", "neak-pean", "ta-som", "east-mebon", "pre-rup"],
-        hours: "约 6-8 小时",
-        transport: [
-            { icon: "i-bus", mode: "TukTuk / 汽车", time: "约 6-8 小时", note: "需包车或全天 TukTuk" },
-            { icon: "i-bike", mode: "租电动车", time: "约 6-8 小时", note: "路途较长，备好水和电" },
-            { icon: "i-footprints", mode: "徒步", time: "不推荐", note: "全程约 26km，不现实" }
-        ]
-    },
-    "outer": {
-        name: "外圈",
-        keys: ["banteay-srei", "beng-mealea"],
-        hours: "约 8-10 小时（一整天）",
-        transport: [
-            { icon: "i-bus", mode: "包车 / 汽车", time: "约 8-10 小时", note: "距离远，必须包车" },
-            { icon: "i-bike", mode: "租电动车", time: "不建议", note: "路程超过 60km，太远" },
-            { icon: "i-footprints", mode: "徒步", time: "不可能", note: "距离太远，别想了" }
-        ]
-    }
-};
-
 
 // 显示某条路线的耗时 + 交通方式详情
 function renderRouteDetail(route) {
@@ -599,7 +508,6 @@ function renderRouteDetail(route) {
 
 }
 
-
 // 一键应用某条预设路线
 document.querySelectorAll(".preset-btn").forEach(btn => {
 
@@ -619,7 +527,6 @@ document.querySelectorAll(".preset-btn").forEach(btn => {
     });
 
 });
-
 
 // 清空我的路线
 const clearRouteBtn = document.getElementById("clear-route");
@@ -643,7 +550,6 @@ if (clearRouteBtn) {
     });
 
 }
-
 
 // ========== 我的路线：在列表里直接添加 / 删除景点 ==========
 
@@ -723,7 +629,6 @@ if (routeItemsEl) {
 
 }
 
-
 // ========== 预算计算器 ==========
 const budgetInputs = document.querySelectorAll(".budget-input");
 const budgetTotal = document.getElementById("budget-total");
@@ -757,7 +662,6 @@ if (budgetReset) {
 }
 calcBudget();
 
-
 // ========== 攻略页：快捷跳转 ==========
 document.querySelectorAll(".guide-chip").forEach(chip => {
 
@@ -771,7 +675,6 @@ document.querySelectorAll(".guide-chip").forEach(chip => {
     });
 
 });
-
 
 // ========== 深色模式（全局右上角开关） ==========
 const darkToggle = document.getElementById("dark-toggle");
