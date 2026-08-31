@@ -2620,7 +2620,7 @@ body.dark .lang-note {
 .disclaimer {
     font-size: 11px;
 
-    line-height: 1.5;
+    line-height: 26px;
 
     color: #a0a0a6;
 
@@ -2630,11 +2630,26 @@ body.dark .lang-note {
 
     border-radius: 10px;
 
-    padding: 8px 12px;
-
     margin-bottom: 16px;
 
-    padding-right: 150px;   /* 给右上角按钮让位 */
+    overflow: hidden;
+
+    white-space: nowrap;
+}
+
+.disclaimer-track {
+    display: inline-block;
+
+    animation: disclaimer-scroll 24s linear infinite;
+}
+
+.disclaimer-track span {
+    padding-right: 80px;
+}
+
+@keyframes disclaimer-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
 }
 
 body.dark .disclaimer {

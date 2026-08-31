@@ -15,7 +15,7 @@ const I18N = {
     "chip.currency": "汇率", "chip.budget": "记账", "chip.itinerary": "行程", "chip.transport": "交通", "chip.phrases": "常用语", "chip.safety": "安全",
     "btn.add": "添加", "btn.ledgerAdd": "记一笔", "btn.ledgerClear": "清空账单",
     "lang.note": "翻译可能存在误差，请以中文为准",
-    "app.disclaimer": "本应用内容仅供参考，信息可能变更或过时；出行前请以官方最新信息为准。"
+    "app.disclaimer": "本应用内容仅供参考，信息可能变更或过时，请勿将其作为单一信息渠道来源；出行前请以官方最新信息为准。"
   },
   en: {
     "nav.home": "Home", "nav.attractions": "Attractions", "nav.food": "Food", "nav.guide": "Assistant", "nav.map": "Map",
@@ -31,7 +31,7 @@ const I18N = {
     "chip.currency": "FX", "chip.budget": "Ledger", "chip.itinerary": "Plan", "chip.transport": "Transport", "chip.phrases": "Phrases", "chip.safety": "Safety",
     "btn.add": "Add", "btn.ledgerAdd": "Add entry", "btn.ledgerClear": "Clear ledger",
     "lang.note": "Translations may contain errors; Chinese is authoritative.",
-    "app.disclaimer": "This app is for reference only. Information may change — please verify with official sources before travelling."
+    "app.disclaimer": "This app is for reference only. Information may change or become outdated — do not use it as your only source. Please verify with official channels before travelling."
   }
 };
 
