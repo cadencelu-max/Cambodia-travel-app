@@ -2613,3 +2613,34 @@ body.dark .lang-note {
 
     border-color: rgba(255,255,255,0.1);
 }
+
+
+/* 免责声明条 */
+
+.disclaimer {
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    color: #a0a0a6;
+
+    background: rgba(255,255,255,0.5);
+
+    border: 1px solid rgba(0,0,0,0.04);
+
+    border-radius: 10px;
+
+    padding: 8px 12px;
+
+    margin-bottom: 16px;
+
+    padding-right: 150px;   /* 给右上角按钮让位 */
+}
+
+body.dark .disclaimer {
+    color: #7c7c82;
+
+    background: rgba(28,28,30,0.4);
+
+    border-color: rgba(255,255,255,0.06);
+}
