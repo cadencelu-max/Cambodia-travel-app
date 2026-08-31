@@ -64,6 +64,10 @@
         </svg>
 
         <!-- 页面内容 -->
+        <button class="tool-toggle" id="currency-toggle" aria-label="汇率换算">
+            <svg class="icon"><use href="#i-banknote"></use></svg>
+        </button>
+
         <button class="theme-toggle" id="dark-toggle" aria-label="切换深色模式">
             <svg class="icon icon-moon"><use href="#i-moon"></use></svg>
             <svg class="icon icon-sun"><use href="#i-sun"></use></svg>
@@ -3111,7 +3115,6 @@
                     <button class="guide-chip" data-target="sec-transport">交通</button>
                     <button class="guide-chip" data-target="sec-phrases">常用语</button>
                     <button class="guide-chip" data-target="sec-safety">安全</button>
-                    <button class="guide-chip" data-target="sec-photo">摄影</button>
                 </div>
 
                 <div class="section-head">
@@ -3125,11 +3128,11 @@
                     </div>
 
                     <h2>
-                        中国护照免签*
+                        中国护照免签（临时政策）
                     </h2>
 
                     <p>
-                        持护照、往返机票和酒店订单即可入境。*具体以柬埔寨官方最新入境政策为准。
+                        目前中国护照可免签入境，但这是<b>临时政策</b>（截至 2026 年 10 月 15 日），之后可能恢复签证要求。出发前请务必查询柬埔寨官方最新入境政策。
                     </p>
 
                     <div class="tags">
@@ -3141,7 +3144,7 @@
 <div class="card guide-sec" id="sec-arrival">
 
                     <div class="card-label">
-                        <svg class="icon"><use href="#i-plane"></use></svg> 落地流程 · 下飞机到酒店
+                        <svg class="icon"><use href="#i-plane"></use></svg> 落地流程
                     </div>
 
                     <div class="step-item">
@@ -3166,7 +3169,7 @@
 
                     <div class="step-item">
                         <span class="step-num">5</span>
-                        <div><b>到酒店</b><small>出示护照 check-in；让司机跟着导航走</small></div>
+                        <div><b>到目的地</b><small>去酒店或市区：出示护照 check-in，让司机跟着导航走</small></div>
                     </div>
                 </div>
 
@@ -3342,63 +3345,46 @@
 
                 </div>
 
-<div class="card guide-sec" id="sec-budget">
+                <div class="card guide-sec" id="sec-budget">
 
                     <div class="card-label">
-                        <svg class="icon"><use href="#i-banknote"></use></svg> 预算计算器（单位：¥）
+                        <svg class="icon"><use href="#i-banknote"></use></svg> 记账 · 多货币
                     </div>
 
-                    <div class="budget-row">
-                        <span>往返机票</span>
-                        <input class="budget-input" type="number" data-key="flight" placeholder="0" min="0">
+                    <div class="ledger-row">
+                        <select class="convert-select" id="ledger-cat">
+                            <option>住宿</option>
+                            <option>餐饮</option>
+                            <option>交通</option>
+                            <option>门票</option>
+                            <option>购物</option>
+                            <option>其他</option>
+                        </select>
+
+                        <select class="convert-select" id="ledger-cur">
+                            <option value="cny">¥ 人民币</option>
+                            <option value="usd" selected>$ 美元</option>
+                            <option value="khr">៛ 瑞尔</option>
+                        </select>
                     </div>
 
-                    <div class="budget-row">
-                        <span>住宿（总价）</span>
-                        <input class="budget-input" type="number" data-key="hotel" placeholder="0" min="0">
+                    <div class="ledger-row">
+                        <input class="budget-input ledger-amount" type="number" id="ledger-amount" placeholder="金额" min="0">
+                        <button class="add-btn" id="ledger-add">记一笔</button>
                     </div>
 
-                    <div class="budget-row">
-                        <span>吴哥门票</span>
-                        <input class="budget-input" type="number" data-key="ticket" placeholder="0" min="0">
-                    </div>
+                    <div id="ledger-list"></div>
 
-                    <div class="budget-row">
-                        <span>交通（Tuk Tuk / 包车）</span>
-                        <input class="budget-input" type="number" data-key="transport" placeholder="0" min="0">
-                    </div>
+                    <div id="ledger-total"></div>
 
-                    <div class="budget-row">
-                        <span>餐饮</span>
-                        <input class="budget-input" type="number" data-key="food" placeholder="0" min="0">
-                    </div>
-
-                    <div class="budget-row">
-                        <span>咖啡 / 饮品</span>
-                        <input class="budget-input" type="number" data-key="drink" placeholder="0" min="0">
-                    </div>
-
-                    <div class="budget-row">
-                        <span>购物 / 手信</span>
-                        <input class="budget-input" type="number" data-key="shopping" placeholder="0" min="0">
-                    </div>
-
-                    <div class="budget-row">
-                        <span>其他</span>
-                        <input class="budget-input" type="number" data-key="other" placeholder="0" min="0">
-                    </div>
-
-                    <div class="budget-total">
-                        <span>预计总花费</span>
-                        <b id="budget-total">¥ 0</b>
-                    </div>
-
-                    <button class="clear-btn" id="budget-reset">清空重算</button>
+                    <button class="clear-btn" id="ledger-clear">清空账单</button>
 
                     <p class="muted">
-                        输入的数字会自动保存，下次打开还在。
+                        每笔按你实际支付的货币记录，不用手动换算；合计会按币种分别显示，并折合人民币参考。
                     </p>
+
                 </div>
+
 
 <div class="card guide-sec" id="sec-itinerary">
 
@@ -3501,34 +3487,7 @@
                     </div>
                 </div>
 
-<div class="card guide-sec" id="sec-photo">
-
-                    <div class="card-label">
-                        <svg class="icon"><use href="#i-camera"></use></svg> 摄影攻略
-                    </div>
-
-                    <div class="doc-item">
-                        <svg class="icon"><use href="#i-sun"></use></svg> 吴哥窟日出 · 莲花池机位
-                    </div>
-
-                    <div class="doc-item">
-                        <svg class="icon"><use href="#i-smile"></use></svg> 巴戎寺人脸 · 上午光线
-                    </div>
-
-                    <div class="doc-item">
-                        <svg class="icon"><use href="#i-tree"></use></svg> 塔普伦树根 · 侧光最美
-                    </div>
-
-                    <div class="doc-item">
-                        <svg class="icon"><use href="#i-waves"></use></svg> 洞里萨湖日落 · 浮村
-                    </div>
-
-                    <div class="doc-item">
-                        <svg class="icon"><use href="#i-camera"></use></svg> 街头人文 · 夜市
-                    </div>
-                </div>
-
-            </section>
+</section>
 
 
 <section id="map" class="page">

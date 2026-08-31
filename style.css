@@ -2367,3 +2367,156 @@ body.dark .itin-day {
 body.dark .itin-day span {
     color: #d1d1d6;
 }
+
+
+/* 汇率小图标按钮（与深色按钮并列） */
+
+.tool-toggle {
+    position: fixed;
+
+    top: calc(12px + env(safe-area-inset-top));
+
+    right: 60px;
+
+    z-index: 200;
+
+    width: 40px;
+
+    height: 40px;
+
+    border: 1px solid rgba(0,0,0,0.08);
+
+    background: rgba(255,255,255,0.9);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #1d1d1f;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.tool-toggle .icon {
+    width: 20px;
+
+    height: 20px;
+}
+
+.tool-toggle:active {
+    transform: scale(0.94);
+}
+
+body.dark .tool-toggle {
+    background: rgba(28,28,30,0.92);
+
+    color: #f2f2f7;
+
+    border-color: rgba(255,255,255,0.15);
+}
+
+/* 记账 */
+
+.ledger-row {
+    display: flex;
+
+    gap: 8px;
+
+    margin: 8px 0;
+}
+
+.ledger-row .convert-select {
+    flex: 1;
+
+    width: auto;
+}
+
+.ledger-row .budget-input {
+    flex: 1;
+
+    width: auto;
+}
+
+.ledger-row .add-btn {
+    flex-shrink: 0;
+
+    padding: 10px 18px;
+}
+
+.ledger-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #e5e5ea;
+}
+
+.ledger-item span {
+    flex: 1;
+
+    font-size: 14px;
+}
+
+.ledger-item b {
+    font-size: 14px;
+}
+
+.ledger-del {
+    width: 26px;
+
+    height: 26px;
+
+    border: none;
+
+    background: #f2f2f7;
+
+    color: #8e8e93;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    flex-shrink: 0;
+}
+
+.ledger-total-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 8px 0;
+
+    font-size: 14px;
+}
+
+.ledger-total-row b {
+    font-size: 15px;
+
+    color: #e05c3a;
+}
+
+body.dark .ledger-item {
+    border-color: rgba(255,255,255,0.08);
+}
+
+body.dark .ledger-del {
+    background: #2c2c2e;
+
+    color: #d1d1d6;
+}

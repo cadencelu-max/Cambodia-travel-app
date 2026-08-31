@@ -630,53 +630,6 @@ if (routeItemsEl) {
 
 }
 
-// ========== 预算计算器 ==========
-const budgetInputs = document.querySelectorAll(".budget-input");
-const budgetTotal = document.getElementById("budget-total");
-
-function calcBudget() {
-    let total = 0;
-    budgetInputs.forEach(inp => {
-        const v = parseFloat(inp.value) || 0;
-        total += v;
-        try { localStorage.setItem("budget-" + inp.dataset.key, inp.value); } catch (e) { }
-    });
-    if (budgetTotal) {
-        budgetTotal.textContent = "¥ " + total.toLocaleString();
-    }
-}
-
-budgetInputs.forEach(inp => {
-    try { inp.value = localStorage.getItem("budget-" + inp.dataset.key) || ""; } catch (e) { }
-    inp.addEventListener("input", calcBudget);
-});
-
-const budgetReset = document.getElementById("budget-reset");
-if (budgetReset) {
-    budgetReset.addEventListener("click", () => {
-        budgetInputs.forEach(inp => {
-            inp.value = "";
-            try { localStorage.removeItem("budget-" + inp.dataset.key); } catch (e) { }
-        });
-        calcBudget();
-    });
-}
-calcBudget();
-
-// ========== 攻略页：快捷跳转 ==========
-document.querySelectorAll(".guide-chip").forEach(chip => {
-
-    chip.addEventListener("click", () => {
-
-        const target = document.getElementById(chip.dataset.target);
-        if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-    });
-
-});
-
 // ========== 深色模式（全局右上角开关） ==========
 const darkToggle = document.getElementById("dark-toggle");
 
@@ -780,3 +733,91 @@ function renderItinerary() {
 }
 
 renderItinerary();
+
+
+// ========== 记账（多货币） ==========
+const LEDGER_KEY = "cambodia-ledger";
+let ledger = [];
+try { ledger = JSON.parse(localStorage.getItem(LEDGER_KEY) || "[]"); } catch (e) { }
+
+function saveLedger() { try { localStorage.setItem(LEDGER_KEY, JSON.stringify(ledger)); } catch (e) { } }
+
+function fmtMoney(cur, amount) {
+    if (cur === "cny") return "¥ " + Math.round(amount).toLocaleString();
+    if (cur === "usd") return "$ " + Number(amount).toFixed(2);
+    return "៛ " + Math.round(amount).toLocaleString();
+}
+
+function renderLedger() {
+    const list = document.getElementById("ledger-list");
+    const total = document.getElementById("ledger-total");
+    if (!list) return;
+    if (ledger.length === 0) {
+        list.innerHTML = '<p class="muted">还没有记录，记下第一笔吧。</p>';
+        if (total) total.innerHTML = "";
+        return;
+    }
+    list.innerHTML = ledger.map((e, i) =>
+        '<div class="ledger-item"><span>' + e.cat + '</span><b>' + fmtMoney(e.cur, e.amount) + '</b>'
+        + '<button class="ledger-del" data-i="' + i + '" aria-label="删除">×</button></div>'
+    ).join("");
+
+    const sums = { cny: 0, usd: 0, khr: 0 };
+    ledger.forEach(e => sums[e.cur] += Number(e.amount) || 0);
+    const parts = [];
+    if (sums.usd) parts.push("$ " + sums.usd.toFixed(2));
+    if (sums.cny) parts.push("¥ " + Math.round(sums.cny).toLocaleString());
+    if (sums.khr) parts.push("៛ " + Math.round(sums.khr).toLocaleString());
+    const totalCny = (sums.usd * 7.2) + sums.cny + (sums.khr / 4000 * 7.2);
+    if (total) total.innerHTML = '<div class="ledger-total-row"><span>合计（按币种）</span><b>' + (parts.join(" · ") || "—") + '</b></div>'
+        + '<div class="ledger-total-row"><span>约合人民币</span><b>¥ ' + Math.round(totalCny).toLocaleString() + '</b></div>';
+}
+
+const ledgerAdd = document.getElementById("ledger-add");
+if (ledgerAdd) {
+    ledgerAdd.addEventListener("click", () => {
+        const amountEl = document.getElementById("ledger-amount");
+        const amount = parseFloat(amountEl.value);
+        if (!amount || amount <= 0) return;
+        const cat = document.getElementById("ledger-cat").value;
+        const cur = document.getElementById("ledger-cur").value;
+        ledger.push({ cat: cat, cur: cur, amount: amount });
+        saveLedger();
+        amountEl.value = "";
+        renderLedger();
+    });
+}
+
+const ledgerList = document.getElementById("ledger-list");
+if (ledgerList) {
+    ledgerList.addEventListener("click", (e) => {
+        const btn = e.target.closest(".ledger-del");
+        if (!btn) return;
+        ledger.splice(Number(btn.dataset.i), 1);
+        saveLedger();
+        renderLedger();
+    });
+}
+
+const ledgerClear = document.getElementById("ledger-clear");
+if (ledgerClear) {
+    ledgerClear.addEventListener("click", () => {
+        ledger = [];
+        saveLedger();
+        renderLedger();
+    });
+}
+renderLedger();
+
+
+// ========== 汇率小图标：跳到助手页汇率板块 ==========
+const currencyToggle = document.getElementById("currency-toggle");
+if (currencyToggle) {
+    currencyToggle.addEventListener("click", () => {
+        showPage("guide", "guide");
+        setTimeout(() => {
+            const el = document.getElementById("sec-currency");
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 400);
+    });
+}
