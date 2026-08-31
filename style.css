@@ -2289,3 +2289,12 @@ body.dark .route-nav-btn {
 body.dark .about-sign b {
     color: #f2f2f7;
 }
+
+
+/* 首页「关于」卡片：与其他卡片间距保持一致（16px） */
+
+.place-card[data-target="about"] {
+    margin-top: 16px;
+
+    margin-bottom: 0;
+}
