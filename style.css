@@ -2811,3 +2811,34 @@ body.dark .search-item {
 body.dark .search-item:active {
     background: #2c2c2e;
 }
+
+
+/* 搜索结果：标题 + 摘要 */
+
+.search-item-text {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.search-item-text span {
+    display: block;
+
+    font-size: 14px;
+}
+
+.search-item-snippet {
+    display: block;
+
+    font-size: 12px;
+
+    color: #8e8e93;
+
+    margin-top: 1px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}

@@ -77,6 +77,7 @@ navItems.forEach(item => {
 
     item.addEventListener("click", () => {
 
+        searchJump = false;
         showPage(item.dataset.page, item.dataset.page);
 
     });
@@ -188,6 +189,7 @@ document.querySelectorAll(".place-card").forEach(card => {
 
     card.addEventListener("click", () => {
 
+        searchJump = false;
         showPage(card.dataset.target, card.dataset.nav || "attractions");
 
     });
@@ -221,6 +223,11 @@ document.querySelectorAll(".back-btn, .back-top").forEach(btn => {
 
     btn.addEventListener("click", () => {
 
+        if (searchJump) {
+            searchJump = false;
+            showPage("home", "home", "back", "zoom");
+            return;
+        }
         showPage(btn.dataset.back, btn.dataset.nav || btn.dataset.back, "back", btn.dataset.mode);
 
     });
@@ -838,35 +845,74 @@ document.querySelectorAll(".guide-chip").forEach(chip => {
 });
 
 
-// ========== 全局搜索 ==========
-const SEARCH_ITEMS = [];
+// 从搜索结果点进去后，点「返回」回到首页搜索框
+let searchJump = false;
 
-Object.keys(PLACES).forEach(key => {
-    const p = PLACES[key];
-    SEARCH_ITEMS.push({ type: "attraction", label: p.name, en: p.en, target: "attraction-detail-" + key });
-});
+// ========== 全局搜索（全文索引） ==========
+// 索引覆盖：景点卡片+详情正文、美食卡片+详情正文、助手各板块正文
 
-[
-    { label: "阿莫克", en: "Amok", target: "food-amok" },
-    { label: "洛拉克牛肉", en: "Beef Lok Lak", target: "food-loklak" },
-    { label: "高棉咖喱", en: "Khmer Curry", target: "food-curry" },
-    { label: "热带水果", en: "Tropical Fruit", target: "food-fruit" },
-    { label: "柬埔寨咖啡", en: "Coffee", target: "food-coffee" }
-].forEach(f => SEARCH_ITEMS.push({ type: "food", label: f.label, en: f.en, target: f.target }));
+function buildSearchIndex() {
+    const items = [];
 
-[
-    { label: "签证", en: "Visa", target: "sec-visa" },
-    { label: "落地", en: "Arrival", target: "sec-arrival" },
-    { label: "清单", en: "Checklist", target: "sec-checklist" },
-    { label: "天气", en: "Weather", target: "sec-weather" },
-    { label: "紧急", en: "Emergency", target: "sec-emergency" },
-    { label: "汇率", en: "FX", target: "sec-currency" },
-    { label: "记账", en: "Ledger", target: "sec-budget" },
-    { label: "行程", en: "Plan", target: "sec-itinerary" },
-    { label: "交通", en: "Transport", target: "sec-transport" },
-    { label: "常用语", en: "Phrases", target: "sec-phrases" },
-    { label: "安全", en: "Safety", target: "sec-safety" }
-].forEach(g => SEARCH_ITEMS.push({ type: "guide", label: g.label, en: g.en, target: g.target }));
+    document.querySelectorAll(".attraction-card").forEach(card => {
+        const target = card.dataset.target;
+        const titleEl = card.querySelector(".card-title");
+        const title = titleEl ? titleEl.textContent.trim() : "";
+        const subEl = card.querySelector(".card-sub");
+        const sub = subEl ? subEl.textContent.trim() : "";
+        const pEl = card.querySelector("p");
+        const desc = pEl ? pEl.textContent.trim() : "";
+        const tags = [...card.querySelectorAll(".tags span")].map(s => s.textContent.trim()).join(" ");
+        let detailText = "";
+        const detail = document.getElementById(target);
+        if (detail) {
+            detailText = [...detail.querySelectorAll(".food-text")].map(p => p.textContent.trim()).join(" ");
+        }
+        items.push({
+            type: "attraction",
+            label: title,
+            snippet: desc || sub,
+            keywords: (title + " " + sub + " " + desc + " " + tags + " " + detailText).toLowerCase(),
+            target: target
+        });
+    });
+
+    document.querySelectorAll(".food-card").forEach(card => {
+        const target = card.dataset.target;
+        const titleEl = card.querySelector(".card-title");
+        const title = titleEl ? titleEl.textContent.trim() : "";
+        const subEl = card.querySelector(".card-sub");
+        const sub = subEl ? subEl.textContent.trim() : "";
+        let detailText = "";
+        const detail = document.getElementById(target);
+        if (detail) {
+            detailText = [...detail.querySelectorAll(".food-text")].map(p => p.textContent.trim()).join(" ");
+        }
+        items.push({
+            type: "food",
+            label: title,
+            snippet: sub,
+            keywords: (title + " " + sub + " " + detailText).toLowerCase(),
+            target: target
+        });
+    });
+
+    document.querySelectorAll(".guide-sec").forEach(sec => {
+        const labelEl = sec.querySelector(".card-label");
+        const label = labelEl ? labelEl.textContent.replace(/<svg[\s\S]*?<\/svg>/g, "").trim() : sec.id;
+        items.push({
+            type: "guide",
+            label: label,
+            snippet: "",
+            keywords: (label + " " + sec.textContent).toLowerCase(),
+            target: sec.id
+        });
+    });
+
+    return items;
+}
+
+const SEARCH_ITEMS = buildSearchIndex();
 
 const searchInput = document.getElementById("search-input");
 const searchResults = document.getElementById("search-results");
@@ -875,7 +921,7 @@ function doSearch() {
     if (!searchInput || !searchResults) return;
     const q = searchInput.value.trim().toLowerCase();
     if (!q) { searchResults.style.display = "none"; searchResults.innerHTML = ""; return; }
-    const hits = SEARCH_ITEMS.filter(it => (it.label + " " + it.en).toLowerCase().indexOf(q) >= 0).slice(0, 12);
+    const hits = SEARCH_ITEMS.filter(it => it.keywords.indexOf(q) >= 0).slice(0, 12);
     if (hits.length === 0) {
         searchResults.innerHTML = '<div class="search-empty">没有找到相关结果</div>';
         searchResults.style.display = "block";
@@ -884,9 +930,10 @@ function doSearch() {
     searchResults.innerHTML = hits.map(it => {
         const icon = it.type === "attraction" ? "#i-landmark" : it.type === "food" ? "#i-utensils" : "#i-book";
         const typeName = it.type === "attraction" ? "景点" : it.type === "food" ? "美食" : "助手";
+        const snippet = it.snippet ? '<small class="search-item-snippet">' + it.snippet.slice(0, 40) + '</small>' : '';
         return '<div class="search-item" data-target="' + it.target + '" data-type="' + it.type + '">'
             + '<svg class="icon"><use href="' + icon + '"></use></svg>'
-            + '<span>' + it.label + ' · ' + it.en + '</span>'
+            + '<div class="search-item-text"><span>' + it.label + '</span>' + snippet + '</div>'
             + '<b>' + typeName + '</b></div>';
     }).join("");
     searchResults.style.display = "block";
@@ -905,6 +952,7 @@ if (searchResults) {
         const type = item.getAttribute("data-type");
         searchResults.style.display = "none";
         searchInput.value = "";
+        searchJump = true;   // 返回时回到首页搜索框
         if (type === "guide") {
             showPage("guide", "guide");
             setTimeout(() => {
