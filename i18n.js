@@ -31,7 +31,8 @@ const I18N = {
     "chip.currency": "FX", "chip.budget": "Ledger", "chip.itinerary": "Plan", "chip.transport": "Transport", "chip.phrases": "Phrases", "chip.safety": "Safety",
     "btn.add": "Add", "btn.ledgerAdd": "Add entry", "btn.ledgerClear": "Clear ledger",
     "lang.note": "Translations may contain errors; Chinese is authoritative.",
-    "app.disclaimer": "This app is for reference only. Information may change or become outdated — do not use it as your only source. Please verify with official channels before travelling. Emergencies: Police 117 · Ambulance 119 · Fire 118."
+    "app.disclaimer": "This app is for reference only. Information may change or become outdated — do not use it as your only source. Please verify with official channels before travelling. Emergencies: Police 117 · Ambulance 119 · Fire 118.",
+    "search.placeholder": "Search attractions / food / guide"
   }
 };
 
@@ -93,6 +94,9 @@ function applyLang() {
   });
   document.querySelectorAll("[data-i18n-html]").forEach(el => {
     el.innerHTML = t(el.getAttribute("data-i18n-html"));
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    el.placeholder = t(el.getAttribute("data-i18n-placeholder"));
   });
   const bw = BACK_WORD[currentLang] || "Back";
   document.querySelectorAll(".back-btn").forEach(b => {

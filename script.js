@@ -836,3 +836,89 @@ document.querySelectorAll(".guide-chip").forEach(chip => {
     });
 
 });
+
+
+// ========== 全局搜索 ==========
+const SEARCH_ITEMS = [];
+
+Object.keys(PLACES).forEach(key => {
+    const p = PLACES[key];
+    SEARCH_ITEMS.push({ type: "attraction", label: p.name, en: p.en, target: "attraction-detail-" + key });
+});
+
+[
+    { label: "阿莫克", en: "Amok", target: "food-amok" },
+    { label: "洛拉克牛肉", en: "Beef Lok Lak", target: "food-loklak" },
+    { label: "高棉咖喱", en: "Khmer Curry", target: "food-curry" },
+    { label: "热带水果", en: "Tropical Fruit", target: "food-fruit" },
+    { label: "柬埔寨咖啡", en: "Coffee", target: "food-coffee" }
+].forEach(f => SEARCH_ITEMS.push({ type: "food", label: f.label, en: f.en, target: f.target }));
+
+[
+    { label: "签证", en: "Visa", target: "sec-visa" },
+    { label: "落地", en: "Arrival", target: "sec-arrival" },
+    { label: "清单", en: "Checklist", target: "sec-checklist" },
+    { label: "天气", en: "Weather", target: "sec-weather" },
+    { label: "紧急", en: "Emergency", target: "sec-emergency" },
+    { label: "汇率", en: "FX", target: "sec-currency" },
+    { label: "记账", en: "Ledger", target: "sec-budget" },
+    { label: "行程", en: "Plan", target: "sec-itinerary" },
+    { label: "交通", en: "Transport", target: "sec-transport" },
+    { label: "常用语", en: "Phrases", target: "sec-phrases" },
+    { label: "安全", en: "Safety", target: "sec-safety" }
+].forEach(g => SEARCH_ITEMS.push({ type: "guide", label: g.label, en: g.en, target: g.target }));
+
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+
+function doSearch() {
+    if (!searchInput || !searchResults) return;
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) { searchResults.style.display = "none"; searchResults.innerHTML = ""; return; }
+    const hits = SEARCH_ITEMS.filter(it => (it.label + " " + it.en).toLowerCase().indexOf(q) >= 0).slice(0, 12);
+    if (hits.length === 0) {
+        searchResults.innerHTML = '<div class="search-empty">没有找到相关结果</div>';
+        searchResults.style.display = "block";
+        return;
+    }
+    searchResults.innerHTML = hits.map(it => {
+        const icon = it.type === "attraction" ? "#i-landmark" : it.type === "food" ? "#i-utensils" : "#i-book";
+        const typeName = it.type === "attraction" ? "景点" : it.type === "food" ? "美食" : "助手";
+        return '<div class="search-item" data-target="' + it.target + '" data-type="' + it.type + '">'
+            + '<svg class="icon"><use href="' + icon + '"></use></svg>'
+            + '<span>' + it.label + ' · ' + it.en + '</span>'
+            + '<b>' + typeName + '</b></div>';
+    }).join("");
+    searchResults.style.display = "block";
+}
+
+if (searchInput) {
+    searchInput.addEventListener("input", doSearch);
+    searchInput.addEventListener("focus", doSearch);
+}
+
+if (searchResults) {
+    searchResults.addEventListener("click", (e) => {
+        const item = e.target.closest(".search-item");
+        if (!item) return;
+        const target = item.getAttribute("data-target");
+        const type = item.getAttribute("data-type");
+        searchResults.style.display = "none";
+        searchInput.value = "";
+        if (type === "guide") {
+            showPage("guide", "guide");
+            setTimeout(() => {
+                const el = document.getElementById(target);
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 400);
+        } else {
+            showPage(target, type === "food" ? "food" : "attractions", null, "zoom");
+        }
+    });
+}
+
+document.addEventListener("click", (e) => {
+    if (searchResults && !e.target.closest(".search-box") && !e.target.closest(".search-results")) {
+        searchResults.style.display = "none";
+    }
+});
