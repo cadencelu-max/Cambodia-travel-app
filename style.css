@@ -2659,3 +2659,16 @@ body.dark .disclaimer {
 
     border-color: rgba(255,255,255,0.06);
 }
+
+
+/* 详情页里的官网购票链接 */
+
+.food-text a.ticket-link {
+    color: #e05c3a;
+
+    text-decoration: underline;
+
+    text-underline-offset: 2px;
+
+    word-break: break-all;
+}
