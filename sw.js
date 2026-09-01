@@ -1,5 +1,6 @@
 /* 离线缓存：网络优先，离线时用缓存兜底 */
-const CACHE = "cambodia-travel-v1";
+const CACHE = "cambodia-travel-v2";
+// 发布新版本时：把 index.html 里的 ?v= 版本号同步升级，并改这里的缓存名
 
 self.addEventListener("install", (e) => {
   self.skipWaiting();

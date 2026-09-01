@@ -99,6 +99,7 @@ git push
 - 项目在：`/Users/cadencelu/Desktop/Cambodia-Travel-App`
 - 文件：`index.html`（页面+图标库）/ `style.css`（样式）/ `script.js`（逻辑）/ `data.js`（景点/路线数据）/ `assets/images/`（图片）/ `favicon.svg` / `manifest.webmanifest` + `sw.js`（PWA 离线）/ `icon-*.png`（应用图标）
 - 地图：Leaflet（本地加载）+ 高德瓦片（国内可稳定访问）；导航联动 Google Maps
+- **缓存版本号**：index.html 里 style.css / i18n.js / data.js / script.js / sw.js 都带 `?v=版本号`；发布新版时把版本号升级 + sw.js 缓存名升级（当前 v2），用户会自动拿到新版，不会再看旧缓存
 - 图片来自维基共享（Wikimedia Commons），已下载到本地
 - 已适配 iPhone 刘海屏（safe-area）
 - PWA：可「添加到主屏幕」，无网也能打开（网络优先 + 缓存兜底）；旁边是汇率 ¥ 按钮
@@ -120,6 +121,7 @@ git push
 - 新景点均有卡片 + 详情页（历史 / 看点 / 怎么去 / 实用信息 / 门票）、地图坐标，并进入行程选择器分组（景点共 35 个）
 - 新景点图片已换成维基共享（Wikimedia Commons）真实照片（通过本地代理下载，共 9 张）；之后可再换成自己的照片
 - 「我的行程」新增「保存行程为图片」：一键生成整张行程图（天数 / 景点 / 中英文），支持下载与系统分享
+- 修复缓存问题：给所有静态文件加版本号 + 升级 sw.js 缓存名（v2），以后发布新版用户不再看到旧缓存/键名乱码
 
 ### 09-01
 - 各景点详情页补充「门票费用 + 官网购票地址」（约 15 处，可点击直跳）
