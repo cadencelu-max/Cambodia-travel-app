@@ -671,9 +671,9 @@ function tr(zh) {
 const PLACE_GROUPS = [
     { label: "金边", keys: ["royal-palace","s21","central-market","independence-monument","national-museum","wat-phnom","riverside","russian-market","choeung-ek","wat-ounalom"] },
     { label: "暹粒城市", keys: ["old-market","pub-street","angkor-museum","royal-gardens"] },
-    { label: "吴哥 · 小圈", keys: ["angkor-wat","bayon","ta-prohm","banteay-kdei"] },
-    { label: "吴哥 · 大圈", keys: ["preah-khan","neak-pean","ta-som","east-mebon","pre-rup"] },
-    { label: "吴哥 · 外圈", keys: ["banteay-srei","beng-mealea"] },
+    { label: "吴哥 · 小圈", keys: ["angkor-wat","bayon","ta-prohm","banteay-kdei","ta-keo","prasat-kravan","srah-srang"] },
+    { label: "吴哥 · 大圈", keys: ["preah-khan","neak-pean","ta-som","east-mebon","pre-rup","phnom-bakheng","banteay-samre"] },
+    { label: "吴哥 · 外圈", keys: ["banteay-srei","beng-mealea","phnom-kulen","kbal-spean","koh-ker","preah-vihear"] },
     { label: "洞里萨湖", keys: ["tonle-sap"] }
 ];
 

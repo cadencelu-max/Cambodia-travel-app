@@ -28,6 +28,15 @@ const PLACES = {
     "russian-market": { name: "俄式市场", en: "Russian Market", lat: 11.5435, lng: 104.924 },
     "choeung-ek": { name: "钟屋屠杀场", en: "Choeung Ek", lat: 11.4844, lng: 104.9 },
     "wat-ounalom": { name: "乌那隆寺", en: "Wat Ounalom", lat: 11.57, lng: 104.927 },
+    "ta-keo":    { name: "茶胶寺",       en: "Ta Keo",   lat: 13.4446, lng: 103.8892 },
+    "prasat-kravan":    { name: "豆蔻寺",       en: "Prasat Kravan",   lat: 13.4197, lng: 103.8918 },
+    "srah-srang":    { name: "皇家浴池",       en: "Srah Srang",   lat: 13.4299, lng: 103.904 },
+    "phnom-bakheng":    { name: "巴肯山",       en: "Phnom Bakheng",   lat: 13.4253, lng: 103.8562 },
+    "banteay-samre":    { name: "班迭萨姆雷",       en: "Banteay Samre",   lat: 13.4417, lng: 103.9631 },
+    "phnom-kulen":    { name: "荔枝山",       en: "Phnom Kulen",   lat: 13.6046, lng: 104.1122 },
+    "kbal-spean":    { name: "高布斯滨",       en: "Kbal Spean",   lat: 13.6813, lng: 104.0237 },
+    "koh-ker":    { name: "贡开",       en: "Koh Ker",   lat: 13.7827, lng: 104.5416 },
+    "preah-vihear":    { name: "柏威夏寺",       en: "Preah Vihear",   lat: 14.3907, lng: 104.6807 },
     "royal-gardens": { name: "皇家花园",     en: "Royal Gardens", lat: 13.3620, lng: 103.8550 }
 };
 
