@@ -15,7 +15,23 @@ const I18N = {
     "chip.currency": "汇率", "chip.budget": "记账", "chip.itinerary": "行程", "chip.transport": "交通", "chip.phrases": "常用语", "chip.safety": "安全",
     "btn.add": "添加", "btn.ledgerAdd": "记一笔", "btn.ledgerClear": "清空账单",
     "lang.note": "翻译可能存在误差，请以中文为准",
-    "app.disclaimer": "本应用内容仅供参考，信息可能变更或过时，请勿将其作为单一信息渠道来源；出行前请以官方最新信息为准。紧急求助：报警 117 · 急救 119 · 火警 118。"
+    "app.disclaimer": "本应用内容仅供参考，信息可能变更或过时，请勿将其作为单一信息渠道来源；出行前请以官方最新信息为准。紧急求助：报警 117 · 急救 119 · 火警 118。",
+    "itin.tabPreset": "预设路线",
+    "itin.tabMine": "我的行程",
+    "itin.classic5": "经典 5 日 · 快速",
+    "itin.classic7": "经典 7 日 · 中度",
+    "itin.classicHint": "点一下自动生成多天行程，之后可以自己改。",
+    "itin.addDay": "＋ 新建一天",
+    "itin.clear": "清空行程",
+    "itin.cancel": "取消",
+    "itin.confirm": "添加",
+    "itin.empty": "还没有行程，点「新建一天」开始规划吧。",
+    "itin.noPlaces": "这一天还没有景点，点下方按钮添加。",
+    "itin.addPlaces": "添加景点",
+    "itin.navLabel": "全程导航",
+    "itin.pickTitle": "选择加入 {day} 的景点",
+    "itin.overwrite": "生成经典路线会覆盖你现在的行程，继续吗？",
+    "itin.clearConfirm": "确定清空全部行程吗？"
   },
   en: {
     "nav.home": "Home", "nav.attractions": "Attractions", "nav.food": "Food", "nav.guide": "Assistant", "nav.map": "Map",
@@ -32,7 +48,23 @@ const I18N = {
     "btn.add": "Add", "btn.ledgerAdd": "Add entry", "btn.ledgerClear": "Clear ledger",
     "lang.note": "Translations may contain errors; Chinese is authoritative.",
     "app.disclaimer": "This app is for reference only. Information may change or become outdated — do not use it as your only source. Please verify with official channels before travelling. Emergencies: Police 117 · Ambulance 119 · Fire 118.",
-    "search.placeholder": "Search attractions / food / guide"
+    "search.placeholder": "Search attractions / food / guide",
+    "itin.tabPreset": "Preset routes",
+    "itin.tabMine": "My itinerary",
+    "itin.classic5": "Classic 5-day · Quick",
+    "itin.classic7": "Classic 7-day · Moderate",
+    "itin.classicHint": "Generate a multi-day itinerary in one tap, then edit it freely.",
+    "itin.addDay": "＋ Add a day",
+    "itin.clear": "Clear itinerary",
+    "itin.cancel": "Cancel",
+    "itin.confirm": "Add",
+    "itin.empty": "No itinerary yet — tap 'Add a day' to start planning.",
+    "itin.noPlaces": "No places in this day yet — tap the button below to add some.",
+    "itin.addPlaces": "Add places",
+    "itin.navLabel": "Full-route navigation",
+    "itin.pickTitle": "Choose places for {day}",
+    "itin.overwrite": "Generating a classic route will replace your current itinerary. Continue?",
+    "itin.clearConfirm": "Clear the whole itinerary?"
   }
 };
 
@@ -386,6 +418,20 @@ const CONTENT = {
     "在金边市区西南，从中央市场坐 Tuk Tuk 约 15 分钟。": "Southwest of central Phnom Penh — ~15 min by tuk-tuk from the Central Market.",
     "距金边市区约 15km，Grab 或包车约 30-40 分钟。": "~15 km from Phnom Penh — ~30–40 min by Grab or private car.",
     "在金边市区，从河边步行约 10 分钟，或坐 Tuk Tuk 约 5 分钟。": "In central Phnom Penh — ~10 min walk from the riverside, or ~5 min by tuk-tuk.",
+    "标记想去的地方，自动连成路线": "Mark places you want to visit, and routes auto-connect",
+    "预设经典路线": "Preset classic routes",
+    "点一下直接生成路线；也可以自己去「景点」页点卡片右上角的心形按钮，自由组合。": "One tap to generate a route, or combine your own by tapping the heart on any attraction card.",
+    "清空我的路线": "Clear my route",
+    "还没有标记想去的地方": "No places marked yet",
+    "去「景点」页，点景点卡片右上角的心形按钮，把想去的地方加入清单；这里会自动显示在地图上，并连成一条路线。": "Go to Attractions and tap the heart on any card to add places; they'll appear here on the map and connect into a route.",
+    "我的路线": "My route",
+    "＋ 添加景点…": "＋ Add a place…",
+    "经典路线 · 一键生成": "Classic routes · one-tap",
+    "金边": "Phnom Penh",
+    "暹粒城市": "Siem Reap city",
+    "吴哥 · 小圈": "Angkor · Small Circuit",
+    "吴哥 · 大圈": "Angkor · Grand Circuit",
+    "吴哥 · 外圈": "Angkor · Outer Circuit",
 
   }
 };

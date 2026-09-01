@@ -3278,7 +3278,6 @@
                     <button class="guide-chip" data-target="sec-emergency"><span data-i18n="chip.emergency">紧急</span></button>
                     <button class="guide-chip" data-target="sec-currency"><span data-i18n="chip.currency">汇率</span></button>
                     <button class="guide-chip" data-target="sec-budget"><span data-i18n="chip.budget">预算</span></button>
-                    <button class="guide-chip" data-target="sec-itinerary"><span data-i18n="chip.itinerary">行程</span></button>
                     <button class="guide-chip" data-target="sec-transport"><span data-i18n="chip.transport">交通</span></button>
                     <button class="guide-chip" data-target="sec-phrases"><span data-i18n="chip.phrases">常用语</span></button>
                     <button class="guide-chip" data-target="sec-safety"><span data-i18n="chip.safety">安全</span></button>
@@ -3553,20 +3552,6 @@
                 </div>
 
 
-<div class="card guide-sec" id="sec-itinerary">
-
-                    <div class="card-label">
-                        <svg class="icon"><use href="#i-map"></use></svg> 行程规划 · 按你的红心
-                    </div>
-
-                    <p class="muted">
-                        先到「景点」页点❤️选择想去的地方，这里会自动按推荐顺序排成每日行程。
-                    </p>
-
-                    <div id="itinerary-list"></div>
-
-                </div>
-
                 <div class="section-head">
                     <svg class="icon"><use href="#i-book"></use></svg> <span data-i18n="grp.know">知识速查</span>
                 </div>
@@ -3674,8 +3659,18 @@
                 </div>
 
 
+                <div class="map-tabs">
+
+                    <button class="map-tab active" data-map-mode="preset"><span data-i18n="itin.tabPreset">预设路线</span></button>
+                    <button class="map-tab" data-map-mode="itinerary"><span data-i18n="itin.tabMine">我的行程</span></button>
+
+                </div>
+
+
                 <div id="map-container"></div>
 
+
+                <div id="map-preset-mode">
 
                 <div class="card">
 
@@ -3735,6 +3730,67 @@
                     <div class="route-nav-row">
                         <a class="route-nav-btn" id="route-nav" href="#" target="_blank">Google Maps</a>
                         <a class="route-nav-btn amap" id="route-nav-amap" href="#" target="_blank">高德地图</a>
+                    </div>
+
+                </div>
+
+                </div>
+
+
+                <div id="map-itinerary-mode" style="display:none">
+
+                    <div class="card">
+
+                        <div class="card-label">
+                            <svg class="icon"><use href="#i-map"></use></svg> 经典路线 · 一键生成
+                        </div>
+
+                        <div class="preset-row">
+
+                            <button class="preset-btn classic-btn" data-classic="5day"><span data-i18n="itin.classic5">经典 5 日 · 快速</span></button>
+                            <button class="preset-btn classic-btn" data-classic="7day"><span data-i18n="itin.classic7">经典 7 日 · 中度</span></button>
+
+                        </div>
+
+                        <p class="muted" data-i18n="itin.classicHint">
+                            点一下自动生成多天行程，之后可以自己改。
+                        </p>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-label">
+                            <svg class="icon"><use href="#i-map"></use></svg> <span data-i18n="itin.tabMine">我的行程</span>
+                        </div>
+
+                        <div id="itin-list"></div>
+
+                        <button class="add-btn" id="itin-add-day" data-i18n="itin.addDay">＋ 新建一天</button>
+
+                        <button class="clear-btn itin-clear" id="itin-clear" data-i18n="itin.clear">清空行程</button>
+
+                    </div>
+
+                </div>
+
+
+                <div id="itin-picker" class="pick-overlay" style="display:none">
+
+                    <div class="pick-panel">
+
+                        <div class="pick-head">
+                            <b id="itin-picker-title">选择景点</b>
+                            <button class="remove-btn" id="itin-picker-close" aria-label="关闭">×</button>
+                        </div>
+
+                        <div id="itin-picker-body"></div>
+
+                        <div class="pick-foot">
+                            <button class="clear-btn pick-cancel" id="itin-picker-cancel" data-i18n="itin.cancel">取消</button>
+                            <button class="add-btn" id="itin-picker-confirm" data-i18n="itin.confirm">添加</button>
+                        </div>
+
                     </div>
 
                 </div>

@@ -308,6 +308,20 @@ document.querySelectorAll("[id^='food-']").forEach(page => {
 
 // 各景点坐标（约值）
 
+// ========== 我的行程：状态（提前声明，地图渲染会用到） ==========
+const ITIN_KEY = "my-itinerary";
+let myItinerary = [];
+try { myItinerary = JSON.parse(localStorage.getItem(ITIN_KEY) || "[]"); } catch (e) { }
+if (!Array.isArray(myItinerary)) myItinerary = [];
+
+let mapMode = "preset";     // "preset" = 预设路线 / "itinerary" = 我的行程
+let activeDay = 0;          // 当前在地图上显示第几天
+let pickDay = null;         // 正在往第几天添加景点
+
+function saveItinerary() { try { localStorage.setItem(ITIN_KEY, JSON.stringify(myItinerary)); } catch (e) { } }
+function activeDayKeys() { return (myItinerary[activeDay] && myItinerary[activeDay].keys) || []; }
+
+
 // 想去清单（存在浏览器里）
 let wishlist = loadWishlist();
 
@@ -395,9 +409,12 @@ function updateMap() {
 
     routeLayer.clearLayers();
 
+    // 我的行程模式下显示当前选中的那一天；预设/红心模式显示 currentRoute
+    const display = (mapMode === "itinerary") ? activeDayKeys() : currentRoute;
+
     const latlngs = [];
 
-    currentRoute.forEach(key => {
+    display.forEach(key => {
 
         const p = PLACES[key];
         if (!p) return;
@@ -441,18 +458,21 @@ function updateMap() {
     const items = document.getElementById("route-items");
     const navBtn = document.getElementById("route-nav");
 
-    if (currentRoute.length === 0) {
+    if (mapMode === "itinerary") {
+        if (hint) hint.style.display = "none";
+        if (list) list.style.display = "none";
+    } else if (display.length === 0) {
         if (hint) hint.style.display = "block";
         if (list) list.style.display = "none";
     } else {
         if (hint) hint.style.display = "none";
         if (list) list.style.display = "block";
 
-        const routePlaces = currentRoute.map(key => PLACES[key]).filter(Boolean);
+        const routePlaces = display.map(key => PLACES[key]).filter(Boolean);
 
         // 每个地点：名字 + 单点"导航" + "移除"按钮
         if (items) {
-            items.innerHTML = currentRoute.map((key, i) => {
+            items.innerHTML = display.map((key, i) => {
                 const p = PLACES[key];
                 if (!p) return "";
                 return '<div class="doc-item nav-row">'
@@ -565,7 +585,6 @@ function syncHearts() {
     document.querySelectorAll(".mark-btn").forEach(mb => {
         mb.classList.toggle("marked", wishlist.includes(mb.dataset.place));
     });
-    if (typeof renderItinerary === "function") renderItinerary();   // 红心变化时刷新行程规划
 }
 
 // 添加景点下拉框
@@ -637,6 +656,314 @@ if (routeItemsEl) {
 
 }
 
+
+// ========== 我的行程（地图页 · 多天规划） ==========
+
+function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+// 正文翻译小助手：英文模式下返回英文，否则返回中文
+function tr(zh) {
+    return (currentLang === "en" && CONTENT && CONTENT.en && CONTENT.en[zh]) ? CONTENT.en[zh] : zh;
+}
+
+// 景点选择弹窗里的分组（按城市 / 吴哥圈分类）
+const PLACE_GROUPS = [
+    { label: "金边", keys: ["royal-palace","s21","central-market","independence-monument","national-museum","wat-phnom","riverside","russian-market","choeung-ek","wat-ounalom"] },
+    { label: "暹粒城市", keys: ["old-market","pub-street","angkor-museum","royal-gardens"] },
+    { label: "吴哥 · 小圈", keys: ["angkor-wat","bayon","ta-prohm","banteay-kdei"] },
+    { label: "吴哥 · 大圈", keys: ["preah-khan","neak-pean","ta-som","east-mebon","pre-rup"] },
+    { label: "吴哥 · 外圈", keys: ["banteay-srei","beng-mealea"] },
+    { label: "洞里萨湖", keys: ["tonle-sap"] }
+];
+
+// 经典路线模板：一键生成多天行程
+const CLASSIC_ROUTES = {
+    "5day": {
+        nameKey: "itin.classic5",
+        days: [
+            { name: "Day 1 · 金边", en: "Day 1 · Phnom Penh", keys: ["royal-palace","s21","central-market","riverside"] },
+            { name: "Day 2 · 金边 → 暹粒", en: "Day 2 · Phnom Penh → Siem Reap", keys: ["national-museum","wat-phnom","old-market","pub-street"] },
+            { name: "Day 3 · 吴哥小圈", en: "Day 3 · Angkor Small Circuit", keys: ["angkor-wat","bayon","ta-prohm","banteay-kdei"] },
+            { name: "Day 4 · 吴哥大圈", en: "Day 4 · Angkor Grand Circuit", keys: ["preah-khan","neak-pean","ta-som","east-mebon","pre-rup"] },
+            { name: "Day 5 · 吴哥外圈", en: "Day 5 · Angkor Outer Circuit", keys: ["banteay-srei","beng-mealea"] }
+        ]
+    },
+    "7day": {
+        nameKey: "itin.classic7",
+        days: [
+            { name: "Day 1 · 金边", en: "Day 1 · Phnom Penh", keys: ["royal-palace","s21","independence-monument","riverside"] },
+            { name: "Day 2 · 金边", en: "Day 2 · Phnom Penh", keys: ["wat-phnom","wat-ounalom","national-museum","russian-market"] },
+            { name: "Day 3 · 金边 → 暹粒", en: "Day 3 · Phnom Penh → Siem Reap", keys: ["central-market","old-market","pub-street"] },
+            { name: "Day 4 · 吴哥小圈", en: "Day 4 · Angkor Small Circuit", keys: ["angkor-wat","bayon","ta-prohm","banteay-kdei"] },
+            { name: "Day 5 · 吴哥大圈", en: "Day 5 · Angkor Grand Circuit", keys: ["preah-khan","neak-pean","ta-som","east-mebon","pre-rup"] },
+            { name: "Day 6 · 吴哥外圈", en: "Day 6 · Angkor Outer Circuit", keys: ["banteay-srei","beng-mealea"] },
+            { name: "Day 7 · 洞里萨湖", en: "Day 7 · Tonlé Sap", keys: ["tonle-sap","royal-gardens","angkor-museum"] }
+        ]
+    }
+};
+
+// 某一天的「全程导航」链接（Google Maps + 高德）
+function dayNavHTML(di) {
+    const day = myItinerary[di];
+    if (!day || day.keys.length === 0) return "";
+    const places = day.keys.map(k => PLACES[k]).filter(Boolean);
+    if (places.length === 0) return "";
+    const dest = places[places.length - 1];
+    const wps = places.slice(0, -1).map(p => p.lat + "," + p.lng).join("|");
+    let g = "https://www.google.com/maps/dir/?api=1&destination=" + dest.lat + "," + dest.lng;
+    if (wps) g += "&waypoints=" + wps;
+    const via = places.slice(0, -1).map(p => p.lng + "," + p.lat).join("|");
+    let a = "https://uri.amap.com/navigation?to=" + dest.lng + "," + dest.lat + "," + encodeURIComponent(dest.name) + "&mode=car";
+    if (via) a += "&via=" + via;
+    return '<div class="route-nav-row itin-nav">'
+        + '<span class="itin-nav-label">' + t("itin.navLabel") + "</span>"
+        + '<a class="route-nav-btn" target="_blank" rel="noopener" href="' + g + '">Google Maps</a>'
+        + '<a class="route-nav-btn amap" target="_blank" rel="noopener" href="' + a + '">高德地图</a>'
+        + "</div>";
+}
+
+// 渲染「我的行程」面板
+function renderItineraryPanel() {
+    const el = document.getElementById("itin-list");
+    if (!el) return;
+    if (myItinerary.length === 0) {
+        el.innerHTML = '<p class="muted">' + t("itin.empty") + "</p>";
+        return;
+    }
+    el.innerHTML = myItinerary.map((day, di) => {
+        const active = di === activeDay ? " active" : "";
+        const dayTitle = (currentLang === "en" && day.en) ? day.en : day.name;
+        const places = day.keys.map((key, pi) => {
+            const p = PLACES[key];
+            if (!p) return "";
+            return '<div class="itin-place-row">'
+                + '<span class="itin-idx">' + (pi + 1) + "</span>"
+                + '<span class="itin-place-name">' + p.name + " · " + p.en + "</span>"
+                + '<div class="row-actions">'
+                + '<a class="nav-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + "," + p.lng + '">Google</a>'
+                + '<a class="nav-link" target="_blank" rel="noopener" href="https://uri.amap.com/navigation?to=' + p.lng + "," + p.lat + "," + encodeURIComponent(p.name) + '&mode=car">高德</a>'
+                + '<button class="mini-btn" data-act="up" data-day="' + di + '" data-idx="' + pi + '" aria-label="上移">↑</button>'
+                + '<button class="mini-btn" data-act="down" data-day="' + di + '" data-idx="' + pi + '" aria-label="下移">↓</button>'
+                + '<button class="remove-btn" data-act="remove-place" data-day="' + di + '" data-idx="' + pi + '" aria-label="移除">×</button>'
+                + "</div></div>";
+        }).join("");
+        return '<div class="card itin-day-card' + active + '" data-day="' + di + '">'
+            + '<div class="itin-day-head">'
+            + '<span class="itin-day-badge">' + (di + 1) + "</span>"
+            + '<input class="itin-day-name" value="' + escapeHtml(day.name) + '" data-day="' + di + '" aria-label="行程名称">'
+            + '<div class="row-actions">'
+            + '<button class="mini-btn" data-act="day-up" data-day="' + di + '" aria-label="上移一天">↑</button>'
+            + '<button class="mini-btn" data-act="day-down" data-day="' + di + '" aria-label="下移一天">↓</button>'
+            + '<button class="remove-btn" data-act="del-day" data-day="' + di + '" aria-label="删除这天">×</button>'
+            + "</div></div>"
+            + '<div class="itin-places">' + (places || '<p class="muted">' + t("itin.noPlaces") + "</p>") + "</div>"
+            + '<button class="add-btn itin-add-place" data-act="add-place" data-day="' + di + '">＋ ' + t("itin.addPlaces") + "</button>"
+            + dayNavHTML(di)
+            + "</div>";
+    }).join("");
+}
+
+// 模式切换：预设路线 / 我的行程
+function switchMapMode(mode) {
+    mapMode = mode;
+    document.querySelectorAll(".map-tab").forEach(b => b.classList.toggle("active", b.dataset.mapMode === mode));
+    const pm = document.getElementById("map-preset-mode");
+    const im = document.getElementById("map-itinerary-mode");
+    if (pm) pm.style.display = mode === "preset" ? "block" : "none";
+    if (im) im.style.display = mode === "itinerary" ? "block" : "none";
+    if (mode === "itinerary") renderItineraryPanel();
+    updateMap();
+}
+
+// 选中某一天（在地图上显示这一天）
+function selectDay(di) {
+    if (!myItinerary[di]) return;
+    activeDay = di;
+    renderItineraryPanel();
+    updateMap();
+}
+
+// 一键生成经典路线
+function applyClassic(key) {
+    const tpl = CLASSIC_ROUTES[key];
+    if (!tpl) return;
+    const hasContent = myItinerary.some(d => d.keys.length > 0);
+    if (hasContent && !window.confirm(t("itin.overwrite"))) return;
+    myItinerary = tpl.days.map(d => ({ name: d.name, en: d.en || "", keys: d.keys.slice() }));
+    saveItinerary();
+    activeDay = 0;
+    switchMapMode("itinerary");
+    renderItineraryPanel();
+    updateMap();
+}
+
+// 打开景点选择弹窗（给某一天添加）
+function openPicker(di) {
+    pickDay = di;
+    const day = myItinerary[di];
+    const title = document.getElementById("itin-picker-title");
+    if (title) {
+        const dayName = day ? ((currentLang === "en" && day.en) ? day.en : day.name) : "";
+        title.textContent = t("itin.pickTitle").replace("{day}", dayName);
+    }
+    const body = document.getElementById("itin-picker-body");
+    if (!body) return;
+    body.innerHTML = PLACE_GROUPS.map(g => {
+        const gLabel = tr(g.label);
+        const items = g.keys.map(key => {
+            const p = PLACES[key];
+            if (!p) return "";
+            const checked = day && day.keys.indexOf(key) >= 0 ? " checked" : "";
+            return '<label class="pick-item"><input type="checkbox" value="' + key + '"' + checked + "> <span>" + p.name + " · " + p.en + "</span></label>";
+        }).join("");
+        return '<div class="pick-group"><b>' + gLabel + "</b>" + items + "</div>";
+    }).join("");
+    const ov = document.getElementById("itin-picker");
+    if (ov) ov.style.display = "flex";
+}
+
+function closePicker() {
+    const ov = document.getElementById("itin-picker");
+    if (ov) ov.style.display = "none";
+    pickDay = null;
+}
+
+// 模式切换按钮
+document.querySelectorAll(".map-tab").forEach(b => {
+    b.addEventListener("click", () => switchMapMode(b.dataset.mapMode));
+});
+
+// 经典路线按钮
+document.querySelectorAll(".classic-btn").forEach(b => {
+    b.addEventListener("click", () => applyClassic(b.dataset.classic));
+});
+
+// 新建一天
+const itinAddDay = document.getElementById("itin-add-day");
+if (itinAddDay) {
+    itinAddDay.addEventListener("click", () => {
+        myItinerary.push({ name: "Day " + (myItinerary.length + 1), en: "", keys: [] });
+        saveItinerary();
+        activeDay = myItinerary.length - 1;
+        renderItineraryPanel();
+        updateMap();
+        openPicker(activeDay);   // 新建后直接弹选择器
+    });
+}
+
+// 清空行程
+const itinClear = document.getElementById("itin-clear");
+if (itinClear) {
+    itinClear.addEventListener("click", () => {
+        if (!window.confirm(t("itin.clearConfirm"))) return;
+        myItinerary = [];
+        activeDay = 0;
+        saveItinerary();
+        renderItineraryPanel();
+        updateMap();
+    });
+}
+
+// 选择弹窗：关闭 / 确认
+const itinPickerClose = document.getElementById("itin-picker-close");
+const itinPickerCancel = document.getElementById("itin-picker-cancel");
+const itinPickerConfirm = document.getElementById("itin-picker-confirm");
+if (itinPickerClose) itinPickerClose.addEventListener("click", closePicker);
+if (itinPickerCancel) itinPickerCancel.addEventListener("click", closePicker);
+if (itinPickerConfirm) {
+    itinPickerConfirm.addEventListener("click", () => {
+        const day = myItinerary[pickDay];
+        if (day) {
+            const checks = document.querySelectorAll("#itin-picker-body input[type=checkbox]:checked");
+            checks.forEach(c => {
+                const key = c.value;
+                if (day.keys.indexOf(key) < 0) day.keys.push(key);
+            });
+            saveItinerary();
+        }
+        renderItineraryPanel();
+        if (pickDay === activeDay) updateMap();
+        closePicker();
+    });
+}
+
+// 行程面板：点卡片切换当天 / 点按钮操作（事件委托）
+const itinList = document.getElementById("itin-list");
+if (itinList) {
+    itinList.addEventListener("click", (e) => {
+        const card = e.target.closest(".itin-day-card");
+        if (card && !e.target.closest("button") && !e.target.closest("input") && !e.target.closest("a")) {
+            selectDay(parseInt(card.dataset.day, 10));
+            return;
+        }
+        const btn = e.target.closest("[data-act]");
+        if (!btn) return;
+        const act = btn.dataset.act;
+        const di = parseInt(btn.dataset.day, 10);
+        const pi = parseInt(btn.dataset.idx, 10);
+        const day = myItinerary[di];
+        if (!day) return;
+
+        if (act === "del-day") {
+            myItinerary.splice(di, 1);
+            if (activeDay >= myItinerary.length) activeDay = Math.max(0, myItinerary.length - 1);
+            saveItinerary(); renderItineraryPanel(); updateMap();
+        } else if (act === "day-up") {
+            if (di > 0) {
+                const t = myItinerary[di]; myItinerary[di] = myItinerary[di - 1]; myItinerary[di - 1] = t;
+                if (activeDay === di) activeDay--; else if (activeDay === di - 1) activeDay++;
+                saveItinerary(); renderItineraryPanel(); updateMap();
+            }
+        } else if (act === "day-down") {
+            if (di < myItinerary.length - 1) {
+                const t = myItinerary[di]; myItinerary[di] = myItinerary[di + 1]; myItinerary[di + 1] = t;
+                if (activeDay === di) activeDay++; else if (activeDay === di + 1) activeDay--;
+                saveItinerary(); renderItineraryPanel(); updateMap();
+            }
+        } else if (act === "remove-place") {
+            day.keys.splice(pi, 1);
+            saveItinerary(); renderItineraryPanel();
+            if (di === activeDay) updateMap();
+        } else if (act === "up") {
+            if (pi > 0) {
+                const t = day.keys[pi]; day.keys[pi] = day.keys[pi - 1]; day.keys[pi - 1] = t;
+                saveItinerary(); renderItineraryPanel();
+                if (di === activeDay) updateMap();
+            }
+        } else if (act === "down") {
+            if (pi < day.keys.length - 1) {
+                const t = day.keys[pi]; day.keys[pi] = day.keys[pi + 1]; day.keys[pi + 1] = t;
+                saveItinerary(); renderItineraryPanel();
+                if (di === activeDay) updateMap();
+            }
+        } else if (act === "add-place") {
+            openPicker(di);
+        }
+    });
+
+    // 改行程名称：失焦保存；按回车 = 失焦
+    itinList.addEventListener("change", (e) => {
+        const inp = e.target.closest(".itin-day-name");
+        if (!inp) return;
+        const di = parseInt(inp.dataset.day, 10);
+        const day = myItinerary[di];
+        if (!day) return;
+        day.name = inp.value.trim() || ("Day " + (di + 1));
+        day.en = "";   // 用户自定义名称后，英文模式也用这个名字
+        saveItinerary();
+        renderItineraryPanel();
+    });
+    itinList.addEventListener("keydown", (e) => {
+        const inp = e.target.closest(".itin-day-name");
+        if (!inp) return;
+        if (e.key === "Enter") inp.blur();
+    });
+}
+
+// 页面加载时渲染一次
+renderItineraryPanel();
+
 // ========== 深色模式（全局右上角开关） ==========
 const darkToggle = document.getElementById("dark-toggle");
 
@@ -693,53 +1020,6 @@ function convertCurrency() {
 if (curAmount) curAmount.addEventListener("input", convertCurrency);
 if (curFrom) curFrom.addEventListener("change", convertCurrency);
 convertCurrency();
-
-
-// ========== 行程规划：按红心分组排天数 ==========
-const ITIN_GROUPS = {
-    "金边": ["royal-palace","s21","central-market","independence-monument","national-museum","wat-phnom","riverside","russian-market","choeung-ek","wat-ounalom"],
-    "吴哥 · 小圈": ["angkor-wat","bayon","ta-prohm","banteay-kdei"],
-    "吴哥 · 大圈": ["preah-khan","neak-pean","ta-som","east-mebon","pre-rup"],
-    "吴哥 · 外圈": ["banteay-srei","beng-mealea"],
-    "暹粒城市": ["old-market","pub-street","angkor-museum","royal-gardens"],
-    "洞里萨湖": ["tonle-sap"]
-};
-
-function renderItinerary() {
-    const el = document.getElementById("itinerary-list");
-    if (!el) return;
-
-    let wish = [];
-    try { wish = JSON.parse(localStorage.getItem("wishlist") || "[]"); } catch (e) { }
-
-    if (wish.length === 0) {
-        el.innerHTML = '<p class="muted">还没有红心❤️，去「景点」页点几个想去的地方吧。</p>';
-        return;
-    }
-
-    const byGroup = {};
-    wish.forEach(key => {
-        for (const g in ITIN_GROUPS) {
-            if (ITIN_GROUPS[g].indexOf(key) >= 0) {
-                (byGroup[g] = byGroup[g] || []).push(key);
-                break;
-            }
-        }
-    });
-
-    const days = Object.keys(ITIN_GROUPS).filter(g => byGroup[g]);
-    if (days.length === 0) {
-        el.innerHTML = '<p class="muted">当前红心里的地点还排不出行程，试试点几个景点。</p>';
-        return;
-    }
-
-    el.innerHTML = days.map((g, i) => {
-        const names = byGroup[g].map(key => (PLACES[key] || {}).name || key).join("、");
-        return '<div class="itin-day"><b>第 ' + (i + 1) + " 天 · " + g + '</b><span>' + names + "</span></div>";
-    }).join("");
-}
-
-renderItinerary();
 
 
 // ========== 记账（多货币） ==========
