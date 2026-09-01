@@ -3288,3 +3288,50 @@ body.dark .pick-foot .pick-cancel {
 
     color: #f2f2f7;
 }
+
+
+/* 保存行程为图片 */
+
+.itin-export {
+    width: 100%;
+
+    margin-top: 10px;
+
+    background: #fff;
+
+    color: #e05c3a;
+
+    border: 1px solid rgba(224,92,58,0.45);
+}
+
+.export-panel {
+    max-height: 88vh;
+}
+
+.export-preview {
+    padding: 14px 18px 6px;
+
+    overflow-y: auto;
+
+    background: #f2f2f7;
+}
+
+.export-preview img {
+    width: 100%;
+
+    border-radius: 14px;
+
+    display: block;
+}
+
+body.dark .itin-export {
+    background: #2c2c2e;
+
+    color: #ff8a70;
+
+    border-color: rgba(255,138,112,0.4);
+}
+
+body.dark .export-preview {
+    background: #161618;
+}

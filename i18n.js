@@ -31,7 +31,13 @@ const I18N = {
     "itin.navLabel": "全程导航",
     "itin.pickTitle": "选择加入 {day} 的景点",
     "itin.overwrite": "生成经典路线会覆盖你现在的行程，继续吗？",
-    "itin.clearConfirm": "确定清空全部行程吗？"
+    "itin.clearConfirm": "确定清空全部行程吗？",
+    "itin.export": "保存行程为图片",
+    "itin.exportTitle": "保存我的行程",
+    "itin.download": "下载图片",
+    "itin.share": "分享",
+    "itin.exportEmpty": "先规划好行程，再保存为图片吧。",
+    "itin.exportFail": "生成图片失败，请重试。"
   },
   en: {
     "nav.home": "Home", "nav.attractions": "Attractions", "nav.food": "Food", "nav.guide": "Assistant", "nav.map": "Map",
@@ -64,7 +70,13 @@ const I18N = {
     "itin.navLabel": "Full-route navigation",
     "itin.pickTitle": "Choose places for {day}",
     "itin.overwrite": "Generating a classic route will replace your current itinerary. Continue?",
-    "itin.clearConfirm": "Clear the whole itinerary?"
+    "itin.clearConfirm": "Clear the whole itinerary?",
+    "itin.export": "Save itinerary as image",
+    "itin.exportTitle": "Save my itinerary",
+    "itin.download": "Download",
+    "itin.share": "Share",
+    "itin.exportEmpty": "Plan your itinerary first, then save it as an image.",
+    "itin.exportFail": "Failed to create the image. Please try again."
   }
 };
 

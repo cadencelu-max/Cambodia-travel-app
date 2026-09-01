@@ -4515,6 +4515,8 @@
 
                         <button class="add-btn" id="itin-add-day" data-i18n="itin.addDay">＋ 新建一天</button>
 
+                        <button class="add-btn itin-export" id="itin-export" data-i18n="itin.export">保存行程为图片</button>
+
                         <button class="clear-btn itin-clear" id="itin-clear" data-i18n="itin.clear">清空行程</button>
 
                     </div>
@@ -4536,6 +4538,29 @@
                         <div class="pick-foot">
                             <button class="clear-btn pick-cancel" id="itin-picker-cancel" data-i18n="itin.cancel">取消</button>
                             <button class="add-btn" id="itin-picker-confirm" data-i18n="itin.confirm">添加</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div id="itin-export-overlay" class="pick-overlay" style="display:none">
+
+                    <div class="pick-panel export-panel">
+
+                        <div class="pick-head">
+                            <b data-i18n="itin.exportTitle">保存我的行程</b>
+                            <button class="remove-btn" id="itin-export-close" aria-label="关闭">×</button>
+                        </div>
+
+                        <div class="export-preview">
+                            <img id="itin-export-img" alt="行程图片">
+                        </div>
+
+                        <div class="pick-foot">
+                            <button class="add-btn" id="itin-export-download" data-i18n="itin.download">下载图片</button>
+                            <button class="add-btn" id="itin-export-share" data-i18n="itin.share">分享</button>
                         </div>
 
                     </div>

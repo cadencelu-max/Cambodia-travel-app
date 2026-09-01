@@ -964,6 +964,152 @@ if (itinList) {
 // 页面加载时渲染一次
 renderItineraryPanel();
 
+// ========== 保存行程为图片 ==========
+
+const itinExportBtn = document.getElementById("itin-export");
+const itinExportOverlay = document.getElementById("itin-export-overlay");
+const itinExportImg = document.getElementById("itin-export-img");
+let lastExportBlob = null;
+
+function escapeXml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+const SVG_FONT = "-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',Arial,sans-serif";
+
+// 把行程画成一张 SVG 图
+function buildItinerarySVG() {
+    const W = 720;
+    const PAD = 36;
+    const TITLE_H = 150;
+    const DAY_HEAD_H = 58;
+    const ROW_H = 46;
+    const DAY_GAP = 30;
+    const FOOT_H = 44;
+
+    const days = myItinerary.filter(d => (d.name || "").trim() || (d.keys || []).length > 0);
+
+    let h = PAD + TITLE_H + PAD;
+    days.forEach(d => {
+        const rows = (d.keys || []).filter(k => PLACES[k]);
+        h += DAY_HEAD_H + rows.length * ROW_H + DAY_GAP;
+    });
+    h += FOOT_H + PAD;
+
+    const totalPlaces = days.reduce((n, d) => n + (d.keys || []).filter(k => PLACES[k]).length, 0);
+
+    const parts = [];
+    parts.push('<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + h + '" viewBox="0 0 ' + W + ' ' + h + '">');
+    parts.push('<rect width="' + W + '" height="' + h + '" fill="#f7f4ef"/>');
+    parts.push('<rect x="0" y="0" width="' + W + '" height="' + TITLE_H + '" fill="#e05c3a"/>');
+
+    const today = new Date();
+    const dateStr = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+
+    parts.push('<text x="' + PAD + '" y="58" font-family="' + SVG_FONT + '" font-size="30" font-weight="700" fill="#ffffff">柬埔寨旅行指南 · Cambodia Travel Guide</text>');
+    parts.push('<text x="' + PAD + '" y="100" font-family="' + SVG_FONT + '" font-size="22" font-weight="600" fill="#ffe9dd">我的行程 · My Cambodia Itinerary</text>');
+    parts.push('<text x="' + PAD + '" y="132" font-family="' + SVG_FONT + '" font-size="14" fill="#ffd9c4">' + dateStr + " · 共 " + days.length + " 天 · " + totalPlaces + " 个景点 / " + days.length + " days · " + totalPlaces + " places</text>");
+
+    let y = PAD + TITLE_H + PAD;
+    days.forEach((d, di) => {
+        const rows = (d.keys || []).filter(k => PLACES[k]);
+        const dname = (currentLang === "en" && d.en) ? d.en : d.name;
+        parts.push('<rect x="' + PAD + '" y="' + y + '" width="44" height="44" rx="22" fill="#1d1d1f"/>');
+        parts.push('<text x="' + (PAD + 22) + '" y="' + (y + 29) + '" text-anchor="middle" font-family="' + SVG_FONT + '" font-size="18" font-weight="700" fill="#ffffff">' + (di + 1) + "</text>");
+        parts.push('<text x="' + (PAD + 60) + '" y="' + (y + 30) + '" font-family="' + SVG_FONT + '" font-size="20" font-weight="700" fill="#1d1d1f">' + escapeXml(dname) + "</text>");
+        y += DAY_HEAD_H;
+        rows.forEach((k, ri) => {
+            const p = PLACES[k];
+            parts.push('<circle cx="' + (PAD + 22) + '" cy="' + (y + 22) + '" r="14" fill="#f2d9c8"/>');
+            parts.push('<text x="' + (PAD + 22) + '" y="' + (y + 27) + '" text-anchor="middle" font-family="' + SVG_FONT + '" font-size="13" font-weight="700" fill="#e05c3a">' + (ri + 1) + "</text>");
+            parts.push('<text x="' + (PAD + 46) + '" y="' + (y + 27) + '" font-family="' + SVG_FONT + '" font-size="16" fill="#1d1d1f">' + escapeXml(p.name + " · " + p.en) + "</text>");
+            y += ROW_H;
+        });
+        y += DAY_GAP;
+    });
+
+    parts.push('<text x="' + PAD + '" y="' + (h - PAD + 10) + '" font-family="' + SVG_FONT + '" font-size="13" fill="#b0a89e">Made with Cambodia Travel Guide · 我的第一个编程作品</text>');
+    parts.push("</svg>");
+    return parts.join("");
+}
+
+// SVG → PNG（2 倍清晰度）
+function svgToPng(svgString) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        img.onload = () => {
+            const scale = 2;
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            URL.revokeObjectURL(url);
+            canvas.toBlob(b => b ? resolve({ blob: b, canvas }) : reject(new Error("toBlob failed")), "image/png");
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("svg load failed")); };
+        img.src = url;
+    });
+}
+
+function itinDownload(blob) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "cambodia-itinerary.png";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+if (itinExportBtn) {
+    itinExportBtn.addEventListener("click", async () => {
+        const hasPlaces = myItinerary.some(d => (d.keys || []).length > 0);
+        if (!hasPlaces) { window.alert(t("itin.exportEmpty")); return; }
+        try {
+            const { blob } = await svgToPng(buildItinerarySVG());
+            lastExportBlob = blob;
+            if (itinExportImg) itinExportImg.src = URL.createObjectURL(blob);
+            if (itinExportOverlay) itinExportOverlay.style.display = "flex";
+        } catch (e) {
+            window.alert(t("itin.exportFail"));
+        }
+    });
+}
+
+const itinExportClose = document.getElementById("itin-export-close");
+if (itinExportClose) {
+    itinExportClose.addEventListener("click", () => { if (itinExportOverlay) itinExportOverlay.style.display = "none"; });
+}
+if (itinExportOverlay) {
+    itinExportOverlay.addEventListener("click", (e) => {
+        if (e.target === itinExportOverlay) itinExportOverlay.style.display = "none";
+    });
+}
+
+const itinExportDownload = document.getElementById("itin-export-download");
+if (itinExportDownload) {
+    itinExportDownload.addEventListener("click", () => { if (lastExportBlob) itinDownload(lastExportBlob); });
+}
+
+const itinExportShare = document.getElementById("itin-export-share");
+if (itinExportShare) {
+    itinExportShare.addEventListener("click", async () => {
+        if (!lastExportBlob) return;
+        const file = new File([lastExportBlob], "cambodia-itinerary.png", { type: "image/png" });
+        const nav = navigator;
+        if (nav.share && nav.canShare && nav.canShare({ files: [file] })) {
+            try {
+                await nav.share({ files: [file], title: "柬埔寨旅行行程", text: "我的柬埔寨行程" });
+            } catch (e) { /* 用户取消分享 */ }
+        } else {
+            itinDownload(lastExportBlob);
+        }
+    });
+}
+
 // ========== 深色模式（全局右上角开关） ==========
 const darkToggle = document.getElementById("dark-toggle");
 
