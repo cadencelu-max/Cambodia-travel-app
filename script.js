@@ -735,18 +735,30 @@ function renderItineraryPanel() {
         const active = di === activeDay ? " active" : "";
         const dayTitle = (currentLang === "en" && day.en) ? day.en : day.name;
         const places = day.keys.map((key, pi) => {
+            if (key === "free-time") {
+                return '<div class="itin-place itin-free-place" data-key="free-time">'
+                    + '<div class="itin-place-row">'
+                    + '<button class="itin-grip" aria-label="拖动排序" title="拖动排序"><svg class="icon"><use href="#i-grip"></use></svg></button>'
+                    + '<span class="itin-idx">' + (pi + 1) + "</span>"
+                    + '<span class="itin-place-name itin-free">自由活动 · Free time</span>'
+                    + '<button class="remove-btn" data-act="remove-place" data-day="' + di + '" data-idx="' + pi + '" aria-label="移除">×</button>'
+                    + "</div>"
+                    + "</div>";
+            }
             const p = PLACES[key];
             if (!p) return "";
-            return '<div class="itin-place-row">'
+            return '<div class="itin-place" data-key="' + key + '">'
+                + '<div class="itin-place-row">'
+                + '<button class="itin-grip" aria-label="拖动排序" title="拖动排序"><svg class="icon"><use href="#i-grip"></use></svg></button>'
                 + '<span class="itin-idx">' + (pi + 1) + "</span>"
                 + '<span class="itin-place-name">' + p.name + " · " + p.en + "</span>"
-                + '<div class="row-actions">'
-                + '<a class="nav-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + "," + p.lng + '">Google</a>'
-                + '<a class="nav-link" target="_blank" rel="noopener" href="https://uri.amap.com/navigation?to=' + p.lng + "," + p.lat + "," + encodeURIComponent(p.name) + '&mode=car">高德</a>'
-                + '<button class="mini-btn" data-act="up" data-day="' + di + '" data-idx="' + pi + '" aria-label="上移">↑</button>'
-                + '<button class="mini-btn" data-act="down" data-day="' + di + '" data-idx="' + pi + '" aria-label="下移">↓</button>'
                 + '<button class="remove-btn" data-act="remove-place" data-day="' + di + '" data-idx="' + pi + '" aria-label="移除">×</button>'
-                + "</div></div>";
+                + "</div>"
+                + '<div class="itin-place-nav">'
+                + '<a class="nav-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + "," + p.lng + '">Google Maps</a>'
+                + '<a class="nav-link amap" target="_blank" rel="noopener" href="https://uri.amap.com/navigation?to=' + p.lng + "," + p.lat + "," + encodeURIComponent(p.name) + '&mode=car">高德地图</a>'
+                + "</div>"
+                + "</div>";
         }).join("");
         return '<div class="card itin-day-card' + active + '" data-day="' + di + '">'
             + '<div class="itin-day-head">'
@@ -809,12 +821,17 @@ function openPicker(di) {
     }
     const body = document.getElementById("itin-picker-body");
     if (!body) return;
-    body.innerHTML = PLACE_GROUPS.map(g => {
+    const isIn = (key) => day && day.keys.indexOf(key) >= 0;
+    // 「自由活动」选项（不计入地图，但会显示在行程里）
+    const freeGroup = '<div class="pick-group"><b>行程安排 · Plan</b>'
+        + '<label class="pick-item"><input type="checkbox" value="free-time"' + (isIn("free-time") ? " checked" : "") + '> <span class="pick-free">自由活动 · Free time</span></label>'
+        + "</div>";
+    body.innerHTML = freeGroup + PLACE_GROUPS.map(g => {
         const gLabel = tr(g.label);
         const items = g.keys.map(key => {
             const p = PLACES[key];
             if (!p) return "";
-            const checked = day && day.keys.indexOf(key) >= 0 ? " checked" : "";
+            const checked = isIn(key) ? " checked" : "";
             return '<label class="pick-item"><input type="checkbox" value="' + key + '"' + checked + "> <span>" + p.name + " · " + p.en + "</span></label>";
         }).join("");
         return '<div class="pick-group"><b>' + gLabel + "</b>" + items + "</div>";
@@ -875,11 +892,10 @@ if (itinPickerConfirm) {
     itinPickerConfirm.addEventListener("click", () => {
         const day = myItinerary[pickDay];
         if (day) {
-            const checks = document.querySelectorAll("#itin-picker-body input[type=checkbox]:checked");
-            checks.forEach(c => {
-                const key = c.value;
-                if (day.keys.indexOf(key) < 0) day.keys.push(key);
-            });
+            const checked = new Set([...document.querySelectorAll("#itin-picker-body input[type=checkbox]:checked")].map(c => c.value));
+            // 保留原有顺序：先移除被取消勾选的，再追加新勾选的
+            day.keys = day.keys.filter(k => checked.has(k));
+            checked.forEach(k => { if (day.keys.indexOf(k) < 0) day.keys.push(k); });
             saveItinerary();
         }
         renderItineraryPanel();
@@ -925,18 +941,6 @@ if (itinList) {
             day.keys.splice(pi, 1);
             saveItinerary(); renderItineraryPanel();
             if (di === activeDay) updateMap();
-        } else if (act === "up") {
-            if (pi > 0) {
-                const t = day.keys[pi]; day.keys[pi] = day.keys[pi - 1]; day.keys[pi - 1] = t;
-                saveItinerary(); renderItineraryPanel();
-                if (di === activeDay) updateMap();
-            }
-        } else if (act === "down") {
-            if (pi < day.keys.length - 1) {
-                const t = day.keys[pi]; day.keys[pi] = day.keys[pi + 1]; day.keys[pi + 1] = t;
-                saveItinerary(); renderItineraryPanel();
-                if (di === activeDay) updateMap();
-            }
         } else if (act === "add-place") {
             openPicker(di);
         }
@@ -959,6 +963,51 @@ if (itinList) {
         if (!inp) return;
         if (e.key === "Enter") inp.blur();
     });
+
+    // 拖动排序：按住小圆点拖动景点
+    let dragPlace = null;
+
+    itinList.addEventListener("pointerdown", (e) => {
+        const grip = e.target.closest(".itin-grip");
+        if (!grip) return;
+        const place = grip.closest(".itin-place");
+        const card = grip.closest(".itin-day-card");
+        if (!place || !card) return;
+        dragPlace = { el: place, dayIdx: parseInt(card.dataset.day, 10) };
+        place.classList.add("dragging");
+        document.addEventListener("pointermove", onItinDragMove);
+        document.addEventListener("pointerup", onItinDragUp);
+        e.preventDefault();
+    });
+
+    function onItinDragMove(e) {
+        if (!dragPlace) return;
+        e.preventDefault();
+        const under = document.elementFromPoint(e.clientX, e.clientY);
+        const target = under && under.closest(".itin-place");
+        if (target && target !== dragPlace.el && target.parentElement === dragPlace.el.parentElement) {
+            const r = target.getBoundingClientRect();
+            const before = e.clientY < r.top + r.height / 2;
+            dragPlace.el.parentElement.insertBefore(dragPlace.el, before ? target : target.nextSibling);
+        }
+    }
+
+    function onItinDragUp() {
+        if (!dragPlace) return;
+        const el = dragPlace.el;
+        const dayIdx = dragPlace.dayIdx;
+        el.classList.remove("dragging");
+        const day = myItinerary[dayIdx];
+        if (day && el.parentElement) {
+            day.keys = [...el.parentElement.querySelectorAll(".itin-place")].map(p => p.dataset.key).filter(Boolean);
+            saveItinerary();
+        }
+        dragPlace = null;
+        renderItineraryPanel();
+        if (dayIdx === activeDay) updateMap();
+        document.removeEventListener("pointermove", onItinDragMove);
+        document.removeEventListener("pointerup", onItinDragUp);
+    }
 }
 
 // 页面加载时渲染一次
@@ -1012,17 +1061,23 @@ function buildItinerarySVG() {
 
     let y = PAD + TITLE_H + PAD;
     days.forEach((d, di) => {
-        const rows = (d.keys || []).filter(k => PLACES[k]);
+        const rows = (d.keys || []).filter(k => PLACES[k] || k === "free-time");
         const dname = (currentLang === "en" && d.en) ? d.en : d.name;
         parts.push('<rect x="' + PAD + '" y="' + y + '" width="44" height="44" rx="22" fill="#1d1d1f"/>');
         parts.push('<text x="' + (PAD + 22) + '" y="' + (y + 29) + '" text-anchor="middle" font-family="' + SVG_FONT + '" font-size="18" font-weight="700" fill="#ffffff">' + (di + 1) + "</text>");
         parts.push('<text x="' + (PAD + 60) + '" y="' + (y + 30) + '" font-family="' + SVG_FONT + '" font-size="20" font-weight="700" fill="#1d1d1f">' + escapeXml(dname) + "</text>");
         y += DAY_HEAD_H;
         rows.forEach((k, ri) => {
-            const p = PLACES[k];
-            parts.push('<circle cx="' + (PAD + 22) + '" cy="' + (y + 22) + '" r="14" fill="#f2d9c8"/>');
-            parts.push('<text x="' + (PAD + 22) + '" y="' + (y + 27) + '" text-anchor="middle" font-family="' + SVG_FONT + '" font-size="13" font-weight="700" fill="#e05c3a">' + (ri + 1) + "</text>");
-            parts.push('<text x="' + (PAD + 46) + '" y="' + (y + 27) + '" font-family="' + SVG_FONT + '" font-size="16" fill="#1d1d1f">' + escapeXml(p.name + " · " + p.en) + "</text>");
+            if (k === "free-time") {
+                parts.push('<circle cx="' + (PAD + 22) + '" cy="' + (y + 22) + '" r="14" fill="#e5e0d8"/>');
+                parts.push('<text x="' + (PAD + 22) + '" y="' + (y + 27) + '" text-anchor="middle" font-family="' + SVG_FONT + '" font-size="13" font-weight="700" fill="#8e8e93">' + (ri + 1) + "</text>");
+                parts.push('<text x="' + (PAD + 46) + '" y="' + (y + 27) + '" font-family="' + SVG_FONT + '" font-size="16" font-style="italic" fill="#8e8e93">自由活动 · Free time</text>');
+            } else {
+                const p = PLACES[k];
+                parts.push('<circle cx="' + (PAD + 22) + '" cy="' + (y + 22) + '" r="14" fill="#f2d9c8"/>');
+                parts.push('<text x="' + (PAD + 22) + '" y="' + (y + 27) + '" text-anchor="middle" font-family="' + SVG_FONT + '" font-size="13" font-weight="700" fill="#e05c3a">' + (ri + 1) + "</text>");
+                parts.push('<text x="' + (PAD + 46) + '" y="' + (y + 27) + '" font-family="' + SVG_FONT + '" font-size="16" fill="#1d1d1f">' + escapeXml(p.name + " · " + p.en) + "</text>");
+            }
             y += ROW_H;
         });
         y += DAY_GAP;
