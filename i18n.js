@@ -556,10 +556,7 @@ const CONTENT = {
     "· Leaflet、高德地图、GitHub Pages：让零基础的我，也能做出并发布自己的作品；": "· Leaflet, Amap and GitHub Pages, which let a complete beginner build and publish their own work;",
     "· 还有每一个打开它、准备出发的你。": "· And you — everyone who opens this app and gets ready to go.",
     "· 我的「编程老师」——Codex：把我用中文说出的想法，变成能跑起来的代码；": "· My 'coding teacher' — Codex, who turned my Chinese-spoken ideas into working code;",
-    "特别致谢": "Special Thanks",
-    "@xlf，谢谢你，我的多年好友。": "@xlf, thank you, my dear friend of many years.",
-    "在我什么都不懂的时候，你愿意花时间手把手教我搭起整个工作流程，一遍遍给我讲清楚 AI agent 是怎么思考的。没有你，就不会有这个 App，也不会有现在这个敢动手做点东西的我。": "When I knew nothing, you took the time to teach me step by step how to build this whole workflow, and to explain again and again how an AI agent thinks. Without you, there would be no app — and no me daring to build something with my own hands.",
-    "你是我第一位真正意义上的 AI 老师。": "You are my very first real AI teacher.",
+    "· 我的好友 @xlf（xulingfeng@yinwang.com）：谢谢你手把手教我搭起整个工作流程，也让我第一次真正看懂 AI agent 是怎么思考的。在我心里，你就是我的第一位 AI 老师。": "· My dear friend @xlf (xulingfeng@yinwang.com): thank you for teaching me step by step to build this whole workflow, and for helping me truly understand how an AI agent thinks. In my heart, you are my very first AI teacher.",
 
   }
 };
