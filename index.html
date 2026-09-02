@@ -15,7 +15,7 @@
 
     <link rel="apple-touch-icon" href="icon-192.png">
 
-    <link rel="stylesheet" href="style.css?v=20260902i">
+    <link rel="stylesheet" href="style.css?v=20260902j">
 
     <link
         rel="stylesheet"
@@ -4618,9 +4618,13 @@
                         </div>
 
                         <div class="pick-foot">
+                            <button class="add-btn" id="itin-export-share" data-i18n="itin.shareSave">分享 · 存相册</button>
                             <button class="add-btn" id="itin-export-download" data-i18n="itin.download">下载图片</button>
-                            <button class="add-btn" id="itin-export-share" data-i18n="itin.share">分享</button>
                         </div>
+
+                        <p class="muted export-hint" data-i18n="itin.exportHint">
+                            点开后，在菜单里选「存储图像」即可保存到相册（iPhone）。
+                        </p>
 
                     </div>
 
@@ -4683,16 +4687,16 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js?v=20260902i').catch(() => {});
+                navigator.serviceWorker.register('sw.js?v=20260902j').catch(() => {});
             });
         }
     </script>
 
-    <script src="i18n.js?v=20260902i"></script>
+    <script src="i18n.js?v=20260902j"></script>
 
-    <script src="data.js?v=20260902i"></script>
+    <script src="data.js?v=20260902j"></script>
 
-    <script src="script.js?v=20260902i"></script>
+    <script src="script.js?v=20260902j"></script>
 
 </body>
 

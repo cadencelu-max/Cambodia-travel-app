@@ -794,6 +794,10 @@ function switchMapMode(mode) {
     const im = document.getElementById("map-itinerary-mode");
     if (pm) pm.style.display = mode === "preset" ? "block" : "none";
     if (im) im.style.display = mode === "itinerary" ? "block" : "none";
+    // 我的行程模式：地图吸在顶部，滑到下面调整行程时也能看到当天路线
+    const mapSec = document.getElementById("map");
+    if (mapSec) mapSec.classList.toggle("map-itin", mode === "itinerary");
+    setTimeout(() => { if (map) map.invalidateSize(); }, 60);
     if (mode === "itinerary") renderItineraryPanel();
     updateMap();
 }
@@ -1167,7 +1171,8 @@ if (itinExportShare) {
         const nav = navigator;
         if (nav.share && nav.canShare && nav.canShare({ files: [file] })) {
             try {
-                await nav.share({ files: [file], title: "柬埔寨旅行行程", text: "我的柬埔寨行程" });
+                // 只分享图片文件（不带文字），iPhone 的分享菜单才会出现「存储图像」可直接存相册
+                await nav.share({ files: [file] });
             } catch (e) { /* 用户取消分享 */ }
         } else {
             itinDownload(lastExportBlob);

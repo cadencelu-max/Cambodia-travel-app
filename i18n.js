@@ -36,6 +36,8 @@ const I18N = {
     "itin.exportTitle": "保存我的行程",
     "itin.download": "下载图片",
     "itin.share": "分享",
+    "itin.shareSave": "分享 · 存相册",
+    "itin.exportHint": "点开后，在菜单里选「存储图像」即可保存到相册（iPhone）。",
     "itin.exportEmpty": "先规划好行程，再保存为图片吧。",
     "itin.exportFail": "生成图片失败，请重试。"
   },
@@ -75,6 +77,8 @@ const I18N = {
     "itin.exportTitle": "Save my itinerary",
     "itin.download": "Download",
     "itin.share": "Share",
+    "itin.shareSave": "Share & Save",
+    "itin.exportHint": "After it opens, choose 'Save Image' to save it to your Photos (iPhone).",
     "itin.exportEmpty": "Plan your itinerary first, then save it as an image.",
     "itin.exportFail": "Failed to create the image. Please try again."
   }

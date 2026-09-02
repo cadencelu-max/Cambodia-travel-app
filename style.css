@@ -3510,3 +3510,36 @@ body.dark .about-title {
 body.dark .about-content p {
     color: #d1d1d6;
 }
+
+
+/* 我的行程模式：地图吸顶，边看地图边调整行程 */
+
+#map.map-itin #map-container {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 5;
+
+    height: 36vh;
+
+    min-height: 230px;
+
+    max-height: 340px;
+
+    border-radius: 0 0 22px 22px;
+
+    margin-bottom: 14px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* 导出弹窗提示 */
+
+.export-hint {
+    margin: 10px 18px 16px;
+
+    font-size: 12px;
+
+    text-align: center;
+}
