@@ -1165,23 +1165,47 @@ if (itinExportShare) {
     });
 }
 
-// ========== 关于页：折叠卡片（点标题展开/收起） ==========
-document.querySelectorAll(".about-card").forEach(card => {
-    const head = card.querySelector(".about-head");
-    if (!head) return;
-    head.addEventListener("click", () => {
-        const isOpen = card.classList.contains("open");
-        document.querySelectorAll(".about-card.open").forEach(c => {
-            c.classList.remove("open");
-            const h = c.querySelector(".about-head");
-            if (h) h.setAttribute("aria-expanded", "false");
+// ========== 关于页：滚动浮现动画（苹果式） ==========
+(function () {
+    const aboutSec = document.getElementById("about");
+    if (!aboutSec) return;
+    const items = aboutSec.querySelectorAll(".about-reveal");
+    if (items.length === 0) return;
+
+    const reveal = (el) => {
+        el.classList.add("revealed");
+        el.classList.remove("about-hide");
+    };
+
+    // 只有浏览器支持 IntersectionObserver 才做动画；否则内容直接可见（安全兜底）
+    if (!("IntersectionObserver" in window)) return;
+
+    items.forEach(el => el.classList.add("about-hide"));
+
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+            if (en.isIntersecting) {
+                reveal(en.target);
+                io.unobserve(en.target);
+            }
         });
-        if (!isOpen) {
-            card.classList.add("open");
-            head.setAttribute("aria-expanded", "true");
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    items.forEach(el => io.observe(el));
+
+    // 关于页从隐藏变为显示时，等翻页动画结束，先浮现首屏内容
+    const mo = new MutationObserver(() => {
+        if (aboutSec.classList.contains("active")) {
+            setTimeout(() => {
+                items.forEach(el => {
+                    if (el.classList.contains("revealed")) return;
+                    const r = el.getBoundingClientRect();
+                    if (r.top < window.innerHeight * 0.9 && r.bottom > 0) reveal(el);
+                });
+            }, 520);
         }
     });
-});
+    mo.observe(aboutSec, { attributes: true, attributeFilter: ["class"] });
+})();
 
 // ========== 深色模式（全局右上角开关） ==========
 const darkToggle = document.getElementById("dark-toggle");

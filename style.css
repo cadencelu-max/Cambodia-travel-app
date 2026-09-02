@@ -3442,105 +3442,71 @@ body.dark .pick-free {
     color: #9a9aa0;
 }
 
-
-/* ========== 关于页：折叠卡片 ========== */
+/* ========== 关于页：滚动浮现（苹果式） ========== */
 
 .about-card {
-    padding: 16px 22px;
+    padding: 24px 22px;
 }
 
-.about-head {
-    width: 100%;
-
+.about-title {
     display: flex;
 
     align-items: center;
 
-    justify-content: space-between;
+    gap: 9px;
 
-    gap: 12px;
+    font-size: 17px;
 
-    background: none;
-
-    border: none;
-
-    padding: 0;
-
-    font-size: 15px;
-
-    font-weight: 600;
+    font-weight: 700;
 
     color: #1d1d1f;
-
-    cursor: pointer;
-
-    text-align: left;
 }
 
-.about-head-title {
-    display: flex;
+.about-title .icon {
+    width: 20px;
 
-    align-items: center;
-
-    gap: 8px;
-}
-
-.about-head-title .icon {
-    width: 18px;
-
-    height: 18px;
+    height: 20px;
 
     color: #e05c3a;
 }
 
-.about-chevron {
-    width: 18px;
-
-    height: 18px;
-
-    color: #8e8e93;
-
-    transition: transform 0.3s ease;
-
-    flex: 0 0 18px;
-}
-
-.about-card.open .about-chevron {
-    transform: rotate(180deg);
-}
-
-.about-body {
-    max-height: 0;
-
-    overflow: hidden;
-
-    transition: max-height 0.35s ease;
-}
-
-.about-card.open .about-body {
-    max-height: 900px;
-}
-
-.about-body p {
+.about-content p {
     margin: 0;
 
-    padding-top: 12px;
+    padding-top: 14px;
 
     color: #6e6e73;
 
     font-size: 14px;
 
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
-.about-body p:first-child {
-    padding-top: 14px;
+.about-content p:first-child {
+    padding-top: 16px;
 }
 
-body.dark .about-head {
+/* 滚动浮现动画：默认可见，JS 支持时加 about-hide 再渐入 */
+.about-reveal {
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.about-reveal.about-hide {
+    opacity: 0;
+
+    transform: translateY(28px);
+}
+
+.about-reveal.revealed {
+    opacity: 1;
+
+    transform: none;
+}
+
+body.dark .about-title {
     color: #f2f2f7;
 }
 
-body.dark .about-body p {
+body.dark .about-content p {
     color: #d1d1d6;
 }
