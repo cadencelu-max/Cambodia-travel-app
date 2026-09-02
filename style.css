@@ -3441,3 +3441,106 @@ body.dark .itin-free {
 body.dark .pick-free {
     color: #9a9aa0;
 }
+
+
+/* ========== 关于页：折叠卡片 ========== */
+
+.about-card {
+    padding: 16px 22px;
+}
+
+.about-head {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    background: none;
+
+    border: none;
+
+    padding: 0;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #1d1d1f;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.about-head-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.about-head-title .icon {
+    width: 18px;
+
+    height: 18px;
+
+    color: #e05c3a;
+}
+
+.about-chevron {
+    width: 18px;
+
+    height: 18px;
+
+    color: #8e8e93;
+
+    transition: transform 0.3s ease;
+
+    flex: 0 0 18px;
+}
+
+.about-card.open .about-chevron {
+    transform: rotate(180deg);
+}
+
+.about-body {
+    max-height: 0;
+
+    overflow: hidden;
+
+    transition: max-height 0.35s ease;
+}
+
+.about-card.open .about-body {
+    max-height: 900px;
+}
+
+.about-body p {
+    margin: 0;
+
+    padding-top: 12px;
+
+    color: #6e6e73;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.about-body p:first-child {
+    padding-top: 14px;
+}
+
+body.dark .about-head {
+    color: #f2f2f7;
+}
+
+body.dark .about-body p {
+    color: #d1d1d6;
+}

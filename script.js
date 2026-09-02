@@ -1165,6 +1165,24 @@ if (itinExportShare) {
     });
 }
 
+// ========== 关于页：折叠卡片（点标题展开/收起） ==========
+document.querySelectorAll(".about-card").forEach(card => {
+    const head = card.querySelector(".about-head");
+    if (!head) return;
+    head.addEventListener("click", () => {
+        const isOpen = card.classList.contains("open");
+        document.querySelectorAll(".about-card.open").forEach(c => {
+            c.classList.remove("open");
+            const h = c.querySelector(".about-head");
+            if (h) h.setAttribute("aria-expanded", "false");
+        });
+        if (!isOpen) {
+            card.classList.add("open");
+            head.setAttribute("aria-expanded", "true");
+        }
+    });
+});
+
 // ========== 深色模式（全局右上角开关） ==========
 const darkToggle = document.getElementById("dark-toggle");
 

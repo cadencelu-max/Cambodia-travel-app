@@ -539,6 +539,22 @@ const CONTENT = {
     "吴哥唯一的金字塔形寺庙，探险感十足。": "Angkor's only pyramid temple — an adventure in the jungle.",
     "悬崖上的神庙": "Temple on the cliff",
     "世界遗产，崖顶俯瞰柬泰两国。": "A World Heritage site overlooking both Cambodia and Thailand.",
+    "你好！": "Hello!",
+    "你好，我是 Cadence Lu——一名对编程零基础的社科学生、人类学爱好者，偶尔自称「地球街溜子」。": "Hi, I'm Cadence Lu — a social-science student with zero programming background, an anthropology enthusiast, and an occasional 'globe-trotter'.",
+    "这是我的第一个 vibe coding 作品：从一次真实的柬埔寨旅行计划出发，把一份 Markdown 攻略，一步步变成了一款能看、能玩、能规划路线的旅行指南 App。": "This is my first vibe-coding project: starting from a real Cambodia trip plan, a Markdown guide slowly became an app you can browse, play with and use to plan routes.",
+    "我常想一个问题：一个普通人，要如何与一个陌生的地方相遇？这个 App 是工具，也是我观察世界的一种方式。": "I often ask: how does an ordinary person meet an unfamiliar place? This app is a tool — and my way of observing the world.",
+    "这是什么": "What is this",
+    "一份给所有想去柬埔寨的人的旅行指南：景点、美食、攻略和地图路线规划，全部装在一个网页里。": "A travel guide for everyone heading to Cambodia: attractions, food, tips and map route planning — all in one page.",
+    "为什么做它": "Why I made it",
+    "从一份柬埔寨旅行计划开始，我第一次尝试自己「做」一个东西——用自然语言指挥 AI 写代码，从零搭起了这个 App。它是我学习编程的第一块里程碑。": "It started with a Cambodia trip plan. For the first time I tried to 'build' something myself — directing AI with plain language to write code and building this app from zero. It's my first milestone in learning to code.",
+    "怎么做的": "How it's made",
+    "纯 HTML / CSS / JavaScript，没有用框架；地图用 Leaflet，发布在 GitHub Pages 上。所有代码都在公开的 GitHub 仓库里。": "Plain HTML / CSS / JavaScript, no frameworks; the map uses Leaflet, hosted on GitHub Pages. All the code lives in a public GitHub repo.",
+    "致谢": "Acknowledgments",
+    "这个 App 能诞生，要感谢：": "This app exists thanks to:",
+    "· 我的「编程老师」——AI 助手：把我用中文说出的想法，变成能跑起来的代码；": "· My 'coding teacher' — the AI assistant that turned my Chinese-spoken ideas into working code;",
+    "· Wikimedia Commons 的摄影师们：提供了各景点的照片（之后我会换成自己拍的）；": "· The photographers of Wikimedia Commons, who provided the attraction photos (I'll swap in my own later);",
+    "· Leaflet、高德地图、GitHub Pages：让零基础的我，也能做出并发布自己的作品；": "· Leaflet, Amap and GitHub Pages, which let a complete beginner build and publish their own work;",
+    "· 还有每一个打开它、准备出发的你。": "· And you — everyone who opens this app and gets ready to go.",
 
   }
 };
