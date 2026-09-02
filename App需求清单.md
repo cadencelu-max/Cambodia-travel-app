@@ -100,6 +100,7 @@ git push
 - 项目在：`/Users/cadencelu/Desktop/Cambodia-Travel-App`
 - 文件：`index.html`（页面+图标库）/ `style.css`（样式）/ `script.js`（逻辑）/ `data.js`（景点/路线数据）/ `assets/images/`（图片）/ `favicon.svg` / `manifest.webmanifest` + `sw.js`（PWA 离线）/ `icon-*.png`（应用图标）
 - 地图：Leaflet（本地加载）+ 高德瓦片（国内可稳定访问）；导航联动 Google Maps
+- 地图源**自动切换**：高德优先，若瓦片连续失败或显示后长时间加载不出，自动换成 OpenStreetMap 备用源
 - **缓存版本号**：index.html 里 style.css / i18n.js / data.js / script.js / sw.js 都带 `?v=版本号`；发布新版时把版本号升级 + sw.js 缓存名升级（当前 v2），用户会自动拿到新版，不会再看旧缓存
 - 图片来自维基共享（Wikimedia Commons），已下载到本地
 - 已适配 iPhone 刘海屏（safe-area）

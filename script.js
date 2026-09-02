@@ -36,9 +36,9 @@ function showPage(id, activeNavId, dir, mode) {
     next.classList.add("active");
     next.classList.remove(inClass);
 
-    // 切到地图页时，让地图重新计算尺寸
+    // 切到地图页时，让地图重新计算尺寸 + 确保瓦片加载（失败自动换源）
     if (next.id === "map") {
-        setTimeout(() => { if (map) map.invalidateSize(); }, 360);
+        setTimeout(() => { if (typeof ensureMapTiles === "function") ensureMapTiles(); }, 360);
     }
 
     // 动画结束后清理临时状态
@@ -391,9 +391,61 @@ document.querySelectorAll(".mark-btn").forEach(btn => {
 
 });
 
-// 地图（Leaflet + OpenStreetMap）
+// 地图（Leaflet + 多地图源自动切换：高德优先，失败自动换备用源）
 let map = null;
 let routeLayer = null;
+let tileLayer = null;
+let tileProviderIdx = 0;
+let tileFailCount = 0;
+
+// 地图源列表：高德（国内快）→ OpenStreetMap（国外稳）
+const TILE_PROVIDERS = [
+    {
+        url: "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}",
+        subdomains: "1234",
+        attribution: "© 高德地图"
+    },
+    {
+        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        subdomains: "abc",
+        attribution: "© OpenStreetMap"
+    }
+];
+
+function loadMapTiles() {
+    if (!map || typeof L === "undefined") return;
+    if (tileLayer) { map.removeLayer(tileLayer); tileLayer = null; }
+    const p = TILE_PROVIDERS[tileProviderIdx] || TILE_PROVIDERS[0];
+    tileLayer = L.tileLayer(p.url, {
+        maxZoom: 18,
+        subdomains: p.subdomains,
+        attribution: p.attribution
+    });
+    tileLayer.on("tileerror", () => {
+        tileFailCount++;
+        // 连续失败较多说明当前源不可用，自动换下一个
+        if (tileFailCount >= 8 && tileProviderIdx < TILE_PROVIDERS.length - 1) {
+            tileFailCount = 0;
+            tileProviderIdx++;
+            loadMapTiles();
+        }
+    });
+    tileLayer.addTo(map);
+}
+
+// 地图真正显示出来后，确保瓦片加载；若一张都没加载成功，自动换备用源
+function ensureMapTiles() {
+    if (!map) return;
+    map.invalidateSize();
+    setTimeout(() => {
+        if (!map) return;
+        const loaded = map._container && map._container.querySelector("img.leaflet-tile-loaded");
+        if (!loaded && tileProviderIdx < TILE_PROVIDERS.length - 1) {
+            tileProviderIdx++;
+            loadMapTiles();
+        }
+    }, 4500);
+}
 
 function initMap() {
 
@@ -401,11 +453,7 @@ function initMap() {
 
     map = L.map("map-container").setView([12.5, 104.8], 7);
 
-    L.tileLayer("https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}", {
-        maxZoom: 18,
-        subdomains: "1234",
-        attribution: "© 高德地图"
-    }).addTo(map);
+    loadMapTiles();
 
     routeLayer = L.featureGroup().addTo(map);
 
@@ -797,7 +845,7 @@ function switchMapMode(mode) {
     // 我的行程模式：地图吸在顶部，滑到下面调整行程时也能看到当天路线
     const mapSec = document.getElementById("map");
     if (mapSec) mapSec.classList.toggle("map-itin", mode === "itinerary");
-    setTimeout(() => { if (map) map.invalidateSize(); }, 60);
+    setTimeout(() => { if (typeof ensureMapTiles === "function") ensureMapTiles(); }, 60);
     if (mode === "itinerary") renderItineraryPanel();
     updateMap();
 }
