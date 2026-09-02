@@ -242,6 +242,11 @@ document.querySelectorAll("[id^='attraction-']").forEach(page => {
 
     page.addEventListener("pointerdown", (e) => {
 
+        // 只在页面左边缘附近（约 30px 内）开始右滑才算返回手势，中间滑动不触发
+        const r = page.getBoundingClientRect();
+
+        if (e.clientX > r.left + 30) { backSwipeX = null; return; }
+
         backSwipeX = e.clientX;
         backSwipeY = e.clientY;
 
@@ -277,6 +282,11 @@ document.querySelectorAll("[id^='food-']").forEach(page => {
     let backSwipeY = null;
 
     page.addEventListener("pointerdown", (e) => {
+
+        // 只在页面左边缘附近（约 30px 内）开始右滑才算返回手势，中间滑动不触发
+        const r = page.getBoundingClientRect();
+
+        if (e.clientX > r.left + 30) { backSwipeX = null; return; }
 
         backSwipeX = e.clientX;
         backSwipeY = e.clientY;
@@ -1229,7 +1239,12 @@ if (darkToggle) {
 document.querySelectorAll("#about").forEach(page => {
 
     let bx = null, by = null;
-    page.addEventListener("pointerdown", (e) => { bx = e.clientX; by = e.clientY; });
+    page.addEventListener("pointerdown", (e) => {
+        // 只在页面左边缘附近（约 30px 内）开始右滑才算返回手势，中间滑动不触发
+        const r = page.getBoundingClientRect();
+        if (e.clientX > r.left + 30) { bx = null; return; }
+        bx = e.clientX; by = e.clientY;
+    });
     page.addEventListener("pointerup", (e) => {
         if (bx === null) return;
         const dx = e.clientX - bx, dy = e.clientY - by;
