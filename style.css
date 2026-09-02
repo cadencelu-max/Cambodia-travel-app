@@ -3510,3 +3510,66 @@ body.dark .about-title {
 body.dark .about-content p {
     color: #d1d1d6;
 }
+
+
+/* 特别致谢卡片 */
+
+.about-special {
+    background: linear-gradient(135deg, #fdf3ea 0%, #fbe4d6 100%);
+
+    border: 1px solid rgba(224,92,58,0.25);
+}
+
+.about-special-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #e05c3a;
+
+    letter-spacing: 1px;
+}
+
+.about-special-label .icon {
+    width: 18px;
+
+    height: 18px;
+
+    color: #e05c3a;
+}
+
+.about-special-text p {
+    padding-top: 12px;
+}
+
+.about-special-to {
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #1d1d1f;
+}
+
+body.dark .about-special {
+    background: linear-gradient(135deg, rgba(224,92,58,0.20), rgba(224,92,58,0.08));
+
+    border-color: rgba(255,138,112,0.30);
+}
+
+body.dark .about-special-label {
+    color: #ff8a70;
+}
+
+body.dark .about-special-label .icon {
+    color: #ff8a70;
+}
+
+body.dark .about-special-to {
+    color: #f2f2f7;
+}
