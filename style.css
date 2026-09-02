@@ -3510,27 +3510,3 @@ body.dark .about-title {
 body.dark .about-content p {
     color: #d1d1d6;
 }
-
-/* 致谢里的高亮行（@xlf） */
-
-.about-thanks-special {
-    background: rgba(224,92,58,0.07);
-
-    border-left: 3px solid #e05c3a;
-
-    border-radius: 8px;
-
-    padding: 10px 12px;
-
-    margin-top: 14px;
-
-    font-weight: 600;
-
-    color: #1d1d1f;
-}
-
-body.dark .about-thanks-special {
-    background: rgba(224,92,58,0.16);
-
-    color: #f2f2f7;
-}
